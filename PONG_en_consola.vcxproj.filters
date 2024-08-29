@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{c3eab21a-5619-499f-b745-3125aba5a1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers">
+      <UniqueIdentifier>{7bc86942-e645-4218-be8e-795153c2f075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\game_manager">
+      <UniqueIdentifier>{f50f0af3-7b71-45ab-9fd2-4aecdb5c62e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene">
+      <UniqueIdentifier>{4255f0b9-c1bd-468a-aa02-9f38b2464df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\enums">
+      <UniqueIdentifier>{a4f17f03-b1fb-4446-abd0-c89633b373e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\scene_manager">
+      <UniqueIdentifier>{46bf76ee-1764-4d82-84aa-9f0a62ba2f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene\game_scenes">
+      <UniqueIdentifier>{e723d619-5f72-47ae-987a-38c63de920c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene\game_scenes\gameplay">
+      <UniqueIdentifier>{7d3d0b0c-699a-4d77-9d2d-0db57b96f25a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\music_manager">
+      <UniqueIdentifier>{2e541911-b3c3-4c12-a017-65e6f0a16fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\sfx_manager">
+      <UniqueIdentifier>{82b1b5ab-4150-4997-a161-723fd6656a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{4fd7fc29-dc9e-435e-b75e-35be44d9f068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\structs">
+      <UniqueIdentifier>{275e3aa6-4353-4380-9755-5e902cbbab84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game_object">
+      <UniqueIdentifier>{4daf0fc6-25a6-46b2-b522-23f6eeb6f191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game_object\paddle">
+      <UniqueIdentifier>{ea63ddbb-ae3a-4f44-a810-a77f2d00a00f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\controls_manager">
+      <UniqueIdentifier>{20ed5446-94b1-41d3-8886-4e596147cd49}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\game_manager\game_manager.cpp">
+      <Filter>src\managers\game_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\scene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\scene_manager\scene_manager.cpp">
+      <Filter>src\managers\scene_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\music_manager\music_manager.cpp">
+      <Filter>src\managers\music_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\game_scenes\gameplay\gameplay.cpp">
+      <Filter>src\scene\game_scenes\gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\game_object.cpp">
+      <Filter>src\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\controls_manager\controls_manager.cpp">
+      <Filter>src\managers\controls_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\paddle\paddle.cpp">
+      <Filter>src\game_object\paddle</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\managers\game_manager\game_manager.h">
+      <Filter>src\managers\game_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\scene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\scene_manager\scene_manager.h">
+      <Filter>src\managers\scene_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\scene_to_load.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\music_manager\music_manager.h">
+      <Filter>src\managers\music_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\music_to_play.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\sfx_to_play.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\game_scenes\gameplay\gameplay.h">
+      <Filter>src\scene\game_scenes\gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs\position.h">
+      <Filter>src\structs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs\size.h">
+      <Filter>src\structs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\game_object.h">
+      <Filter>src\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\paddle\paddle.h">
+      <Filter>src\game_object\paddle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\controls_manager\controls_manager.h">
+      <Filter>src\managers\controls_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\gameplay_controls.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\menu_controls.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

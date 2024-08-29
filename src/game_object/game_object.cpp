@@ -1,0 +1,79 @@
+#include "game_object.h"
+
+#include <iostream>
+
+#include "mgtv_library.h"
+
+using std::cout;
+using namespace mgtv_library::console;
+
+
+namespace pong_in_console
+{
+	GameObject::GameObject(int x, int y)
+	{
+		previousPosition = { x, y };
+
+		position = { x, y };
+		size = { 1, 1 };
+	}
+	GameObject::GameObject(int x, int y, int w, int h)
+	{
+		previousPosition = { x, y };
+
+		position = { x, y };
+		size = { w, h };
+	}
+	GameObject::~GameObject()
+	{
+
+	}
+
+	void GameObject::erase()
+	{
+		if (previousPosition.x != position.x || previousPosition.y != position.y)
+		{
+			for (int i = 0; i < size.h; i++)
+			{
+				ConsoleExt::goToCoordinates(previousPosition.x, previousPosition.y);
+
+				for (int j = 0; j < size.w; j++)
+				{
+					cout << " ";
+				}
+			}
+		}
+	}
+
+	POSITION GameObject::getPosition()
+	{
+		return position;
+	}
+	SIZE GameObject::getSize()
+	{
+		return size;
+	}
+
+	void GameObject::setPosition(POSITION position)
+	{
+		this->position = position;
+	}
+	void GameObject::setPosition(int x, int y)
+	{
+		position = { x, y };
+	}
+	void GameObject::setSize(SIZE size)
+	{
+		this->size = size;
+	}
+	void GameObject::setSize(int w, int h)
+	{
+		size = { w, h };
+	}
+
+
+	void GameObject::savePositionAsPrevious()
+	{
+		previousPosition = position;
+	}
+}

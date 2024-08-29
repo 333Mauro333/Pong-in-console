@@ -1,0 +1,39 @@
+#ifndef GAME_OBJECT_H
+#define GAME_OBJECT_H
+
+#include "structs/position.h"
+#include "structs/size.h"
+
+
+namespace pong_in_console
+{
+	class GameObject
+	{
+	public:
+		GameObject(int x, int y);
+		GameObject(int x, int y, int w, int h);
+		virtual ~GameObject();
+
+		void erase();
+		virtual void draw() = 0;
+
+		POSITION getPosition();
+		SIZE getSize();
+
+		void setPosition(POSITION position);
+		void setPosition(int x, int y);
+		void setSize(SIZE position);
+		void setSize(int w, int h);
+
+	protected:
+		POSITION position;
+		SIZE size;
+
+		void savePositionAsPrevious();
+
+	private:
+		POSITION previousPosition;
+	};
+}
+
+#endif // !GAME_OBJECT_H
