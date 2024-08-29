@@ -46,6 +46,12 @@
     <Filter Include="src\managers\controls_manager">
       <UniqueIdentifier>{20ed5446-94b1-41d3-8886-4e596147cd49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scene\game_scenes\main_menu">
+      <UniqueIdentifier>{aa98e867-9ccb-4a2a-8a34-66a145ff2eb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\file_manager">
+      <UniqueIdentifier>{c7193bd1-2cc8-4159-adac-4c267826c47c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -74,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="src\game_object\paddle\paddle.cpp">
       <Filter>src\game_object\paddle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\game_scenes\main_menu\main_menu.cpp">
+      <Filter>src\scene\game_scenes\main_menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\file_manager\file_manager.cpp">
+      <Filter>src\managers\file_manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="src\enums\menu_controls.h">
       <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\game_scenes\main_menu\main_menu.h">
+      <Filter>src\scene\game_scenes\main_menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\file_manager\file_manager.h">
+      <Filter>src\managers\file_manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
