@@ -4,6 +4,7 @@
 #include "scene/scene.h"
 
 #include "game_object/paddle/paddle.h"
+#include "game_object/ball/ball.h"
 
 
 namespace pong_in_console
@@ -21,6 +22,7 @@ namespace pong_in_console
 
 	private:
 		Paddle* player;
+		Ball* ball;
 	};
 }
 

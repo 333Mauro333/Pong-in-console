@@ -12,10 +12,12 @@ namespace pong_in_console
 		MusicManager::play(MUSIC_TO_PLAY::MAIN_MENU);
 
 		player = new Paddle(30, 10);
+		ball = new Ball(20, 8);
 	}
 	Gameplay::~Gameplay()
 	{
 		delete player;
+		delete ball;
 	}
 
 	void Gameplay::inputUpdate(int key)
@@ -29,14 +31,17 @@ namespace pong_in_console
 	}
 	void Gameplay::update()
 	{
+		ball->update();
 		player->update();
 	}
 	void Gameplay::erase()
 	{
+		ball->erase();
 		player->erase();
 	}
 	void Gameplay::draw()
 	{
 		player->draw();
+		ball->draw();
 	}
 }

@@ -1,6 +1,7 @@
 #include "game_manager.h"
 
 #include <iostream>
+#include <thread>
 
 #include "mgtv_library.h"
 
@@ -13,7 +14,7 @@ using namespace mgtv_library::console;
 namespace pong_in_console
 {
 	bool GameManager::inGame = true;
-	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::MAIN_MENU;
+	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::GAMEPLAY;
 	SCENE_TO_LOAD GameManager::sceneToChange = sceneToLoad;
 
 
@@ -56,7 +57,8 @@ namespace pong_in_console
 	}
 	void GameManager::update()
 	{
-		MusicManager::updateMusicStream();
+		std::thread miHilo(MusicManager::updateMusicStream);
+		miHilo.join();
 
 		SceneManager::getActualScene()->update();
 	}

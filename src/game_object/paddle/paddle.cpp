@@ -20,10 +20,10 @@ namespace pong_in_console
 
 	void Paddle::inputUpdate(int key)
 	{
-		savePositionAsPrevious();
-
 		if (timer == 0)
 		{
+			savePositionAsPrevious();
+
 			if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::LEFT))
 			{
 				position.x--;

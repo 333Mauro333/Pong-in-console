@@ -55,6 +55,9 @@
     <Filter Include="src\game_object\text">
       <UniqueIdentifier>{19e01b6b-df0e-49b3-848b-2d676f7f5e94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\game_object\ball">
+      <UniqueIdentifier>{054b653b-f46a-465d-a934-00a0cf8db325}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="src\game_object\text\text.cpp">
       <Filter>src\game_object\text</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\ball\ball.cpp">
+      <Filter>src\game_object\ball</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="src\game_object\text\text.h">
       <Filter>src\game_object\text</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\ball\ball.h">
+      <Filter>src\game_object\ball</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

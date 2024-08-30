@@ -17,8 +17,6 @@ namespace pong_in_console
 	{
 		int checkedOption = selectedOption;
 
-		//MusicManager::play(MUSIC_TO_PLAY::MAIN_MENU);
-
 		gameTitle = FileManager::loadTitle();
 		titleColor = COLOR::C_BWHITE;
 		delayTime = 10;

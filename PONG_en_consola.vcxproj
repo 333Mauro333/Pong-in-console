@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game_object\ball\ball.cpp" />
     <ClCompile Include="src\game_object\game_object.cpp" />
     <ClCompile Include="src\game_object\paddle\paddle.cpp" />
     <ClCompile Include="src\game_object\text\text.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="src\enums\music_to_play.h" />
     <ClInclude Include="src\enums\scene_to_load.h" />
     <ClInclude Include="src\enums\sfx_to_play.h" />
+    <ClInclude Include="src\game_object\ball\ball.h" />
     <ClInclude Include="src\game_object\game_object.h" />
     <ClInclude Include="src\game_object\paddle\paddle.h" />
     <ClInclude Include="src\game_object\text\text.h" />
