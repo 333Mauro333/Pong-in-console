@@ -25,7 +25,7 @@ namespace pong_in_console
 		static void update();
 		static void draw();
 
-		static void checkValueChanges();
+		//static void checkValueChanges();
 	};
 }
 

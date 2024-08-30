@@ -2,10 +2,13 @@
 
 #include <thread>
 
+#include "mgtv_library.h"
+
 #include "managers/scene_manager/scene_manager.h"
 #include "managers/music_manager/music_manager.h"
 
 using std::thread;
+using mgtv_library::console::ConsoleExt;
 
 
 namespace pong_in_console
@@ -33,7 +36,7 @@ namespace pong_in_console
 			update();
 			draw();
 
-			checkValueChanges();
+			//checkValueChanges();
 		}
 
 		delete SceneManager::getActualScene();
@@ -65,13 +68,13 @@ namespace pong_in_console
 		SceneManager::getActualScene()->draw();
 	}
 
-	void GameManager::checkValueChanges()
-	{
-		if (sceneToLoad != sceneToChange)
-		{
-			SceneManager::loadScene(sceneToChange);
+	//void GameManager::checkValueChanges()
+	//{
+	//	if (sceneToLoad != sceneToChange)
+	//	{
+	//		SceneManager::loadScene(sceneToChange);
 
-			sceneToLoad = sceneToChange;
-		}
-	}
+	//		sceneToLoad = sceneToChange;
+	//	}
+	//}
 }

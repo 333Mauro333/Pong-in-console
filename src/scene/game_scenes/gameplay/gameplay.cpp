@@ -9,7 +9,7 @@ namespace pong_in_console
 {
 	Gameplay::Gameplay()
 	{
-		MusicManager::play(MUSIC_TO_PLAY::MAIN_MENU);
+		//MusicManager::play(MUSIC_TO_PLAY::MAIN_MENU);
 
 		player = new Paddle(30, 10);
 		ball = new Ball(20, 8);
