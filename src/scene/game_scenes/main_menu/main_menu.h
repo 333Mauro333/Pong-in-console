@@ -4,8 +4,9 @@
 #include <string>
 
 #include "scene/scene.h"
+#include "game_object/text/text.h"
 
-using namespace std;
+using std::string;
 
 
 namespace pong_in_console
@@ -22,12 +23,26 @@ namespace pong_in_console
 		void draw() override;
 
 	private:
-		static const int amountOfOptions = 5;
-		string optionList[amountOfOptions];
+		string gameTitle;
+		COLOR titleColor;
+		int delayTime;
+		int timer;
+		bool changeInThisFrame;
+
+		static const int amountOfOptions = 2;
+		Text* optionList[amountOfOptions];
+
+		COLOR normalColor;
+		COLOR highlightedColor;
 
 		int option;
 
-		void highlightOption();
+		void drawTitle();
+		void changeTitleColor();
+
+		void setNextOption();
+		void setPreviousOption();
+		void enterOption();
 	};
 }
 

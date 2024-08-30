@@ -1,6 +1,7 @@
 #include "scene_manager.h"
 
 #include "scene/game_scenes/gameplay/gameplay.h"
+#include "scene/game_scenes/main_menu/main_menu.h"
 
 
 namespace pong_in_console
@@ -17,13 +18,15 @@ namespace pong_in_console
 		switch (scene)
 		{
 		case SCENE_TO_LOAD::MAIN_MENU:
-			//actualScene = new MainMenu();
+			actualScene = new MainMenu();
 			break;
 
 		case SCENE_TO_LOAD::GAMEPLAY:
 			actualScene = new Gameplay();
 			break;
 		}
+
+		system("cls");
 	}
 	Scene* SceneManager::getActualScene()
 	{

@@ -13,7 +13,7 @@ using namespace mgtv_library::console;
 namespace pong_in_console
 {
 	bool GameManager::inGame = true;
-	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::GAMEPLAY;
+	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::MAIN_MENU;
 	SCENE_TO_LOAD GameManager::sceneToChange = sceneToLoad;
 
 
@@ -22,6 +22,7 @@ namespace pong_in_console
 		ConsoleExt::hideCursor();
 		ConsoleExt::setConsoleTitle(title);
 		MusicManager::initMusic();
+		Scene::setBackgroundColor(COLOR::C_BLUE);
 		SceneManager::loadScene(sceneToLoad);
 
 		system("cls");

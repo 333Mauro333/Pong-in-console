@@ -1,5 +1,9 @@
 #include "scene.h"
 
+#include "mgtv_library.h"
+
+using mgtv_library::console::ConsoleExt;
+
 
 namespace pong_in_console
 {
@@ -17,7 +21,9 @@ namespace pong_in_console
 
 	Scene::Scene()
 	{
+		ConsoleExt::setBackgroundColor(backgroundColor);
 
+		system("cls");
 	}
 	Scene::~Scene()
 	{
