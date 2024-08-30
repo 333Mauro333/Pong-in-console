@@ -1,14 +1,11 @@
 #include "game_manager.h"
 
-#include <iostream>
 #include <thread>
-
-#include "mgtv_library.h"
 
 #include "managers/scene_manager/scene_manager.h"
 #include "managers/music_manager/music_manager.h"
 
-using namespace mgtv_library::console;
+using std::thread;
 
 
 namespace pong_in_console
@@ -57,7 +54,7 @@ namespace pong_in_console
 	}
 	void GameManager::update()
 	{
-		std::thread miHilo(MusicManager::updateMusicStream);
+		thread miHilo(MusicManager::updateMusicStream);
 		miHilo.join();
 
 		SceneManager::getActualScene()->update();

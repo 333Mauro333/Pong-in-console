@@ -28,9 +28,6 @@
     <Filter Include="src\managers\music_manager">
       <UniqueIdentifier>{2e541911-b3c3-4c12-a017-65e6f0a16fda}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\managers\sfx_manager">
-      <UniqueIdentifier>{82b1b5ab-4150-4997-a161-723fd6656a92}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lib">
       <UniqueIdentifier>{4fd7fc29-dc9e-435e-b75e-35be44d9f068}</UniqueIdentifier>
     </Filter>

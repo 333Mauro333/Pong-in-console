@@ -29,13 +29,6 @@ namespace pong_in_console
 
 		bool withFrame;
 	};
-
-	// Declarar las funciones.
-	// Aplicar esto con las opciones del menú principal.
-	// Brindar la posibilidad de que tengan marco.
-	// Utilizar el struct de posicion que heredan del gameobject. Lo mismo con el tamaño.
-	//
-	// Pensar si el tamaño es necesario para este caso específico.
 }
 
 #endif // !TEXT_H

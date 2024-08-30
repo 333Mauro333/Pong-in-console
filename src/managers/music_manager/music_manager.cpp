@@ -3,24 +3,24 @@
 
 namespace pong_in_console
 {
-	vector<Music> MusicManager::musicList = vector<Music>();
+	Music MusicManager::musicList[MusicManager::amountOfMusics] = {};
 
 	void MusicManager::initMusic()
 	{
 		InitAudioDevice();
 
-		musicList.push_back( LoadMusicStream("res/audio/music/mechanical.mp3") );
+		musicList[0] = LoadMusicStream("res/audio/music/mechanical.mp3");
 	}
 	void MusicManager::updateMusicStream()
 	{
-		for (int i = 0; i < musicList.size(); i++)
+		for (int i = 0; i < amountOfMusics; i++)
 		{
 			UpdateMusicStream(musicList[i]);
 		}
 	}
 	void MusicManager::closeMusic()
 	{
-		for (int i = 0; i < musicList.size(); i++)
+		for (int i = 0; i < amountOfMusics; i++)
 		{
 			UnloadMusicStream(musicList[i]);
 		}
@@ -34,7 +34,7 @@ namespace pong_in_console
 	}
 	void MusicManager::stop()
 	{
-		for (int i = 0; i < musicList.size(); i++)
+		for (int i = 0; i < amountOfMusics; i++)
 		{
 			StopMusicStream(musicList[i]);
 		}

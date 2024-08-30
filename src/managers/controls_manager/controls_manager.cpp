@@ -1,9 +1,5 @@
 #include "controls_manager.h"
 
-#include "mgtv_library.h"
-
-using namespace mgtv_library::console;
-
 
 namespace pong_in_console
 {

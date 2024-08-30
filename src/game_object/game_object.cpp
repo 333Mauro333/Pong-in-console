@@ -5,7 +5,7 @@
 #include "mgtv_library.h"
 
 using std::cout;
-using namespace mgtv_library::console;
+using mgtv_library::console::ConsoleExt;
 
 
 namespace pong_in_console

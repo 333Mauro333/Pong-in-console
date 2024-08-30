@@ -1,20 +1,11 @@
-﻿#include <iostream>
-#include <fstream>
+﻿#include "managers/game_manager/game_manager.h"
 
-#include "mgtv_library.h"
-
-#include "managers/game_manager/game_manager.h"
-#include "managers/file_manager/file_manager.h"
-
-using namespace std;
-using namespace pong_in_console;
-using namespace mgtv_library::console;
+using pong_in_console::GameManager;
 
 
 int main()
 {
 	GameManager::run("PONG");
-
 
 
 

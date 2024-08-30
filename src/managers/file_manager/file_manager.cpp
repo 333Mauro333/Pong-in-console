@@ -2,7 +2,8 @@
 
 #include <fstream>
 
-using namespace std;
+using std::ifstream;
+using std::ios;
 
 
 namespace pong_in_console

@@ -2,7 +2,7 @@
 
 #include "managers/controls_manager/controls_manager.h"
 
-#include <iostream>
+using mgtv_library::console::ConsoleExt;
 
 
 namespace pong_in_console

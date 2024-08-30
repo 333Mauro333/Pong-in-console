@@ -12,9 +12,6 @@ namespace pong_in_console
 	{
 	public:
 		static string loadTitle();
-
-	private:
-
 	};
 }
 

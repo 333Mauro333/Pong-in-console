@@ -1,7 +1,5 @@
 #include "scene.h"
 
-#include "mgtv_library.h"
-
 using mgtv_library::console::ConsoleExt;
 
 

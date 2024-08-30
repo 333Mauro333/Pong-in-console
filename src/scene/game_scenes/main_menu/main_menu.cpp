@@ -9,6 +9,7 @@
 #include "managers/scene_manager/scene_manager.h"
 
 using std::cout;
+using mgtv_library::console::ConsoleExt;
 
 
 namespace pong_in_console

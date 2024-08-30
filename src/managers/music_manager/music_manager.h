@@ -1,13 +1,9 @@
 #ifndef MUSIC_MANAGER_H
 #define MUSIC_MANAGER_H
 
-#include <vector>
-
 #include "raylib.h"
 
 #include "enums/music_to_play.h"
-
-using std::vector;
 
 
 namespace pong_in_console
@@ -23,7 +19,8 @@ namespace pong_in_console
 		static void stop();
 
 	private:
-		static vector<Music> musicList;
+		static const int amountOfMusics = 1;
+		static Music musicList[amountOfMusics];
 	};
 }
 

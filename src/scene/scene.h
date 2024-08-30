@@ -3,7 +3,7 @@
 
 #include "mgtv_library.h"
 
-using namespace mgtv_library::console;
+using mgtv_library::console::COLOR;
 
 
 namespace pong_in_console
