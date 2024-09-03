@@ -4,7 +4,6 @@
 
 #include "mgtv_library.h"
 
-#include "managers/scene_manager/scene_manager.h"
 #include "managers/music_manager/music_manager.h"
 
 using std::thread;
@@ -20,13 +19,7 @@ namespace pong_in_console
 
 	void GameManager::run(string title)
 	{
-		ConsoleExt::hideCursor();
-		ConsoleExt::setConsoleTitle(title);
-		MusicManager::initMusic();
-		Scene::setBackgroundColor(COLOR::C_BLUE);
-		SceneManager::loadScene(sceneToLoad);
-
-		system("cls");
+		init(title);
 
 		while (inGame)
 		{
@@ -35,13 +28,9 @@ namespace pong_in_console
 			inputUpdate();
 			update();
 			draw();
-
-			//checkValueChanges();
 		}
 
-		delete SceneManager::getActualScene();
-
-		MusicManager::closeMusic();
+		destroy();
 	}
 	void GameManager::quit()
 	{
@@ -49,6 +38,14 @@ namespace pong_in_console
 	}
 
 
+	void GameManager::init(string title)
+	{
+		ConsoleExt::hideCursor();
+		ConsoleExt::setConsoleTitle(title);
+		Scene::setBackgroundColor(COLOR::C_BLUE);
+		MusicManager::initMusic();
+		SceneManager::loadScene(sceneToLoad);
+	}
 	void GameManager::inputUpdate()
 	{
 		int key = ConsoleExt::getKey(false);
@@ -67,14 +64,10 @@ namespace pong_in_console
 		SceneManager::getActualScene()->erase();
 		SceneManager::getActualScene()->draw();
 	}
+	void GameManager::destroy()
+	{
+		delete SceneManager::getActualScene();
 
-	//void GameManager::checkValueChanges()
-	//{
-	//	if (sceneToLoad != sceneToChange)
-	//	{
-	//		SceneManager::loadScene(sceneToChange);
-
-	//		sceneToLoad = sceneToChange;
-	//	}
-	//}
+		MusicManager::closeMusicSistem();
+	}
 }

@@ -153,6 +153,7 @@
     <ClCompile Include="src\game_object\paddle\paddle.cpp" />
     <ClCompile Include="src\game_object\text\text.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\managers\collision_manager\collision_manager.cpp" />
     <ClCompile Include="src\managers\controls_manager\controls_manager.cpp" />
     <ClCompile Include="src\managers\file_manager\file_manager.cpp" />
     <ClCompile Include="src\managers\game_manager\game_manager.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\managers\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\scene\game_scenes\gameplay\gameplay.cpp" />
     <ClCompile Include="src\scene\game_scenes\main_menu\main_menu.cpp" />
+    <ClCompile Include="src\scene\game_scenes\null_scene\null_scene.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +174,7 @@
     <ClInclude Include="src\game_object\game_object.h" />
     <ClInclude Include="src\game_object\paddle\paddle.h" />
     <ClInclude Include="src\game_object\text\text.h" />
+    <ClInclude Include="src\managers\collision_manager\collision_manager.h" />
     <ClInclude Include="src\managers\controls_manager\controls_manager.h" />
     <ClInclude Include="src\managers\file_manager\file_manager.h" />
     <ClInclude Include="src\managers\game_manager\game_manager.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="src\managers\scene_manager\scene_manager.h" />
     <ClInclude Include="src\scene\game_scenes\gameplay\gameplay.h" />
     <ClInclude Include="src\scene\game_scenes\main_menu\main_menu.h" />
+    <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h" />
     <ClInclude Include="src\scene\scene.h" />
     <ClInclude Include="src\structs\position.h" />
     <ClInclude Include="src\structs\size.h" />

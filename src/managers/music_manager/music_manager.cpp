@@ -18,7 +18,7 @@ namespace pong_in_console
 			UpdateMusicStream(musicList[i]);
 		}
 	}
-	void MusicManager::closeMusic()
+	void MusicManager::closeMusicSistem()
 	{
 		for (int i = 0; i < amountOfMusics; i++)
 		{

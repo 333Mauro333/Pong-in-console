@@ -1,10 +1,10 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 
-#include "game_object/game_object.h"
-
 #include "raylib.h"
 #include "mgtv_library.h"
+
+#include "game_object/game_object.h"
 
 using mgtv_library::console::COLOR;
 

@@ -13,7 +13,7 @@ namespace pong_in_console
 	public:
 		static void initMusic();
 		static void updateMusicStream();
-		static void closeMusic();
+		static void closeMusicSistem();
 
 		static void play(MUSIC_TO_PLAY music);
 		static void stop();

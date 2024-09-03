@@ -4,6 +4,7 @@
 #include <string>
 
 #include "enums/scene_to_load.h"
+#include "managers/scene_manager/scene_manager.h"
 
 using std::string;
 
@@ -21,11 +22,11 @@ namespace pong_in_console
 		static SCENE_TO_LOAD sceneToLoad;
 		static SCENE_TO_LOAD sceneToChange;
 
+		static void init(string title);
 		static void inputUpdate();
 		static void update();
 		static void draw();
-
-		//static void checkValueChanges();
+		static void destroy();
 	};
 }
 

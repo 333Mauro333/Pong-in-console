@@ -20,6 +20,11 @@ namespace pong_in_console
 		void draw() override;
 
 		void changeDirection(bool horizontal, bool vertical);
+		void setCollisionDetection();
+
+		bool isCollisionDetected();
+		bool isTimeToDetectCollision();
+		bool isItGoingDown();
 
 	private:
 		COLOR color;
@@ -28,6 +33,8 @@ namespace pong_in_console
 
 		int speedX;
 		int speedY;
+
+		bool detectedCollision;
 	};
 }
 

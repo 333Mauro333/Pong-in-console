@@ -2,18 +2,16 @@
 
 #include "scene/game_scenes/gameplay/gameplay.h"
 #include "scene/game_scenes/main_menu/main_menu.h"
+#include "scene/game_scenes/null_scene/null_scene.h"
 
 
 namespace pong_in_console
 {
-	Scene* SceneManager::actualScene = NULL;
+	Scene* SceneManager::actualScene = new NullScene();
 
 	void SceneManager::loadScene(SCENE_TO_LOAD scene)
 	{
-		if (actualScene != NULL)
-		{
-			delete actualScene;
-		}
+		delete actualScene;
 
 		switch (scene)
 		{
@@ -25,6 +23,25 @@ namespace pong_in_console
 			actualScene = new Gameplay();
 			break;
 		}
+
+		system("cls");
+	}
+	void SceneManager::loadScene(SCENE_TO_LOAD scene, COLOR backgroundColor)
+	{
+		delete actualScene;
+
+		switch (scene)
+		{
+		case SCENE_TO_LOAD::MAIN_MENU:
+			actualScene = new MainMenu();
+			break;
+
+		case SCENE_TO_LOAD::GAMEPLAY:
+			actualScene = new Gameplay();
+			break;
+		}
+
+		actualScene->setBackgroundColor(backgroundColor);
 
 		system("cls");
 	}

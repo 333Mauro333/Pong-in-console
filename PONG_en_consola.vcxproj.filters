@@ -52,6 +52,12 @@
     <Filter Include="src\game_object\ball">
       <UniqueIdentifier>{054b653b-f46a-465d-a934-00a0cf8db325}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\managers\collision_manager">
+      <UniqueIdentifier>{c33b51f0-8774-4bf4-a3ce-ad8cdeb78dd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scene\game_scenes\null_scene">
+      <UniqueIdentifier>{cc274b0e-e0bf-4660-81f3-7268126e4a68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -92,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="src\game_object\ball\ball.cpp">
       <Filter>src\game_object\ball</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\collision_manager\collision_manager.cpp">
+      <Filter>src\managers\collision_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\game_scenes\null_scene\null_scene.cpp">
+      <Filter>src\scene\game_scenes\null_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +163,12 @@
     </ClInclude>
     <ClInclude Include="src\game_object\ball\ball.h">
       <Filter>src\game_object\ball</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\collision_manager\collision_manager.h">
+      <Filter>src\managers\collision_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h">
+      <Filter>src\scene\game_scenes\null_scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
