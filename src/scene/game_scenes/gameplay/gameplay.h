@@ -1,8 +1,9 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-#include "game_object/paddle/paddle.h"
 #include "game_object/ball/ball.h"
+#include "game_object/paddle/paddle.h"
+#include "game_object/frame/frame.h"
 #include "scene/scene.h"
 
 
@@ -22,6 +23,7 @@ namespace pong_in_console
 	private:
 		Paddle* player;
 		Ball* ball;
+		Frame* frame;
 	};
 }
 

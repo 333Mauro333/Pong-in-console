@@ -12,11 +12,15 @@ namespace pong_in_console
 		color = COLOR::C_RED;
 		delayToMove = 5;
 		timer = 0;
+
+		leftLimit = 0;
+		rightLimit = ConsoleExt::getScreenWidth() - 1;
 	}
 	Paddle::~Paddle()
 	{
 
 	}
+
 
 	void Paddle::inputUpdate(int key)
 	{
@@ -26,14 +30,20 @@ namespace pong_in_console
 
 			if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::LEFT))
 			{
-				position.x--;
-				timer = delayToMove;
+				if (canItGoLeft())
+				{
+					position.x--;
+					timer = delayToMove;
+				}
 			}
 
 			if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::RIGHT))
 			{
-				position.x++;
-				timer = delayToMove;
+				if (canItGoRight())
+				{
+					position.x++;
+					timer = delayToMove;
+				}
 			}
 		}
 	}
@@ -48,5 +58,21 @@ namespace pong_in_console
 	{
 		ConsoleExt::goToCoordinates(position.x, position.y);
 		ConsoleExt::writeWithColor("<========>", color);
+	}
+
+	void Paddle::setMovementLimits(Frame* frame)
+	{
+		leftLimit = frame->getLeft() + 1;
+		rightLimit = frame->getRight() - 1;
+	}
+
+
+	bool Paddle::canItGoLeft()
+	{
+		return position.x > leftLimit;
+	}
+	bool Paddle::canItGoRight()
+	{
+		return position.x + size.w - 1 < rightLimit;
 	}
 }

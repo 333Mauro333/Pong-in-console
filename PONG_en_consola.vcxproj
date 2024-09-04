@@ -149,9 +149,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game_object\ball\ball.cpp" />
+    <ClCompile Include="src\game_object\frame\frame.cpp" />
     <ClCompile Include="src\game_object\game_object.cpp" />
     <ClCompile Include="src\game_object\paddle\paddle.cpp" />
     <ClCompile Include="src\game_object\text\text.cpp" />
+    <ClCompile Include="src\interface_simulation\limited_element\limited_element.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\collision_manager\collision_manager.cpp" />
     <ClCompile Include="src\managers\controls_manager\controls_manager.cpp" />
@@ -171,9 +173,11 @@
     <ClInclude Include="src\enums\scene_to_load.h" />
     <ClInclude Include="src\enums\sfx_to_play.h" />
     <ClInclude Include="src\game_object\ball\ball.h" />
+    <ClInclude Include="src\game_object\frame\frame.h" />
     <ClInclude Include="src\game_object\game_object.h" />
     <ClInclude Include="src\game_object\paddle\paddle.h" />
     <ClInclude Include="src\game_object\text\text.h" />
+    <ClInclude Include="src\interface_simulation\limited_element\limited_element.h" />
     <ClInclude Include="src\managers\collision_manager\collision_manager.h" />
     <ClInclude Include="src\managers\controls_manager\controls_manager.h" />
     <ClInclude Include="src\managers\file_manager\file_manager.h" />
@@ -184,6 +188,7 @@
     <ClInclude Include="src\scene\game_scenes\main_menu\main_menu.h" />
     <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h" />
     <ClInclude Include="src\scene\scene.h" />
+    <ClInclude Include="src\structs\limits.h" />
     <ClInclude Include="src\structs\position.h" />
     <ClInclude Include="src\structs\size.h" />
   </ItemGroup>

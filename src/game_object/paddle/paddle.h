@@ -5,13 +5,14 @@
 #include "mgtv_library.h"
 
 #include "game_object/game_object.h"
+#include "interface_simulation/limited_element/limited_element.h"
 
 using mgtv_library::console::COLOR;
 
 
 namespace pong_in_console
 {
-	class Paddle : public GameObject
+	class Paddle : public GameObject, public LimitedElement
 	{
 	public:
 		Paddle(int x, int y);
@@ -21,10 +22,18 @@ namespace pong_in_console
 		void update();
 		void draw() override;
 
+		void setMovementLimits(Frame* frame) override;
+
 	private:
 		COLOR color;
 		int delayToMove;
 		int timer;
+
+		int leftLimit;
+		int rightLimit;
+
+		bool canItGoLeft();
+		bool canItGoRight();
 	};
 }
 

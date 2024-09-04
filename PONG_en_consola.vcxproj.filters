@@ -58,6 +58,15 @@
     <Filter Include="src\scene\game_scenes\null_scene">
       <UniqueIdentifier>{cc274b0e-e0bf-4660-81f3-7268126e4a68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\game_object\frame">
+      <UniqueIdentifier>{3261b3f3-71c9-44eb-9bb7-1d46e4499721}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\interface_simulation">
+      <UniqueIdentifier>{caffdac9-f7a5-41a2-bcc5-e19669501207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\interface_simulation\limited_element">
+      <UniqueIdentifier>{334327bf-88ee-49db-878f-a3a614e83396}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -104,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="src\scene\game_scenes\null_scene\null_scene.cpp">
       <Filter>src\scene\game_scenes\null_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\frame\frame.cpp">
+      <Filter>src\game_object\frame</Filter>
+    </ClCompile>
+    <ClCompile Include="src\interface_simulation\limited_element\limited_element.cpp">
+      <Filter>src\interface_simulation\limited_element</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h">
       <Filter>src\scene\game_scenes\null_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\frame\frame.h">
+      <Filter>src\game_object\frame</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs\limits.h">
+      <Filter>src\structs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\interface_simulation\limited_element\limited_element.h">
+      <Filter>src\interface_simulation\limited_element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,13 +8,15 @@ namespace pong_in_console
 	Ball::Ball(int x, int y) : GameObject(x, y, 1, 1)
 	{
 		color = COLOR::C_LRED;
-		delayToMove = 50;
+		delayToMove = 5;
 		timer = 0;
+
+		detectedCollision = false;
 
 		speedX = 1;
 		speedY = 1;
 
-		detectedCollision = false;
+		externalLimits = {};
 	}
 	Ball::~Ball()
 	{
@@ -29,21 +31,9 @@ namespace pong_in_console
 			savePositionAsPrevious();
 
 			timer = delayToMove;
-
-			position.x += speedX;
-			position.y += speedY;
-
 			detectedCollision = false;
 
-			if (position.y == 0 || position.y == 7)
-			{
-				changeDirection(false, true);
-			}
-
-			if (position.x == ConsoleExt::getScreenWidth() - 1 || position.x == 0)
-			{
-				changeDirection(true, false);
-			}
+			applyMovement();
 		}
 		else
 		{
@@ -68,9 +58,17 @@ namespace pong_in_console
 			speedY = -speedY;
 		}
 	}
+
 	void Ball::setCollisionDetection()
 	{
 		detectedCollision = true;
+	}
+	void Ball::setMovementLimits(Frame* frame)
+	{
+		externalLimits.up = frame->getUp() + 1;
+		externalLimits.down = frame->getDown() - 1;
+		externalLimits.left = frame->getLeft() + 1;
+		externalLimits.right = frame->getRight() - 1;
 	}
 
 	bool Ball::isCollisionDetected()
@@ -84,5 +82,43 @@ namespace pong_in_console
 	bool Ball::isItGoingDown()
 	{
 		return speedY > 0;
+	}
+	bool Ball::isItGoingRight()
+	{
+		return speedX > 0;
+	}
+
+
+	void Ball::applyMovement()
+	{
+		if (!canItGoUp() || !canItGoDown())
+		{
+			changeDirection(false, true);
+		}
+
+		if (!canItGoLeft() || !canItGoRight())
+		{
+			changeDirection(true, false);
+		}
+
+		position.x += speedX;
+		position.y += speedY;
+	}
+
+	bool Ball::canItGoUp()
+	{
+		return position.y > externalLimits.up;
+	}
+	bool Ball::canItGoDown()
+	{
+		return position.y < externalLimits.down;
+	}
+	bool Ball::canItGoLeft()
+	{
+		return position.x > externalLimits.left;
+	}
+	bool Ball::canItGoRight()
+	{
+		return position.x < externalLimits.right;
 	}
 }

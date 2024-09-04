@@ -5,15 +5,25 @@
 #include "managers/music_manager/music_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 
+using mgtv_library::console::ConsoleExt;
+
 
 namespace pong_in_console
 {
 	Gameplay::Gameplay()
 	{
+		const int frameWidth = 80;
+		const int frameHeight = 20;
 		//MusicManager::play(MUSIC_TO_PLAY::MAIN_MENU);
 
-		player = new Paddle(30, 5);
-		ball = new Ball(20, 1);
+		player = new Paddle(30, 20);
+		ball = new Ball(50, 15);
+		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
+						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
+						  frameWidth, frameHeight, COLOR::C_BWHITE);
+
+		player->setMovementLimits(frame);
+		ball->setMovementLimits(frame);
 	}
 	Gameplay::~Gameplay()
 	{
@@ -48,6 +58,7 @@ namespace pong_in_console
 	}
 	void Gameplay::draw()
 	{
+		frame->draw();
 		player->draw();
 		ball->draw();
 	}
