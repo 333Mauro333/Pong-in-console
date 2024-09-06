@@ -18,11 +18,6 @@ namespace pong_in_console
 
 		void draw() override;
 
-		int getUp();
-		int getDown();
-		int getLeft();
-		int getRight();
-
 	private:
 		COLOR color;
 		bool wasItDrawn;

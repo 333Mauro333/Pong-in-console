@@ -3,6 +3,8 @@
 
 #include "mgtv_library.h"
 
+#include "enums/ball_collision_type.h"
+#include "enums/ball_direction.h"
 #include "game_object/frame/frame.h"
 #include "game_object/game_object.h"
 #include "interface_simulation/limited_element/limited_element.h"
@@ -22,12 +24,12 @@ namespace pong_in_console
 		void update();
 		void draw() override;
 
-		void changeDirection(bool horizontal, bool vertical);
+		void invertDirection(bool horizontal, bool vertical);
+		void reactWithCollision(BALL_COLLISION_TYPE ballCollisionType);
 
-		void setCollisionDetection();
+		BALL_DIRECTION getBallDirection();
 		void setMovementLimits(Frame* frame) override;
 
-		bool isCollisionDetected();
 		bool isTimeToDetectCollision();
 		bool isItGoingDown();
 		bool isItGoingRight();
@@ -36,8 +38,6 @@ namespace pong_in_console
 		COLOR color;
 		int delayToMove;
 		int timer;
-
-		bool detectedCollision;
 		
 		int speedX;
 		int speedY;

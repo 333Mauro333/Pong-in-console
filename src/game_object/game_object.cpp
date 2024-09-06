@@ -53,6 +53,22 @@ namespace pong_in_console
 	{
 		return size;
 	}
+	int GameObject::getUp()
+	{
+		return position.y;
+	}
+	int GameObject::getDown()
+	{
+		return position.y + size.h - 1;
+	}
+	int GameObject::getLeft()
+	{
+		return position.x;
+	}
+	int GameObject::getRight()
+	{
+		return position.x + size.w - 1;
+	}
 
 	void GameObject::setPosition(POSITION position)
 	{

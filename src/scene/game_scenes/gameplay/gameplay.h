@@ -24,6 +24,8 @@ namespace pong_in_console
 		Paddle* player;
 		Ball* ball;
 		Frame* frame;
+
+		void checkBallCollisions();
 	};
 }
 

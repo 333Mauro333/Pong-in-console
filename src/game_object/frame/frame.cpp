@@ -27,21 +27,4 @@ namespace pong_in_console
 								  color);
 		}
 	}
-
-	int Frame::getUp()
-	{
-		return position.y;
-	}
-	int Frame::getDown()
-	{
-		return position.y + size.h - 1;
-	}
-	int Frame::getLeft()
-	{
-		return position.x;
-	}
-	int Frame::getRight()
-	{
-		return position.x + size.w - 1;
-	}
 }

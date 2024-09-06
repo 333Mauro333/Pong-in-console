@@ -194,5 +194,14 @@
     <ClInclude Include="src\interface_simulation\limited_element\limited_element.h">
       <Filter>src\interface_simulation\limited_element</Filter>
     </ClInclude>
+    <ClInclude Include="src\enums\ball_direction.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\ball_collision_type.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\side.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

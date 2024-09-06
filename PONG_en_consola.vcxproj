@@ -167,6 +167,9 @@
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\enums\ball_collision_type.h" />
+    <ClInclude Include="src\enums\ball_direction.h" />
+    <ClInclude Include="src\enums\side.h" />
     <ClInclude Include="src\enums\gameplay_controls.h" />
     <ClInclude Include="src\enums\menu_controls.h" />
     <ClInclude Include="src\enums\music_to_play.h" />

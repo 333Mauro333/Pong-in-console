@@ -8,10 +8,8 @@ namespace pong_in_console
 	Ball::Ball(int x, int y) : GameObject(x, y, 1, 1)
 	{
 		color = COLOR::C_LRED;
-		delayToMove = 5;
+		delayToMove = 50;
 		timer = 0;
-
-		detectedCollision = false;
 
 		speedX = 1;
 		speedY = 1;
@@ -31,7 +29,6 @@ namespace pong_in_console
 			savePositionAsPrevious();
 
 			timer = delayToMove;
-			detectedCollision = false;
 
 			applyMovement();
 		}
@@ -46,7 +43,7 @@ namespace pong_in_console
 		ConsoleExt::writeWithColor("O", color);
 	}
 
-	void Ball::changeDirection(bool horizontal, bool vertical)
+	void Ball::invertDirection(bool horizontal, bool vertical)
 	{
 		if (horizontal)
 		{
@@ -58,11 +55,41 @@ namespace pong_in_console
 			speedY = -speedY;
 		}
 	}
-
-	void Ball::setCollisionDetection()
+	void Ball::reactWithCollision(BALL_COLLISION_TYPE ballCollisionType)
 	{
-		detectedCollision = true;
+		bool invertHorizontal = false;
+
+		switch (ballCollisionType)
+		{
+		case BALL_COLLISION_TYPE::PAD_CORNER_LEFT:
+		case BALL_COLLISION_TYPE::PAD_CORNER_RIGHT:
+			invertHorizontal = true;
+			break;
+		}
+
+		invertDirection(invertHorizontal, true);
 	}
+
+	BALL_DIRECTION Ball::getBallDirection()
+	{
+		if (speedX < 0 && speedY < 0)
+		{
+			return BALL_DIRECTION::UP_LEFT;
+		}
+		else if (speedX > 0 && speedY < 0)
+		{
+			return BALL_DIRECTION::UP_RIGHT;
+		}
+		else if (speedX < 0 && speedY > 0)
+		{
+			return BALL_DIRECTION::DOWN_LEFT;
+		}
+		else
+		{
+			return BALL_DIRECTION::DOWN_RIGHT;
+		}
+	}
+
 	void Ball::setMovementLimits(Frame* frame)
 	{
 		externalLimits.up = frame->getUp() + 1;
@@ -71,10 +98,6 @@ namespace pong_in_console
 		externalLimits.right = frame->getRight() - 1;
 	}
 
-	bool Ball::isCollisionDetected()
-	{
-		return detectedCollision;
-	}
 	bool Ball::isTimeToDetectCollision()
 	{
 		return timer == 0;
@@ -93,12 +116,12 @@ namespace pong_in_console
 	{
 		if (!canItGoUp() || !canItGoDown())
 		{
-			changeDirection(false, true);
+			invertDirection(false, true);
 		}
 
 		if (!canItGoLeft() || !canItGoRight())
 		{
-			changeDirection(true, false);
+			invertDirection(true, false);
 		}
 
 		position.x += speedX;

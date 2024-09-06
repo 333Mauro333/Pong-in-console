@@ -19,6 +19,10 @@ namespace pong_in_console
 
 		POSITION getPosition();
 		SIZE getSize();
+		int getUp();
+		int getDown();
+		int getLeft();
+		int getRight();
 
 		void setPosition(POSITION position);
 		void setPosition(int x, int y);
