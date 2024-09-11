@@ -67,6 +67,18 @@
     <Filter Include="src\interface_simulation\limited_element">
       <UniqueIdentifier>{334327bf-88ee-49db-878f-a3a614e83396}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\game_object\block">
+      <UniqueIdentifier>{b9388b49-5826-44f5-9506-4d6e04b60424}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game_values">
+      <UniqueIdentifier>{b7e42c19-3b21-4829-bb67-97969acc11be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game_object\block\destructible_block">
+      <UniqueIdentifier>{fcc1431a-edd8-4c36-87ce-76df80be14a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game_object\block\indestructible_block">
+      <UniqueIdentifier>{27b7070d-78e5-462c-920e-f98b2d2e32e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -119,6 +131,15 @@
     </ClCompile>
     <ClCompile Include="src\interface_simulation\limited_element\limited_element.cpp">
       <Filter>src\interface_simulation\limited_element</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\block\block.cpp">
+      <Filter>src\game_object\block</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_values\game_values.cpp">
+      <Filter>src\game_values</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\block\destructible_block\destructible_block.cpp">
+      <Filter>src\game_object\block\destructible_block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +222,24 @@
       <Filter>src\enums</Filter>
     </ClInclude>
     <ClInclude Include="src\enums\side.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\block\block.h">
+      <Filter>src\game_object\block</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\block_type.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_values\game_values.h">
+      <Filter>src\game_values</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\block\destructible_block\destructible_block.h">
+      <Filter>src\game_object\block\destructible_block</Filter>
+    </ClInclude>
+    <ClInclude Include="src\structs\picture.h">
+      <Filter>src\structs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\direction.h">
       <Filter>src\enums</Filter>
     </ClInclude>
   </ItemGroup>

@@ -149,10 +149,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game_object\ball\ball.cpp" />
+    <ClCompile Include="src\game_object\block\block.cpp" />
+    <ClCompile Include="src\game_object\block\destructible_block\destructible_block.cpp" />
     <ClCompile Include="src\game_object\frame\frame.cpp" />
     <ClCompile Include="src\game_object\game_object.cpp" />
     <ClCompile Include="src\game_object\paddle\paddle.cpp" />
     <ClCompile Include="src\game_object\text\text.cpp" />
+    <ClCompile Include="src\game_values\game_values.cpp" />
     <ClCompile Include="src\interface_simulation\limited_element\limited_element.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\collision_manager\collision_manager.cpp" />
@@ -169,6 +172,8 @@
   <ItemGroup>
     <ClInclude Include="src\enums\ball_collision_type.h" />
     <ClInclude Include="src\enums\ball_direction.h" />
+    <ClInclude Include="src\enums\block_type.h" />
+    <ClInclude Include="src\enums\direction.h" />
     <ClInclude Include="src\enums\side.h" />
     <ClInclude Include="src\enums\gameplay_controls.h" />
     <ClInclude Include="src\enums\menu_controls.h" />
@@ -176,10 +181,13 @@
     <ClInclude Include="src\enums\scene_to_load.h" />
     <ClInclude Include="src\enums\sfx_to_play.h" />
     <ClInclude Include="src\game_object\ball\ball.h" />
+    <ClInclude Include="src\game_object\block\block.h" />
+    <ClInclude Include="src\game_object\block\destructible_block\destructible_block.h" />
     <ClInclude Include="src\game_object\frame\frame.h" />
     <ClInclude Include="src\game_object\game_object.h" />
     <ClInclude Include="src\game_object\paddle\paddle.h" />
     <ClInclude Include="src\game_object\text\text.h" />
+    <ClInclude Include="src\game_values\game_values.h" />
     <ClInclude Include="src\interface_simulation\limited_element\limited_element.h" />
     <ClInclude Include="src\managers\collision_manager\collision_manager.h" />
     <ClInclude Include="src\managers\controls_manager\controls_manager.h" />
@@ -192,6 +200,7 @@
     <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h" />
     <ClInclude Include="src\scene\scene.h" />
     <ClInclude Include="src\structs\limits.h" />
+    <ClInclude Include="src\structs\picture.h" />
     <ClInclude Include="src\structs\position.h" />
     <ClInclude Include="src\structs\size.h" />
   </ItemGroup>

@@ -17,6 +17,10 @@ namespace pong_in_console
 		void erase();
 		virtual void draw() = 0;
 
+		void activate();
+		void deactivate();
+
+		bool getIsActive();
 		POSITION getPosition();
 		SIZE getSize();
 		int getUp();
@@ -30,6 +34,7 @@ namespace pong_in_console
 		void setSize(int w, int h);
 
 	protected:
+		bool isActive;
 		POSITION position;
 		SIZE size;
 

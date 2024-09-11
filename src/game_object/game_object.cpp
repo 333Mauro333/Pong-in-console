@@ -16,6 +16,7 @@ namespace pong_in_console
 
 		position = { x, y };
 		size = { 1, 1 };
+		isActive = true;
 	}
 	GameObject::GameObject(int x, int y, int w, int h)
 	{
@@ -23,6 +24,7 @@ namespace pong_in_console
 
 		position = { x, y };
 		size = { w, h };
+		isActive = true;
 	}
 	GameObject::~GameObject()
 	{
@@ -45,6 +47,22 @@ namespace pong_in_console
 		}
 	}
 
+	void GameObject::activate()
+	{
+		isActive = true;
+	}
+	void GameObject::deactivate()
+	{
+		isActive = false;
+		
+		ConsoleExt::goToCoordinates(position.x, position.y);
+		cout << " ";
+	}
+
+	bool GameObject::getIsActive()
+	{
+		return isActive;
+	}
 	POSITION GameObject::getPosition()
 	{
 		return position;

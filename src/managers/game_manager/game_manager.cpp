@@ -4,6 +4,7 @@
 
 #include "mgtv_library.h"
 
+#include "game_values/game_values.h"
 #include "managers/music_manager/music_manager.h"
 
 using std::thread;
@@ -42,8 +43,9 @@ namespace pong_in_console
 	{
 		ConsoleExt::hideCursor();
 		ConsoleExt::setConsoleTitle(title);
-		Scene::setBackgroundColor(COLOR::C_BLUE);
 		MusicManager::initMusic();
+		GameValues::initValues();
+		Scene::setBackgroundColor(COLOR::C_BLUE);
 		SceneManager::loadScene(sceneToLoad);
 	}
 	void GameManager::inputUpdate()
