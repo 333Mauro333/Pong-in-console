@@ -3,7 +3,6 @@
 
 #include <vector>
 
-#include "enums/ball_collision_type.h"
 #include "enums/direction.h"
 #include "enums/side.h"
 #include "game_object/ball/ball.h"
@@ -18,17 +17,21 @@ namespace pong_in_console
 	class CollisionManager
 	{
 	public:
-		static BALL_COLLISION_TYPE getBallCollisionType(Paddle* paddle, Ball* ball);
 		static void applyCollisionBetweenBallAndBlocks(Ball* ball, Block* blocks[], int blocksAmount);
+		static void applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle);
 
 	private:
+		static  vector<Block*> getCollidedBlocks(Ball* ball, Block* levelBlocks[], int blocksAmount);
+		static bool isTheBallGoingInThatDirection(Ball* ball, BALL_DIRECTION direction);
+		static bool isTheBlockInBallSRange(Ball* ball, Block* block, SIDE side);
+		static bool isThereBlocks(vector<Block*> vectorBlock, int searchedAmount);
+		static void makeTheBallAndOneBlockReact(Ball* ball, Block* block);
+		static bool isTheBallAdjacentToTheBlock(Ball* ball, Block* block, DIRECTION searchedDirection);
+		static bool isDestructible(Block* block);
+
 		static bool isTheBallInPaddleRange(Paddle* paddle, Ball* ball);
 		static bool ballCollidesInPaddleCorner(Paddle* paddle, Ball* ball, SIDE direction);
 		static bool isTheBallOverThePaddle(Paddle* paddle, Ball* ball);
-
-		static bool isTheBallAdjacentToTheBlock(Ball* ball, Block* block, DIRECTION directionToKnow);
-		static bool isThereBlocks(vector<Block*> vectorBlock, int searchedAmount);
-		static bool isDestructible(Block* block);
 	};
 }
 

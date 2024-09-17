@@ -14,15 +14,15 @@ namespace pong_in_console
 	{
 		const int frameWidth = 80;
 		const int frameHeight = 20;
-		//MusicManager::play(MUSIC_TO_PLAY::MAIN_MENU);
+
 
 		player = new Paddle(50, 20);
-		ball = new Ball(52, 12);
+		ball = new Ball(57, 18, BALL_DIRECTION::UP_LEFT);
 		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
 						  frameWidth, frameHeight, COLOR::C_BWHITE);
 		
-		blocks[0] = new DestructibleBlock(62, 15, BLOCK_TYPE::B_BLUE);
+		blocks[0] = new DestructibleBlock(55, 15, BLOCK_TYPE::B_INDESTRUCTIBLE);
 
 		player->setMovementLimits(frame);
 		ball->setMovementLimits(frame);
@@ -33,6 +33,7 @@ namespace pong_in_console
 		delete player;
 		delete ball;
 	}
+
 
 	void Gameplay::inputUpdate(int key)
 	{
@@ -70,13 +71,7 @@ namespace pong_in_console
 
 	void Gameplay::checkBallCollisions()
 	{
-		BALL_COLLISION_TYPE ballCollisionType = CollisionManager::getBallCollisionType(player, ball);
-
-		if (ballCollisionType != BALL_COLLISION_TYPE::NONE)
-		{
-			ball->reactWithCollision(ballCollisionType);
-		}
-
 		CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks, blocksAmount);
+		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
 	}
 }

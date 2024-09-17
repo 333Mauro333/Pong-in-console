@@ -3,7 +3,7 @@
 
 namespace pong_in_console
 {
-	enum class SIDE { LEFT, RIGHT };
+	enum class SIDE { UP, DOWN, LEFT, RIGHT };
 }
 
 #endif // !SIDE_H

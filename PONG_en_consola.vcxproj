@@ -170,7 +170,6 @@
     <ClCompile Include="src\scene\scene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\enums\ball_collision_type.h" />
     <ClInclude Include="src\enums\ball_direction.h" />
     <ClInclude Include="src\enums\block_type.h" />
     <ClInclude Include="src\enums\direction.h" />

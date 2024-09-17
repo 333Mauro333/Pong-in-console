@@ -3,7 +3,6 @@
 
 #include "mgtv_library.h"
 
-#include "enums/ball_collision_type.h"
 #include "enums/ball_direction.h"
 #include "game_object/frame/frame.h"
 #include "game_object/game_object.h"
@@ -18,14 +17,13 @@ namespace pong_in_console
 	class Ball : public GameObject, public LimitedElement
 	{
 	public:
-		Ball(int x, int y);
+		Ball(int x, int y, BALL_DIRECTION ballDirection = BALL_DIRECTION::DOWN_RIGHT);
 		~Ball();
 
 		void update();
 		void draw() override;
 
 		void invertDirection(bool horizontal, bool vertical);
-		void reactWithCollision(BALL_COLLISION_TYPE ballCollisionType);
 
 		BALL_DIRECTION getBallDirection();
 		void setMovementLimits(Frame* frame) override;

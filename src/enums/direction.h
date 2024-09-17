@@ -4,9 +4,9 @@
 namespace pong_in_console
 {
 	enum class DIRECTION { NONE,
-						   LEFT_TOP,    CENTER_TOP,    RIGHT_TOP,
-						   LEFT_MIDDLE, CENTER_MIDDLE, RIGHT_MIDDLE,
-						   LEFT_BOT,    CENTER_BOT,    RIGHT_BOT };
+						   UPPER_LEFT,  UPPER_CENTER,  UPPER_RIGHT,
+						   MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT,
+						   LOWER_LEFT,  LOWER_CENTER,  LOWER_RIGHT };
 }
 
 #endif // !DIRECTION_H

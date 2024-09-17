@@ -218,9 +218,6 @@
     <ClInclude Include="src\enums\ball_direction.h">
       <Filter>src\enums</Filter>
     </ClInclude>
-    <ClInclude Include="src\enums\ball_collision_type.h">
-      <Filter>src\enums</Filter>
-    </ClInclude>
     <ClInclude Include="src\enums\side.h">
       <Filter>src\enums</Filter>
     </ClInclude>

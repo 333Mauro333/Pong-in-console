@@ -3,61 +3,19 @@
 
 namespace pong_in_console
 {
-	BALL_COLLISION_TYPE CollisionManager::getBallCollisionType(Paddle* paddle, Ball* ball)
-	{
-		if (isTheBallInPaddleRange(paddle, ball))
-		{
-			if (ballCollidesInPaddleCorner(paddle, ball, SIDE::LEFT))
-			{
-				return BALL_COLLISION_TYPE::PAD_CORNER_LEFT;
-			}
-			else if (ballCollidesInPaddleCorner(paddle, ball, SIDE::RIGHT))
-			{
-				return BALL_COLLISION_TYPE::PAD_CORNER_RIGHT;
-			}
-			else if (isTheBallOverThePaddle(paddle, ball))
-			{
-				return BALL_COLLISION_TYPE::PAD_SURFACE;
-			}
-		}
-
-		return BALL_COLLISION_TYPE::NONE;
-	}
 	void CollisionManager::applyCollisionBetweenBallAndBlocks(Ball* ball, Block* blocks[], int blocksAmount)
 	{
-		if (ball->isTimeToDetectCollision() && ball->getBallDirection() == BALL_DIRECTION::UP_RIGHT)
+		if (ball->isTimeToDetectCollision())
 		{
-			vector<Block*> blocksVector = vector<Block*>();
-			vector<DIRECTION> directionsVector = vector<DIRECTION>();
-			const int directionsAmount = 9;
+			vector<Block*> collidedBlocksVector = vector<Block*>();
 
-			for (int i = 0; i < blocksAmount; i++)
+			collidedBlocksVector = getCollidedBlocks(ball, blocks, blocksAmount);
+
+			if (isThereBlocks(collidedBlocksVector, 1))
 			{
-				if (blocks[i]->getPosition().x >= ball->getPosition().x - 1 &&
-					blocks[i]->getPosition().x <= ball->getPosition().x + 1 &&
-					blocks[i]->getPosition().y >= ball->getPosition().y - 1 &&
-					blocks[i]->getPosition().y <= ball->getPosition().y)
-				{
-					blocksVector.push_back(blocks[i]);
-				}
-			}
+				Block* collidedBlock = collidedBlocksVector[0];
 
-			if (isThereBlocks(blocksVector, 1))
-			{
-				Block* collidedBlock = blocksVector[0];
-
-				if (isTheBallAdjacentToTheBlock(ball, collidedBlock, DIRECTION::CENTER_TOP))
-				{
-					ball->invertDirection(false, true);
-				}
-				else if (isTheBallAdjacentToTheBlock(ball, collidedBlock, DIRECTION::RIGHT_TOP))
-				{
-					ball->invertDirection(true, true);
-				}
-				else if (isTheBallAdjacentToTheBlock(ball, collidedBlock, DIRECTION::RIGHT_MIDDLE))
-				{
-					ball->invertDirection(true, false);
-				}
+				makeTheBallAndOneBlockReact(ball, collidedBlock);
 
 				if (isDestructible(collidedBlock))
 				{
@@ -66,74 +24,59 @@ namespace pong_in_console
 			}
 		}
 	}
-
-	bool CollisionManager::isTheBallInPaddleRange(Paddle* paddle, Ball* ball)
+	void CollisionManager::applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle)
 	{
-		return ball->isItGoingDown() && ball->isTimeToDetectCollision() &&
-			   ball->getIsActive() && paddle->getIsActive() &&
-			   ball->getPosition().y == paddle->getPosition().y - 1 &&
-			   ball->getPosition().x >= paddle->getLeft() - 1 &&
-			   ball->getPosition().x <= paddle->getRight() + 1;
-	}
-	bool CollisionManager::ballCollidesInPaddleCorner(Paddle* paddle, Ball* ball, SIDE direction)
-	{
-		switch (direction)
+		if (ballCollidesInPaddleCorner(paddle, ball, SIDE::LEFT) ||
+			ballCollidesInPaddleCorner(paddle, ball, SIDE::RIGHT))
 		{
-		case SIDE::LEFT:
-			return ball->getPosition().x == paddle->getLeft() - 1 &&
-				   ball->isItGoingRight();
-
-		case SIDE::RIGHT:
-		default:
-			return ball->getPosition().x == paddle->getRight() + 1 &&
-				   !ball->isItGoingRight();
+			ball->invertDirection(true, true);
+		}
+		else if (isTheBallOverThePaddle(paddle, ball))
+		{
+			ball->invertDirection(false, true);
 		}
 	}
-	bool CollisionManager::isTheBallOverThePaddle(Paddle* paddle, Ball* ball)
-	{
-		return ball->getPosition().x >= paddle->getLeft() &&
-			   ball->getPosition().x <= paddle->getRight();
-	}
 
-	bool CollisionManager::isTheBallAdjacentToTheBlock(Ball* ball, Block* block, DIRECTION directionToKnow)
+	vector<Block*> CollisionManager::getCollidedBlocks(Ball* ball, Block* levelBlocks[], int blocksAmount)
 	{
-		switch (directionToKnow)
+		vector<Block*> detectedBlocks = vector<Block*>();
+		SIDE sideToRevise = SIDE::UP;
+
+		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT) ||
+			isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
-		case DIRECTION::LEFT_TOP:
-			return block->getPosition().x == ball->getPosition().x - 1 &&
-				   block->getPosition().y == ball->getPosition().y - 1;
+			sideToRevise = SIDE::DOWN;
+		}
 
-		case DIRECTION::CENTER_TOP:
-			return block->getPosition().x == ball->getPosition().x &&
-				   block->getPosition().y == ball->getPosition().y - 1;
+		for (int i = 0; i < blocksAmount; i++)
+		{
+			if (isTheBlockInBallSRange(ball, levelBlocks[i], sideToRevise))
+			{
+				detectedBlocks.push_back(levelBlocks[i]);
+			}
+		}
 
-		case DIRECTION::RIGHT_TOP:
-			return block->getPosition().x == ball->getPosition().x + 1 &&
-				   block->getPosition().y == ball->getPosition().y - 1;
+		return detectedBlocks;
+	}
+	bool CollisionManager::isTheBallGoingInThatDirection(Ball* ball, BALL_DIRECTION direction)
+	{
+		return ball->getBallDirection() == direction;
+	}
+	bool CollisionManager::isTheBlockInBallSRange(Ball* ball, Block* block, SIDE side)
+	{
+		switch (side)
+		{
+		case SIDE::UP:
+			return block->getPosition().x >= ball->getPosition().x - 1 &&
+				   block->getPosition().x <= ball->getPosition().x + 1 &&
+				   block->getPosition().y >= ball->getPosition().y - 1 &&
+				   block->getPosition().y <= ball->getPosition().y;
 
-		case DIRECTION::LEFT_MIDDLE:
-			return block->getPosition().x == ball->getPosition().x - 1 &&
-				   block->getPosition().y == ball->getPosition().y;
-
-		case DIRECTION::CENTER_MIDDLE:
-			return block->getPosition().x == ball->getPosition().x &&
-				   block->getPosition().y == ball->getPosition().y;
-
-		case DIRECTION::RIGHT_MIDDLE:
-			return block->getPosition().x == ball->getPosition().x + 1 &&
-				   block->getPosition().y == ball->getPosition().y;
-
-		case DIRECTION::LEFT_BOT:
-			return block->getPosition().x == ball->getPosition().x - 1 &&
-				   block->getPosition().y == ball->getPosition().y + 1;
-
-		case DIRECTION::CENTER_BOT:
-			return block->getPosition().x == ball->getPosition().x &&
-				   block->getPosition().y == ball->getPosition().y + 1;
-
-		case DIRECTION::RIGHT_BOT:
-			return block->getPosition().x == ball->getPosition().x + 1 &&
-				   block->getPosition().y == ball->getPosition().y + 1;
+		case SIDE::DOWN:
+			return block->getPosition().x >= ball->getPosition().x - 1 &&
+				   block->getPosition().x <= ball->getPosition().x + 1 &&
+				   block->getPosition().y >= ball->getPosition().y &&
+				   block->getPosition().y <= ball->getPosition().y + 1;
 
 		default:
 			return false;
@@ -143,8 +86,162 @@ namespace pong_in_console
 	{
 		return vectorBlock.size() == searchedAmount;
 	}
+	void CollisionManager::makeTheBallAndOneBlockReact(Ball* ball, Block* block)
+	{
+		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		{
+			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_CENTER))
+			{
+				ball->invertDirection(false, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_RIGHT))
+			{
+				ball->invertDirection(true, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
+			{
+				ball->invertDirection(true, false);
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		{
+			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_CENTER))
+			{
+				ball->invertDirection(false, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_LEFT))
+			{
+				ball->invertDirection(true, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_LEFT))
+			{
+				ball->invertDirection(true, false);
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		{
+			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_CENTER))
+			{
+				ball->invertDirection(false, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_RIGHT))
+			{
+				ball->invertDirection(true, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
+			{
+				ball->invertDirection(true, false);
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		{
+			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_CENTER))
+			{
+				ball->invertDirection(false, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_LEFT))
+			{
+				ball->invertDirection(true, true);
+			}
+			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_LEFT))
+			{
+				ball->invertDirection(true, false);
+			}
+		}
+	}
+	bool CollisionManager::isTheBallAdjacentToTheBlock(Ball* ball, Block* block, DIRECTION searchedDirection)
+	{
+		switch (searchedDirection)
+		{
+		case DIRECTION::UPPER_LEFT:
+			return block->getPosition().x == ball->getPosition().x - 1 &&
+				   block->getPosition().y == ball->getPosition().y - 1;
+
+		case DIRECTION::UPPER_CENTER:
+			return block->getPosition().x == ball->getPosition().x &&
+				   block->getPosition().y == ball->getPosition().y - 1;
+
+		case DIRECTION::UPPER_RIGHT:
+			return block->getPosition().x == ball->getPosition().x + 1 &&
+				   block->getPosition().y == ball->getPosition().y - 1;
+
+		case DIRECTION::MIDDLE_LEFT:
+			return block->getPosition().x == ball->getPosition().x - 1 &&
+				   block->getPosition().y == ball->getPosition().y;
+
+		case DIRECTION::MIDDLE_CENTER:
+			return block->getPosition().x == ball->getPosition().x &&
+				   block->getPosition().y == ball->getPosition().y;
+
+		case DIRECTION::MIDDLE_RIGHT:
+			return block->getPosition().x == ball->getPosition().x + 1 &&
+				   block->getPosition().y == ball->getPosition().y;
+
+		case DIRECTION::LOWER_LEFT:
+			return block->getPosition().x == ball->getPosition().x - 1 &&
+				   block->getPosition().y == ball->getPosition().y + 1;
+
+		case DIRECTION::LOWER_CENTER:
+			return block->getPosition().x == ball->getPosition().x &&
+				   block->getPosition().y == ball->getPosition().y + 1;
+
+		case DIRECTION::LOWER_RIGHT:
+			return block->getPosition().x == ball->getPosition().x + 1 &&
+				   block->getPosition().y == ball->getPosition().y + 1;
+
+		default:
+			return false;
+		}
+	}
 	bool CollisionManager::isDestructible(Block* block)
 	{
 		return block->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE;
+	}
+
+	bool CollisionManager::isTheBallInPaddleRange(Paddle* paddle, Ball* ball)
+	{
+		return ball->isTimeToDetectCollision() && ball->isItGoingDown() &&
+			   ball->getIsActive() && paddle->getIsActive() &&
+			   ball->getPosition().y == paddle->getPosition().y - 1 &&
+			   ball->getPosition().x >= paddle->getLeft() - 1 &&
+			   ball->getPosition().x <= paddle->getRight() + 1;
+	}
+	bool CollisionManager::ballCollidesInPaddleCorner(Paddle* paddle, Ball* ball, SIDE direction)
+	{
+		int paddleLeft = paddle->getLeft();
+		int paddleRight = paddle->getRight();
+		int paddleY = paddle->getPosition().y;
+
+		int ballX = ball->getPosition().x;
+		int ballY = ball->getPosition().y;
+
+
+		switch (direction)
+		{
+		case SIDE::LEFT:
+			return ball->isItGoingRight() &&
+				   ballX == paddleLeft - 1 && ballY == paddleY - 1;
+
+		case SIDE::RIGHT:
+			return !ball->isItGoingRight() &&
+				   ballX == paddleRight + 1 && ballY == paddleY - 1;
+
+		default:
+			return false;
+		}
+	}
+	bool CollisionManager::isTheBallOverThePaddle(Paddle* paddle, Ball* ball)
+	{
+		int paddleLeft = paddle->getLeft();
+		int paddleRight = paddle->getRight();
+		int paddleY = paddle->getPosition().y;
+
+		int ballX = ball->getPosition().x;
+		int ballY = ball->getPosition().y;
+
+
+		return ballY == paddleY - 1 &&
+			   ballX >= paddleLeft &&
+			   ballX <= paddleRight;
 	}
 }

@@ -5,14 +5,35 @@ using mgtv_library::console::ConsoleExt;
 
 namespace pong_in_console
 {
-	Ball::Ball(int x, int y) : GameObject(x, y, 1, 1)
+	Ball::Ball(int x, int y, BALL_DIRECTION ballDirection) : GameObject(x, y, 1, 1)
 	{
 		color = COLOR::C_LRED;
 		delayToMove = 50;
 		timer = 0;
 
-		speedX = 1;
-		speedY = 1;
+		switch (ballDirection)
+		{
+		case BALL_DIRECTION::UP_LEFT:
+			speedX = -1;
+			speedY = -1;
+			break;
+
+		case BALL_DIRECTION::UP_RIGHT:
+			speedX = 1;
+			speedY = -1;
+			break;
+
+		case BALL_DIRECTION::DOWN_LEFT:
+			speedX = -1;
+			speedY = 1;
+			break;
+
+		case BALL_DIRECTION::DOWN_RIGHT:
+		default:
+			speedX = 1;
+			speedY = 1;
+			break;
+		}
 
 		externalLimits = {};
 	}
@@ -54,20 +75,6 @@ namespace pong_in_console
 		{
 			speedY = -speedY;
 		}
-	}
-	void Ball::reactWithCollision(BALL_COLLISION_TYPE ballCollisionType)
-	{
-		bool invertHorizontal = false;
-
-		switch (ballCollisionType)
-		{
-		case BALL_COLLISION_TYPE::PAD_CORNER_LEFT:
-		case BALL_COLLISION_TYPE::PAD_CORNER_RIGHT:
-			invertHorizontal = true;
-			break;
-		}
-
-		invertDirection(invertHorizontal, true);
 	}
 
 	BALL_DIRECTION Ball::getBallDirection()
