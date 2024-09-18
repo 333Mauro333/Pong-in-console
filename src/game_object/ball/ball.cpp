@@ -8,7 +8,7 @@ namespace pong_in_console
 	Ball::Ball(int x, int y, BALL_DIRECTION ballDirection) : GameObject(x, y, 1, 1)
 	{
 		color = COLOR::C_LRED;
-		delayToMove = 50;
+		delayToMove = 10;
 		timer = 0;
 
 		switch (ballDirection)
@@ -35,7 +35,10 @@ namespace pong_in_console
 			break;
 		}
 
-		externalLimits = {};
+		externalLimits.up = 0;
+		externalLimits.down = ConsoleExt::getScreenHeight() - 1;
+		externalLimits.left = 0;
+		externalLimits.right = ConsoleExt::getScreenWidth() - 1;
 	}
 	Ball::~Ball()
 	{
@@ -159,19 +162,13 @@ namespace pong_in_console
 
 	void Ball::applyMovement()
 	{
-		if (!canItGoUp() || !canItGoDown())
-		{
-			invertDirection(false, true);
-		}
-
-		if (!canItGoLeft() || !canItGoRight())
-		{
-			invertDirection(true, false);
-		}
-
 		position.x += speedX;
 		position.y += speedY;
 
+		redirectInLimits();
+	}
+	void Ball::redirectInLimits()
+	{
 		if (!canItGoUp() || !canItGoDown())
 		{
 			invertDirection(false, true);

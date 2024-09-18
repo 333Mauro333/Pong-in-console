@@ -12,6 +12,8 @@ namespace pong_in_console
 		DestructibleBlock(int x, int y, BLOCK_TYPE blockType);
 		~DestructibleBlock();
 
+		void reactToTheBall() override;
+
 		int getPointsValue();
 
 	private:

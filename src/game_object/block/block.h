@@ -20,6 +20,8 @@ namespace pong_in_console
 
 		void draw() override;
 
+		virtual void reactToTheBall() = 0;
+
 		BLOCK_TYPE getBlockType();
 
 	protected:

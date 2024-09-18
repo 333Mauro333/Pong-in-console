@@ -15,6 +15,11 @@ namespace pong_in_console
 	}
 
 
+	void DestructibleBlock::reactToTheBall()
+	{
+		deactivate();
+	}
+
 	int DestructibleBlock::getPointsValue()
 	{
 		return pointsValue;

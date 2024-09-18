@@ -17,12 +17,13 @@ namespace pong_in_console
 
 
 		player = new Paddle(85, 20);
-		ball = new Ball(96, 18, BALL_DIRECTION::UP_RIGHT);
+		ball = new Ball(57, 11, BALL_DIRECTION::UP_LEFT);
 		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
 						  frameWidth, frameHeight, COLOR::C_BWHITE);
 		
-		blocks[0] = new DestructibleBlock(97, 15, BLOCK_TYPE::B_INDESTRUCTIBLE);
+		blocks[0] = new DestructibleBlock(70, 7, BLOCK_TYPE::B_GREEN);
+		blocks[1] = new DestructibleBlock(50, 8, BLOCK_TYPE::B_GREEN);
 
 		player->setMovementLimits(frame);
 		ball->setMovementLimits(frame);
@@ -32,6 +33,11 @@ namespace pong_in_console
 		delete frame;
 		delete player;
 		delete ball;
+
+		for (int i = 0; i < blocksAmount; i++)
+		{
+			delete blocks[i];
+		}
 	}
 
 

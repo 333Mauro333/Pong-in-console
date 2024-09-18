@@ -16,11 +16,10 @@ namespace pong_in_console
 				Block* collidedBlock = collidedBlocksVector[0];
 
 				makeTheBallAndOneBlockReact(ball, collidedBlock);
-
-				if (isDestructible(collidedBlock))
-				{
-					collidedBlock->deactivate();
-				}
+			}
+			else if (isThereBlocks(collidedBlocksVector, 2))
+			{
+				makeTheBallAndTwoBlocksReact(ball, collidedBlocksVector);
 			}
 		}
 	}
@@ -54,17 +53,11 @@ namespace pong_in_console
 	vector<Block*> CollisionManager::getCollidedBlocks(Ball* ball, Block* levelBlocks[], int blocksAmount)
 	{
 		vector<Block*> detectedBlocks = vector<Block*>();
-		SIDE sideToRevise = SIDE::UP;
-
-		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT) ||
-			isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
-		{
-			sideToRevise = SIDE::DOWN;
-		}
 
 		for (int i = 0; i < blocksAmount; i++)
 		{
-			if (isTheBlockInBallSRange(ball, levelBlocks[i], sideToRevise))
+			if (levelBlocks[i]->getIsActive() &&
+				isTheBlockInBallSRange(ball, levelBlocks[i]))
 			{
 				detectedBlocks.push_back(levelBlocks[i]);
 			}
@@ -76,25 +69,12 @@ namespace pong_in_console
 	{
 		return ball->getBallDirection() == direction;
 	}
-	bool CollisionManager::isTheBlockInBallSRange(Ball* ball, Block* block, SIDE side)
+	bool CollisionManager::isTheBlockInBallSRange(Ball* ball, Block* block)
 	{
-		switch (side)
-		{
-		case SIDE::UP:
-			return block->getPosition().x >= ball->getPosition().x - 1 &&
-				   block->getPosition().x <= ball->getPosition().x + 1 &&
-				   block->getPosition().y >= ball->getPosition().y - 1 &&
-				   block->getPosition().y <= ball->getPosition().y;
-
-		case SIDE::DOWN:
-			return block->getPosition().x >= ball->getPosition().x - 1 &&
-				   block->getPosition().x <= ball->getPosition().x + 1 &&
-				   block->getPosition().y >= ball->getPosition().y &&
-				   block->getPosition().y <= ball->getPosition().y + 1;
-
-		default:
-			return false;
-		}
+		return block->getPosition().x >= ball->getPosition().x - 1 &&
+			   block->getPosition().x <= ball->getPosition().x + 1 &&
+			   block->getPosition().y >= ball->getPosition().y - 1 &&
+			   block->getPosition().y <= ball->getPosition().y + 1;
 	}
 	bool CollisionManager::isThereBlocks(vector<Block*> vectorBlock, int searchedAmount)
 	{
@@ -104,66 +84,302 @@ namespace pong_in_console
 	{
 		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
-			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_CENTER))
+			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_CENTER))
 			{
-				ball->invertDirection(false, true);
+				reactBallAndBlock(ball, block, false, true);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_RIGHT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_RIGHT))
 			{
-				ball->invertDirection(true, true);
+				bool invertHorizontal = true;
+
+				if (!ball->canItGoLeft())
+				{
+					invertHorizontal = false;
+				}
+
+				reactBallAndBlock(ball, block, invertHorizontal, true);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
 			{
-				ball->invertDirection(true, false);
+				reactBallAndBlock(ball, block, true, false);
 			}
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
-			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_CENTER))
+			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_CENTER))
 			{
-				ball->invertDirection(false, true);
+				reactBallAndBlock(ball, block, false, true);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::UPPER_LEFT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_LEFT))
 			{
-				ball->invertDirection(true, true);
+				bool invertHorizontal = true;
+
+				if (!ball->canItGoRight())
+				{
+					invertHorizontal = false;
+				}
+
+				reactBallAndBlock(ball, block, invertHorizontal, true);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_LEFT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_LEFT))
 			{
-				ball->invertDirection(true, false);
+				reactBallAndBlock(ball, block, true, false);
 			}
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
-			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_CENTER))
+			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_CENTER))
 			{
-				ball->invertDirection(false, true);
+				reactBallAndBlock(ball, block, false, true);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_RIGHT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_RIGHT))
 			{
-				ball->invertDirection(true, true);
+				bool invertHorizontal = true;
+				bool invertVertical = true;
+
+				if (!ball->canItGoLeft())
+				{
+					invertHorizontal = false;
+				}
+
+				if (!ball->canItGoUp())
+				{
+					invertVertical = false;
+				}
+
+				reactBallAndBlock(ball, block, invertHorizontal, invertVertical);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
 			{
-				ball->invertDirection(true, false);
+				reactBallAndBlock(ball, block, true, false);
 			}
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
-			if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_CENTER))
+			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_CENTER))
 			{
-				ball->invertDirection(false, true);
+				reactBallAndBlock(ball, block, false, true);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::LOWER_LEFT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_LEFT))
 			{
-				ball->invertDirection(true, true);
+				bool invertHorizontal = true;
+				bool invertVertical = true;
+
+				if (!ball->canItGoRight())
+				{
+					invertHorizontal = false;
+				}
+
+				if (!ball->canItGoUp())
+				{
+					invertVertical = false;
+				}
+
+				reactBallAndBlock(ball, block, invertHorizontal, invertVertical);
 			}
-			else if (isTheBallAdjacentToTheBlock(ball, block, DIRECTION::MIDDLE_LEFT))
+			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_LEFT))
 			{
-				ball->invertDirection(true, false);
+				reactBallAndBlock(ball, block, true, false);
 			}
 		}
 	}
-	bool CollisionManager::isTheBallAdjacentToTheBlock(Ball* ball, Block* block, DIRECTION searchedDirection)
+	void CollisionManager::makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks)
+	{
+		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		{
+			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
+			{
+				ball->invertDirection(false, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
+			{
+				ball->invertDirection(false, true);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[0]->reactToTheBall();
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		{
+			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
+			{
+				ball->invertDirection(false, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
+			{
+				ball->invertDirection(false, true);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[0]->reactToTheBall();
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		{
+			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			{
+				ball->invertDirection(false, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(false, true);
+				blocks[0]->reactToTheBall();
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		{
+			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			{
+				ball->invertDirection(true, false);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				reactAllBlocks(blocks);
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			{
+				ball->invertDirection(false, true);
+				blocks[1]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[0]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(false, true);
+				blocks[0]->reactToTheBall();
+			}
+		}
+	}
+
+	bool CollisionManager::isTheBallAdjacentToOneBlock(Ball* ball, Block* block, DIRECTION searchedDirection)
 	{
 		switch (searchedDirection)
 		{
@@ -207,9 +423,10 @@ namespace pong_in_console
 			return false;
 		}
 	}
-	bool CollisionManager::isDestructible(Block* block)
+	bool CollisionManager::isTheBallAdjacentToTwoBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
 	{
-		return block->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE;
+		return isTheBallAdjacentToOneBlock(ball, blocks[0], searchedDirections[0]) &&
+			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]);
 	}
 
 	bool CollisionManager::isTheBallInsideThePaddle(Ball* ball, Paddle* paddle, SIDE cornerSide)
@@ -278,5 +495,20 @@ namespace pong_in_console
 		return ballY == paddleY - 1 &&
 			   ballX >= paddleLeft &&
 			   ballX <= paddleRight;
+	}
+	void CollisionManager::reactBallAndBlock(Ball* ball, Block* block, bool invertHorizontal, bool invertVertical)
+	{
+		ball->invertDirection(invertHorizontal, invertVertical);
+		block->reactToTheBall();
+	}
+	void CollisionManager::reactAllBlocks(vector<Block*> blocks)
+	{
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			if (blocks[i]->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE)
+			{
+				blocks[i]->deactivate();
+			}
+		}
 	}
 }

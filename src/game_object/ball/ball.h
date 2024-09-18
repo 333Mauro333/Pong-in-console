@@ -23,6 +23,7 @@ namespace pong_in_console
 		void update();
 		void draw() override;
 
+		void redirectInLimits();
 		void invertDirection(bool horizontal, bool vertical);
 		void setDirection(BALL_DIRECTION ballDirection);
 
@@ -33,6 +34,10 @@ namespace pong_in_console
 		bool isTimeToDetectCollision();
 		bool isItGoingDown();
 		bool isItGoingRight();
+		bool canItGoUp();
+		bool canItGoDown();
+		bool canItGoLeft();
+		bool canItGoRight();
 
 	private:
 		COLOR color;
@@ -45,11 +50,6 @@ namespace pong_in_console
 		LIMITS externalLimits;
 
 		void applyMovement();
-
-		bool canItGoUp();
-		bool canItGoDown();
-		bool canItGoLeft();
-		bool canItGoRight();
 	};
 }
 
