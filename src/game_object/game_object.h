@@ -28,8 +28,8 @@ namespace pong_in_console
 		int getLeft();
 		int getRight();
 
-		void setPosition(POSITION position);
-		void setPosition(int x, int y);
+		virtual void setPosition(POSITION position);
+		virtual void setPosition(int x, int y);
 		void setSize(SIZE position);
 		void setSize(int w, int h);
 

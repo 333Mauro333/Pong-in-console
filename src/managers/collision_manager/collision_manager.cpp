@@ -26,14 +26,28 @@ namespace pong_in_console
 	}
 	void CollisionManager::applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle)
 	{
-		if (ballCollidesInPaddleCorner(paddle, ball, SIDE::LEFT) ||
-			ballCollidesInPaddleCorner(paddle, ball, SIDE::RIGHT))
+		if (paddle->itMovedInThisFrame(SIDE::LEFT) &&
+			isTheBallInsideThePaddle(ball, paddle, SIDE::LEFT))
 		{
-			ball->invertDirection(true, true);
+			setReactionOfTheBallByThePaddle(ball, paddle, BALL_DIRECTION::UP_LEFT);
 		}
-		else if (isTheBallOverThePaddle(paddle, ball))
+		else if (paddle->itMovedInThisFrame(SIDE::RIGHT) &&
+				 isTheBallInsideThePaddle(ball, paddle, SIDE::RIGHT))
 		{
-			ball->invertDirection(false, true);
+			setReactionOfTheBallByThePaddle(ball, paddle, BALL_DIRECTION::UP_RIGHT);
+		}
+
+		if (ball->isTimeToDetectCollision() && ball->isItGoingDown())
+		{
+			if (ballCollidesInPaddleCorner(paddle, ball, SIDE::LEFT) ||
+				ballCollidesInPaddleCorner(paddle, ball, SIDE::RIGHT))
+			{
+				ball->invertDirection(true, true);
+			}
+			else if (isTheBallOverThePaddle(paddle, ball))
+			{
+				ball->invertDirection(false, true);
+			}
 		}
 	}
 
@@ -198,13 +212,34 @@ namespace pong_in_console
 		return block->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE;
 	}
 
-	bool CollisionManager::isTheBallInPaddleRange(Paddle* paddle, Ball* ball)
+	bool CollisionManager::isTheBallInsideThePaddle(Ball* ball, Paddle* paddle, SIDE cornerSide)
 	{
-		return ball->isTimeToDetectCollision() && ball->isItGoingDown() &&
-			   ball->getIsActive() && paddle->getIsActive() &&
-			   ball->getPosition().y == paddle->getPosition().y - 1 &&
-			   ball->getPosition().x >= paddle->getLeft() - 1 &&
-			   ball->getPosition().x <= paddle->getRight() + 1;
+		switch (cornerSide)
+		{
+		case SIDE::LEFT:
+			return ball->getPosition().x == paddle->getLeft() && ball->getPosition().y == paddle->getUp();
+
+		case SIDE::RIGHT:
+			return ball->getPosition().x == paddle->getRight() && ball->getPosition().y == paddle->getUp();
+
+		default:
+			return false;
+		}
+	}
+	void CollisionManager::setReactionOfTheBallByThePaddle(Ball* ball, Paddle* paddle, BALL_DIRECTION finalBallDirection)
+	{
+		ball->setDirection(finalBallDirection);
+
+		switch (finalBallDirection)
+		{
+		case BALL_DIRECTION::UP_LEFT:
+			ball->setPosition(paddle->getLeft() - 1, paddle->getUp() - 1);
+			break;
+
+		case BALL_DIRECTION::UP_RIGHT:
+			ball->setPosition(paddle->getRight() + 1, paddle->getUp() - 1);
+			break;
+		}
 	}
 	bool CollisionManager::ballCollidesInPaddleCorner(Paddle* paddle, Ball* ball, SIDE direction)
 	{

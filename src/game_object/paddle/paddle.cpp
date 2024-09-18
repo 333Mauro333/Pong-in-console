@@ -15,6 +15,8 @@ namespace pong_in_console
 
 		leftLimit = 0;
 		rightLimit = ConsoleExt::getScreenWidth() - 1;
+
+		movedDirection = SIDE::NONE;
 	}
 	Paddle::~Paddle()
 	{
@@ -34,15 +36,16 @@ namespace pong_in_console
 				{
 					position.x--;
 					timer = delayToMove;
+					movedDirection = SIDE::LEFT;
 				}
 			}
-
-			if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::RIGHT))
+			else if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::RIGHT))
 			{
 				if (canItGoRight())
 				{
 					position.x++;
 					timer = delayToMove;
+					movedDirection = SIDE::RIGHT;
 				}
 			}
 		}
@@ -64,6 +67,11 @@ namespace pong_in_console
 	{
 		leftLimit = frame->getLeft() + 1;
 		rightLimit = frame->getRight() - 1;
+	}
+
+	bool Paddle::itMovedInThisFrame(SIDE sideToVerify)
+	{
+		return timer == delayToMove - 1 && movedDirection == sideToVerify;
 	}
 
 

@@ -76,6 +76,31 @@ namespace pong_in_console
 			speedY = -speedY;
 		}
 	}
+	void Ball::setDirection(BALL_DIRECTION ballDirection)
+	{
+		switch (ballDirection)
+		{
+		case BALL_DIRECTION::UP_LEFT:
+			speedX = -1;
+			speedY = -1;
+			break;
+
+		case BALL_DIRECTION::UP_RIGHT:
+			speedX = 1;
+			speedY = -1;
+			break;
+
+		case BALL_DIRECTION::DOWN_LEFT:
+			speedX = -1;
+			speedY = 1;
+			break;
+
+		case BALL_DIRECTION::DOWN_RIGHT:
+			speedX = 1;
+			speedY = 1;
+			break;
+		}
+	}
 
 	BALL_DIRECTION Ball::getBallDirection()
 	{
@@ -97,6 +122,19 @@ namespace pong_in_console
 		}
 	}
 
+	void Ball::setPosition(int x, int y)
+	{
+		position = { x, y };
+
+		if (x < externalLimits.left)
+		{
+			position.x = externalLimits.left;
+		}
+		else if (x > externalLimits.right)
+		{
+			position.x = externalLimits.right;
+		}
+	}
 	void Ball::setMovementLimits(Frame* frame)
 	{
 		externalLimits.up = frame->getUp() + 1;

@@ -16,8 +16,8 @@ namespace pong_in_console
 		const int frameHeight = 20;
 
 
-		player = new Paddle(50, 20);
-		ball = new Ball(57, 18, BALL_DIRECTION::UP_LEFT);
+		player = new Paddle(85, 20);
+		ball = new Ball(96, 18, BALL_DIRECTION::DOWN_RIGHT);
 		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
 						  frameWidth, frameHeight, COLOR::C_BWHITE);
@@ -59,8 +59,8 @@ namespace pong_in_console
 	void Gameplay::draw()
 	{
 		frame->draw();
-		player->draw();
 		ball->draw();
+		player->draw();
 
 		for (int i = 0; i < blocksAmount; i++)
 		{

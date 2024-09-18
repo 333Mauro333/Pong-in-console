@@ -24,8 +24,10 @@ namespace pong_in_console
 		void draw() override;
 
 		void invertDirection(bool horizontal, bool vertical);
+		void setDirection(BALL_DIRECTION ballDirection);
 
 		BALL_DIRECTION getBallDirection();
+		void setPosition(int x, int y) override;
 		void setMovementLimits(Frame* frame) override;
 
 		bool isTimeToDetectCollision();

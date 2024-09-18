@@ -14,7 +14,7 @@ using mgtv_library::console::ConsoleExt;
 namespace pong_in_console
 {
 	bool GameManager::inGame = true;
-	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::GAMEPLAY;
+	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::MAIN_MENU;
 	SCENE_TO_LOAD GameManager::sceneToChange = sceneToLoad;
 
 
@@ -56,8 +56,8 @@ namespace pong_in_console
 	}
 	void GameManager::update()
 	{
-		thread miHilo(MusicManager::updateMusicStream);
-		miHilo.join();
+		thread musicThread(MusicManager::updateMusicStream);
+		musicThread.join();
 
 		SceneManager::getActualScene()->update();
 	}

@@ -1,9 +1,10 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 
-#include "raylib.h"
 #include "mgtv_library.h"
+#include "raylib.h"
 
+#include "enums/side.h"
 #include "game_object/game_object.h"
 #include "interface_simulation/limited_element/limited_element.h"
 
@@ -24,6 +25,8 @@ namespace pong_in_console
 
 		void setMovementLimits(Frame* frame) override;
 
+		bool itMovedInThisFrame(SIDE sideToVerify);
+
 	private:
 		COLOR color;
 		int delayToMove;
@@ -31,6 +34,8 @@ namespace pong_in_console
 
 		int leftLimit;
 		int rightLimit;
+
+		SIDE movedDirection;
 
 		bool canItGoLeft();
 		bool canItGoRight();
