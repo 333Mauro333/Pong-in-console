@@ -28,8 +28,10 @@ namespace pong_in_console
 		static bool isThereBlocks(vector<Block*> vectorBlock, int searchedAmount);
 		static void makeTheBallAndOneBlockReact(Ball* ball, Block* block);
 		static void makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks);
+		static void makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks);
 		static bool isTheBallAdjacentToOneBlock(Ball* ball, Block* block, DIRECTION searchedDirection);
 		static bool isTheBallAdjacentToTwoBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
+		static bool isTheBallAdjacentToThreeBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
 
 		static bool isTheBallInsideThePaddle(Ball* ball, Paddle* paddle, SIDE cornerSide);
 		static void setReactionOfTheBallByThePaddle(Ball* ball, Paddle* paddle, BALL_DIRECTION finalBallDirection);

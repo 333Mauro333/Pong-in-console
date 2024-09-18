@@ -26,7 +26,7 @@ namespace pong_in_console
 		Ball* ball;
 		Frame* frame;
 
-		static const int blocksAmount = 2;
+		static const int blocksAmount = 3;
 		Block* blocks[blocksAmount];
 
 		void checkBallCollisions();
