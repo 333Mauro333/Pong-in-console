@@ -171,6 +171,16 @@ namespace pong_in_console
 
 		position.x += speedX;
 		position.y += speedY;
+
+		if (!canItGoUp() || !canItGoDown())
+		{
+			invertDirection(false, true);
+		}
+
+		if (!canItGoLeft() || !canItGoRight())
+		{
+			invertDirection(true, false);
+		}
 	}
 
 	bool Ball::canItGoUp()
