@@ -31,7 +31,7 @@ namespace pong_in_console
 			}
 			else if (isThereBlocks(collidedBlocksVector, 5))
 			{
-				//makeTheBallAndFiveBlocksReact(ball, collidedBlocksVector);
+				makeTheBallAndFiveBlocksReact(ball, collidedBlocksVector);
 			}
 		}
 	}
@@ -772,6 +772,49 @@ namespace pong_in_console
 			}
 		}
 	}
+	void CollisionManager::makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks)
+	{
+		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		{
+			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+				blocks[2]->reactToTheBall();
+				blocks[3]->reactToTheBall();
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		{
+			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[0]->reactToTheBall();
+				blocks[1]->reactToTheBall();
+				blocks[3]->reactToTheBall();
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		{
+			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+				blocks[3]->reactToTheBall();
+				blocks[4]->reactToTheBall();
+			}
+		}
+		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		{
+			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+				blocks[2]->reactToTheBall();
+				blocks[3]->reactToTheBall();
+			}
+		}
+	}
 
 	bool CollisionManager::isTheBallAdjacentToOneBlock(Ball* ball, Block* block, DIRECTION searchedDirection)
 	{
@@ -834,6 +877,14 @@ namespace pong_in_console
 			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]) &&
 			   isTheBallAdjacentToOneBlock(ball, blocks[2], searchedDirections[2]) &&
 			   isTheBallAdjacentToOneBlock(ball, blocks[3], searchedDirections[3]);
+	}
+	bool CollisionManager::isTheBallAdjacentToFiveBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
+	{
+		return isTheBallAdjacentToOneBlock(ball, blocks[0], searchedDirections[0]) &&
+			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]) &&
+			   isTheBallAdjacentToOneBlock(ball, blocks[2], searchedDirections[2]) &&
+			   isTheBallAdjacentToOneBlock(ball, blocks[3], searchedDirections[3]) &&
+			   isTheBallAdjacentToOneBlock(ball, blocks[4], searchedDirections[4]);
 	}
 
 	bool CollisionManager::isTheBallInsideThePaddle(Ball* ball, Paddle* paddle, SIDE cornerSide)
