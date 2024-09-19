@@ -4,6 +4,7 @@
 #include "enums/block_type.h"
 #include "game_object/block/block.h"
 
+
 namespace pong_in_console
 {
 	class DestructibleBlock : public Block
