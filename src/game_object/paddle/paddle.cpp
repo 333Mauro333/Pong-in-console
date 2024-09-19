@@ -9,7 +9,7 @@ namespace pong_in_console
 {
 	Paddle::Paddle(int x, int y) : GameObject(x, y, 10, 1)
 	{
-		color = COLOR::C_RED;
+		color = COLOR::C_WHITE;
 		delayToMove = 3;
 		timer = 0;
 

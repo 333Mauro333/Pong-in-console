@@ -3,7 +3,7 @@
 
 namespace pong_in_console
 {
-	enum class BLOCK_TYPE { B_RED, B_YELLOW, B_GREEN, B_BLUE, B_INDESTRUCTIBLE };
+	enum class BLOCK_TYPE { B_INDESTRUCTIBLE, B_RED, B_YELLOW, B_GREEN, B_BLUE };
 }
 
 #endif // !BLOCK_TYPE_H

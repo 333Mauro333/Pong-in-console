@@ -32,10 +32,7 @@ namespace pong_in_console
 		static void makeTheBallAndFourBlocksReact(Ball* ball, vector<Block*> blocks);
 		static void makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks);
 		static bool isTheBallAdjacentToOneBlock(Ball* ball, Block* block, DIRECTION searchedDirection);
-		static bool isTheBallAdjacentToTwoBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
-		static bool isTheBallAdjacentToThreeBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
-		static bool isTheBallAdjacentToFourBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
-		static bool isTheBallAdjacentToFiveBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
+		static bool isTheBallAdjacentToMultipleBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
 
 		static bool isTheBallInsideThePaddle(Ball* ball, Paddle* paddle, SIDE cornerSide);
 		static void setReactionOfTheBallByThePaddle(Ball* ball, Paddle* paddle, BALL_DIRECTION finalBallDirection);

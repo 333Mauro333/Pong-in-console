@@ -62,6 +62,7 @@ namespace pong_in_console
 		}
 	}
 
+
 	vector<Block*> CollisionManager::getCollidedBlocks(Ball* ball, Block* levelBlocks[], int blocksAmount)
 	{
 		vector<Block*> detectedBlocks = vector<Block*>();
@@ -199,47 +200,47 @@ namespace pong_in_console
 	{
 		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
-			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
@@ -247,47 +248,47 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
-			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
@@ -295,47 +296,47 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
-			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
@@ -343,47 +344,47 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
-			if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToTwoBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
@@ -394,56 +395,56 @@ namespace pong_in_console
 	{
 		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
-			if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
@@ -451,55 +452,55 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
-			if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
@@ -508,56 +509,56 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
-			if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
@@ -565,56 +566,56 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
-			if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToThreeBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
@@ -625,34 +626,34 @@ namespace pong_in_console
 	{
 		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
-			if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
@@ -662,35 +663,35 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
-			if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
@@ -699,34 +700,34 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
-			if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
-			{
-				ball->invertDirection(true, true);
-				blocks[1]->reactToTheBall();
-				blocks[2]->reactToTheBall();
-				blocks[3]->reactToTheBall();
-			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			{
+				ball->invertDirection(true, true);
+				blocks[1]->reactToTheBall();
+				blocks[2]->reactToTheBall();
+				blocks[3]->reactToTheBall();
+			}
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
@@ -736,34 +737,34 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
-			if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 			}
-			else if (isTheBallAdjacentToFourBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
@@ -776,7 +777,7 @@ namespace pong_in_console
 	{
 		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
-			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
@@ -786,7 +787,7 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
-			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
@@ -796,7 +797,7 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
-			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
@@ -806,7 +807,7 @@ namespace pong_in_console
 		}
 		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
-			if (isTheBallAdjacentToFiveBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
+			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
@@ -860,31 +861,17 @@ namespace pong_in_console
 			return false;
 		}
 	}
-	bool CollisionManager::isTheBallAdjacentToTwoBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
+	bool CollisionManager::isTheBallAdjacentToMultipleBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
 	{
-		return isTheBallAdjacentToOneBlock(ball, blocks[0], searchedDirections[0]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]);
-	}
-	bool CollisionManager::isTheBallAdjacentToThreeBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
-	{
-		return isTheBallAdjacentToOneBlock(ball, blocks[0], searchedDirections[0]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[2], searchedDirections[2]);
-	}
-	bool CollisionManager::isTheBallAdjacentToFourBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
-	{
-		return isTheBallAdjacentToOneBlock(ball, blocks[0], searchedDirections[0]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[2], searchedDirections[2]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[3], searchedDirections[3]);
-	}
-	bool CollisionManager::isTheBallAdjacentToFiveBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections)
-	{
-		return isTheBallAdjacentToOneBlock(ball, blocks[0], searchedDirections[0]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[1], searchedDirections[1]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[2], searchedDirections[2]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[3], searchedDirections[3]) &&
-			   isTheBallAdjacentToOneBlock(ball, blocks[4], searchedDirections[4]);
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			if (!isTheBallAdjacentToOneBlock(ball, blocks[i], searchedDirections[i]))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	bool CollisionManager::isTheBallInsideThePaddle(Ball* ball, Paddle* paddle, SIDE cornerSide)

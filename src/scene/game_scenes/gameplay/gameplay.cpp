@@ -12,11 +12,11 @@ namespace pong_in_console
 {
 	Gameplay::Gameplay()
 	{
-		const int frameWidth = 80;
-		const int frameHeight = 20;
+		const int frameWidth = 42;
+		const int frameHeight = 26;
 
 
-		player = new Paddle(85, 20);
+		player = new Paddle(60, 20);
 		ball = new Ball(55, 8, BALL_DIRECTION::DOWN_LEFT);
 		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
