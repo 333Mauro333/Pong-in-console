@@ -1,4 +1,4 @@
-#include "gameplay.h"
+﻿#include "gameplay.h"
 
 #include <string>
 
@@ -26,7 +26,7 @@ namespace pong_in_console
 		int y = 0;
 
 
-		player = new Paddle(60, 20);
+		player = new Paddle(60, 23);
 		ball = new Ball(55, 8, BALL_DIRECTION::DOWN_LEFT);
 		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
@@ -86,7 +86,7 @@ namespace pong_in_console
 
 		if (ControlsManager::isPressed(key, MENU_CONTROLS::BACK))
 		{
-			SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+			SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU, COLOR::C_BLUE);
 		}
 	}
 	void Gameplay::update()

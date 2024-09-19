@@ -45,8 +45,7 @@ namespace pong_in_console
 		ConsoleExt::setConsoleTitle(title);
 		MusicManager::initMusic();
 		GameValues::initValues();
-		Scene::setBackgroundColor(COLOR::C_BLUE);
-		SceneManager::loadScene(sceneToLoad);
+		SceneManager::loadScene(sceneToLoad, COLOR::C_BLUE);
 	}
 	void GameManager::inputUpdate()
 	{

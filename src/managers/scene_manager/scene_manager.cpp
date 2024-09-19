@@ -30,6 +30,8 @@ namespace pong_in_console
 	{
 		delete actualScene;
 
+		Scene::setBackgroundColor(backgroundColor);
+
 		switch (scene)
 		{
 		case SCENE_TO_LOAD::MAIN_MENU:
@@ -40,8 +42,6 @@ namespace pong_in_console
 			actualScene = new Gameplay(1);
 			break;
 		}
-
-		Scene::setBackgroundColor(backgroundColor);
 
 		system("cls");
 	}
