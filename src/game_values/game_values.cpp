@@ -9,11 +9,11 @@ namespace pong_in_console
 
 	void GameValues::initValues()
 	{
-		initABlockPicture(0, (char)247, COLOR::C_RED); // 247: ≈
-		initABlockPicture(1, '=', COLOR::C_YELLOW);
-		initABlockPicture(2, (char)240, COLOR::C_GREEN); // 240: ≡
-		initABlockPicture(3, '#', COLOR::C_BLUE);
-		initABlockPicture(4, (char)254, COLOR::C_GRAY); // 254: ■
+		initABlockPicture(0, (char)254, COLOR::C_GRAY); // 254: ■
+		initABlockPicture(1, (char)247, COLOR::C_RED); // 247: ≈
+		initABlockPicture(2, '=', COLOR::C_YELLOW);
+		initABlockPicture(3, (char)240, COLOR::C_GREEN); // 240: ≡
+		initABlockPicture(4, '#', COLOR::C_BLUE);
 	}
 
 	PICTURE GameValues::getBlockPicture(BLOCK_TYPE blockType)

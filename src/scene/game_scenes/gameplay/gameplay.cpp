@@ -1,7 +1,12 @@
 #include "gameplay.h"
 
+#include <string>
+
+#include "game_object/block/destructible_block/destructible_block.h"
+#include "game_object/block/indestructible_block/indestructible_block.h"
 #include "managers/collision_manager/collision_manager.h"
 #include "managers/controls_manager/controls_manager.h"
+#include "managers/file_manager/file_manager.h"
 #include "managers/music_manager/music_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 
@@ -10,10 +15,15 @@ using mgtv_library::console::ConsoleExt;
 
 namespace pong_in_console
 {
-	Gameplay::Gameplay()
+	Gameplay::Gameplay(int levelNumber)
 	{
+		string levelInfo = FileManager::loadLevel(levelNumber);
 		const int frameWidth = 42;
 		const int frameHeight = 26;
+		int firstPositionX = 0;
+		int firstPositionY = 0;
+		int x = 0;
+		int y = 0;
 
 
 		player = new Paddle(60, 20);
@@ -22,14 +32,40 @@ namespace pong_in_console
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
 						  frameWidth, frameHeight, COLOR::C_BWHITE);
 		
-		blocks[0] = new DestructibleBlock(50, 11, BLOCK_TYPE::B_GREEN);
-		blocks[1] = new DestructibleBlock(50, 12, BLOCK_TYPE::B_GREEN);
-		blocks[2] = new DestructibleBlock(50, 13, BLOCK_TYPE::B_GREEN);
-		blocks[3] = new DestructibleBlock(51, 13, BLOCK_TYPE::B_GREEN);
-		blocks[4] = new DestructibleBlock(52, 13, BLOCK_TYPE::B_GREEN);
+		blocks = vector<Block*>();
+
+		firstPositionX = frame->getLeft() + 1;
+		firstPositionY = frame->getUp() + 1;
+		x = firstPositionX;
+		y = firstPositionY;
 
 		player->setMovementLimits(frame);
 		ball->setMovementLimits(frame);
+
+		for (int i = 0; i < levelInfo.size(); i++)
+		{
+			Block* blockToCreate = NULL;
+
+			if (levelInfo[i] == '\n')
+			{
+				x = firstPositionX;
+				y++;
+				continue;
+			}
+			else if (levelInfo[i] == '1' || levelInfo[i] == '2' || levelInfo[i] == '3' || levelInfo[i] == '4')
+			{
+				int foundNumber = (int)levelInfo[i] - 48;
+
+				blockToCreate = new DestructibleBlock(x, y, (BLOCK_TYPE)foundNumber);
+				blocks.push_back(blockToCreate);
+			}
+			else if (levelInfo[i] == '0')
+			{
+				blockToCreate = new IndestructibleBlock(x, y);
+			}
+
+			x++;
+		}
 	}
 	Gameplay::~Gameplay()
 	{
@@ -37,7 +73,7 @@ namespace pong_in_console
 		delete player;
 		delete ball;
 
-		for (int i = 0; i < blocksAmount; i++)
+		for (int i = 0; i < blocks.size(); i++)
 		{
 			delete blocks[i];
 		}
@@ -71,7 +107,7 @@ namespace pong_in_console
 		ball->draw();
 		player->draw();
 
-		for (int i = 0; i < blocksAmount; i++)
+		for (int i = 0; i < blocks.size(); i++)
 		{
 			blocks[i]->draw();
 		}
@@ -80,7 +116,7 @@ namespace pong_in_console
 
 	void Gameplay::checkBallCollisions()
 	{
-		CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks, blocksAmount);
+		CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks);
 		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
 	}
 }

@@ -16,6 +16,8 @@ namespace pong_in_console
 	public:
 		static void loadScene(SCENE_TO_LOAD scene);
 		static void loadScene(SCENE_TO_LOAD scene, COLOR backgroundColor);
+		static void loadScene(int levelNumber, COLOR backgroundColor = COLOR::C_BLACK);
+
 		static Scene* getActualScene();
 
 	private:

@@ -12,6 +12,8 @@ namespace pong_in_console
 	{
 	public:
 		static string loadTitle();
+
+		static string loadLevel(int levelNumber);
 	};
 }
 

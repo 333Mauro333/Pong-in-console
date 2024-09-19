@@ -112,7 +112,6 @@ namespace pong_in_console
 		}
 
 		ConsoleExt::goToCoordinates(x, y);
-
 		ConsoleExt::setForegroundColor(titleColor);
 
 		for (int i = 0; i < gameTitle.size(); i++)
@@ -186,8 +185,7 @@ namespace pong_in_console
 		switch (option)
 		{
 		case 1:
-			Scene::setBackgroundColor(COLOR::C_BLACK);
-			SceneManager::loadScene(SCENE_TO_LOAD::GAMEPLAY);
+			SceneManager::loadScene(SCENE_TO_LOAD::GAMEPLAY, COLOR::C_BLACK);
 			break;
 
 		case 2:

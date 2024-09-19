@@ -3,13 +3,13 @@
 
 namespace pong_in_console
 {
-	void CollisionManager::applyCollisionBetweenBallAndBlocks(Ball* ball, Block* blocks[], int blocksAmount)
+	void CollisionManager::applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks)
 	{
 		if (ball->isTimeToDetectCollision())
 		{
 			vector<Block*> collidedBlocksVector = vector<Block*>();
 
-			collidedBlocksVector = getCollidedBlocks(ball, blocks, blocksAmount);
+			collidedBlocksVector = getCollidedBlocks(ball, blocks);
 
 			if (isThereBlocks(collidedBlocksVector, 1))
 			{
@@ -63,14 +63,13 @@ namespace pong_in_console
 	}
 
 
-	vector<Block*> CollisionManager::getCollidedBlocks(Ball* ball, Block* levelBlocks[], int blocksAmount)
+	vector<Block*> CollisionManager::getCollidedBlocks(Ball* ball, vector<Block*> levelBlocks)
 	{
 		vector<Block*> detectedBlocks = vector<Block*>();
 
-		for (int i = 0; i < blocksAmount; i++)
+		for (int i = 0; i < levelBlocks.size(); i++)
 		{
-			if (levelBlocks[i]->getIsActive() &&
-				isTheBlockInBallSRange(ball, levelBlocks[i]))
+			if (levelBlocks[i]->getIsActive() && isTheBlockInBallSRange(ball, levelBlocks[i]))
 			{
 				detectedBlocks.push_back(levelBlocks[i]);
 			}

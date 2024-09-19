@@ -18,11 +18,11 @@ namespace pong_in_console
 	class CollisionManager
 	{
 	public:
-		static void applyCollisionBetweenBallAndBlocks(Ball* ball, Block* blocks[], int blocksAmount);
+		static void applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks);
 		static void applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle);
 
 	private:
-		static vector<Block*> getCollidedBlocks(Ball* ball, Block* levelBlocks[], int blocksAmount);
+		static vector<Block*> getCollidedBlocks(Ball* ball, vector<Block*> blocks);
 		static bool isTheBallGoingInThatDirection(Ball* ball, BALL_DIRECTION direction);
 		static bool isTheBlockInBallSRange(Ball* ball, Block* block);
 		static bool isThereBlocks(vector<Block*> vectorBlock, int searchedAmount);
