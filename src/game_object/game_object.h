@@ -14,7 +14,7 @@ namespace pong_in_console
 		GameObject(int x, int y, int w, int h);
 		virtual ~GameObject();
 
-		void erase();
+		virtual void erase();
 		virtual void draw() = 0;
 
 		void activate();

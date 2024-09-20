@@ -152,6 +152,7 @@
     <ClCompile Include="src\game_object\block\block.cpp" />
     <ClCompile Include="src\game_object\block\destructible_block\destructible_block.cpp" />
     <ClCompile Include="src\game_object\block\indestructible_block\indestructible_block.cpp" />
+    <ClCompile Include="src\game_object\bullet\bullet.cpp" />
     <ClCompile Include="src\game_object\frame\frame.cpp" />
     <ClCompile Include="src\game_object\game_object.cpp" />
     <ClCompile Include="src\game_object\paddle\paddle.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\game_object\block\block.h" />
     <ClInclude Include="src\game_object\block\destructible_block\destructible_block.h" />
     <ClInclude Include="src\game_object\block\indestructible_block\indestructible_block.h" />
+    <ClInclude Include="src\game_object\bullet\bullet.h" />
     <ClInclude Include="src\game_object\frame\frame.h" />
     <ClInclude Include="src\game_object\game_object.h" />
     <ClInclude Include="src\game_object\paddle\paddle.h" />

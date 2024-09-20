@@ -20,10 +20,12 @@ namespace pong_in_console
 		rightLimit = ConsoleExt::getScreenWidth() - 1;
 
 		movedDirection = SIDE::NONE;
+
+		bullet = new Bullet();
 	}
 	Paddle::~Paddle()
 	{
-
+		delete bullet;
 	}
 
 
@@ -51,6 +53,10 @@ namespace pong_in_console
 					movedDirection = SIDE::RIGHT;
 				}
 			}
+			else if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::SHOOT))
+			{
+				shoot();
+			}
 		}
 	}
 	void Paddle::update()
@@ -59,9 +65,19 @@ namespace pong_in_console
 		{
 			timer--;
 		}
+
+		bullet->update();
+	}
+	void Paddle::erase()
+	{
+		GameObject::erase();
+
+		bullet->erase();
 	}
 	void Paddle::draw()
 	{
+		bullet->draw();
+
 		ConsoleExt::goToCoordinates(position.x, position.y);
 
 		drawNormal();
@@ -78,6 +94,17 @@ namespace pong_in_console
 		return timer == delayToMove - 1 && movedDirection == sideToVerify;
 	}
 
+
+	void Paddle::shoot()
+	{
+		if (!bullet->getIsActive())
+		{
+			int centerPositionX = position.x + size.w / 2;
+
+			bullet->setPosition(centerPositionX, position.y - 1);
+			bullet->activate();
+		}
+	}
 
 	bool Paddle::canItGoLeft()
 	{

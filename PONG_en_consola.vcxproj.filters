@@ -79,6 +79,9 @@
     <Filter Include="src\game_object\block\indestructible_block">
       <UniqueIdentifier>{27b7070d-78e5-462c-920e-f98b2d2e32e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\game_object\bullet">
+      <UniqueIdentifier>{040b5772-bb30-4e4f-86a9-d7d826cb0ed3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="src\game_object\block\indestructible_block\indestructible_block.cpp">
       <Filter>src\game_object\block\indestructible_block</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\bullet\bullet.cpp">
+      <Filter>src\game_object\bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="src\game_object\block\indestructible_block\indestructible_block.h">
       <Filter>src\game_object\block\indestructible_block</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\bullet\bullet.h">
+      <Filter>src\game_object\bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
