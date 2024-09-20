@@ -1,13 +1,16 @@
-#include "paddle.h"
+﻿#include "paddle.h"
+
+#include <iostream>
 
 #include "managers/controls_manager/controls_manager.h"
 
 using mgtv_library::console::ConsoleExt;
+using std::cout;
 
 
 namespace pong_in_console
 {
-	Paddle::Paddle(int x, int y) : GameObject(x, y, 10, 1)
+	Paddle::Paddle(int x, int y) : GameObject(x, y, 9, 1)
 	{
 		color = COLOR::C_WHITE;
 		delayToMove = 3;
@@ -60,7 +63,8 @@ namespace pong_in_console
 	void Paddle::draw()
 	{
 		ConsoleExt::goToCoordinates(position.x, position.y);
-		ConsoleExt::writeWithColor("<========>", color);
+
+		drawNormal();
 	}
 
 	void Paddle::setMovementLimits(Frame* frame)
@@ -82,5 +86,14 @@ namespace pong_in_console
 	bool Paddle::canItGoRight()
 	{
 		return position.x + size.w - 1 < rightLimit;
+	}
+
+	void Paddle::drawNormal()
+	{
+		COLOR previousColor = ConsoleExt::getForegroundColor();
+
+		ConsoleExt::setForegroundColor(color);
+		cout << "<=" << (char)205 << (char)205 << (char)202 << (char)205 << (char)205 << "=>";
+		ConsoleExt::setForegroundColor(previousColor);
 	}
 }

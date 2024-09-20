@@ -19,7 +19,7 @@ namespace pong_in_console
 	{
 		string levelInfo = FileManager::loadLevel(levelNumber);
 		const int frameWidth = 42;
-		const int frameHeight = 26;
+		const int frameHeight = 24;
 		int firstPositionX = 0;
 		int firstPositionY = 0;
 		int x = 0;
@@ -29,7 +29,7 @@ namespace pong_in_console
 		player = new Paddle(60, 23);
 		ball = new Ball(55, 8, BALL_DIRECTION::DOWN_LEFT);
 		frame = new Frame(ConsoleExt::getScreenWidth() / 2 - frameWidth / 2,
-						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2,
+						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2 + 2,
 						  frameWidth, frameHeight, COLOR::C_BWHITE);
 		
 		blocks = vector<Block*>();

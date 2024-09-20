@@ -39,6 +39,8 @@ namespace pong_in_console
 
 		bool canItGoLeft();
 		bool canItGoRight();
+
+		void drawNormal();
 	};
 }
 
