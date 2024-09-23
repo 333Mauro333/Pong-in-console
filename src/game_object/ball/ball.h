@@ -17,7 +17,7 @@ namespace pong_in_console
 	class Ball : public GameObject, public LimitedElement
 	{
 	public:
-		Ball(int x, int y, BALL_DIRECTION ballDirection = BALL_DIRECTION::DOWN_RIGHT);
+		Ball(int x, int y, BALL_DIRECTION ballDirection);
 		~Ball();
 
 		void update();
@@ -25,29 +25,33 @@ namespace pong_in_console
 
 		void redirectInLimits();
 		void invertDirection(bool horizontal, bool vertical);
-		void setDirection(BALL_DIRECTION ballDirection);
 
 		BALL_DIRECTION getBallDirection();
+		void setDirection(BALL_DIRECTION ballDirection);
 		void setPosition(int x, int y) override;
 		void setMovementLimits(Frame* frame) override;
 
 		bool isTimeToDetectCollision();
-		bool isItGoingDown();
-		bool isItGoingRight();
-		bool canItGoUp();
-		bool canItGoDown();
-		bool canItGoLeft();
-		bool canItGoRight();
+		bool isGoingDown();
+		bool isGoingRight();
+		bool canGoUp();
+		bool canGoDown();
+		bool canGoLeft();
+		bool canGoRight();
 
 	private:
 		COLOR color;
 		int delayToMove;
-		int timer;
+		int counter;
 		
 		int speedX;
 		int speedY;
 
 		LIMITS externalLimits;
+
+		bool isTimeToMove();
+		void resetCounter();
+		void discountCounter();
 
 		void applyMovement();
 	};

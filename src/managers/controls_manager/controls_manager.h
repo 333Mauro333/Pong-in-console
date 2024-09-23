@@ -4,6 +4,7 @@
 #include "enums/gameplay_controls.h"
 #include "enums/menu_controls.h"
 
+
 namespace pong_in_console
 {
 	class ControlsManager

@@ -254,5 +254,8 @@
     <ClInclude Include="src\game_object\bullet\bullet.h">
       <Filter>src\game_object\bullet</Filter>
     </ClInclude>
+    <ClInclude Include="src\enums\information_to_load.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

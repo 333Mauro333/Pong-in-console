@@ -22,12 +22,20 @@ namespace pong_in_console
 	private:
 		COLOR color;
 		int delayToMove;
-		int timer;
+		int counter;
 
 		int maxDistance;
 		int reachedDistance;
 
-		void resetValues();
+		bool isTimeToMove();
+		void resetCounter();
+		void moveUp();
+		void incrementReachedDistance();
+
+		bool itReachedMaxDistance();
+		void resetReachedDistance();
+		void discountCounter();
+
 		void drawBullet();
 	};
 }

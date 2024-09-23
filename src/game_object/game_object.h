@@ -38,6 +38,9 @@ namespace pong_in_console
 		POSITION position;
 		SIZE size;
 
+		bool thePositionChanged();
+		void eraseThePicture(POSITION positionToClear);
+
 		void savePositionAsPrevious();
 
 	private:

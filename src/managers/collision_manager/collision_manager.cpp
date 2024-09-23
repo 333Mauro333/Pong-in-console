@@ -11,25 +11,25 @@ namespace pong_in_console
 
 			collidedBlocksVector = getCollidedBlocks(ball, blocks);
 
-			if (isThereBlocks(collidedBlocksVector, 1))
+			if (thereAreBlocks(collidedBlocksVector, 1))
 			{
 				Block* collidedBlock = collidedBlocksVector[0];
 
 				makeTheBallAndOneBlockReact(ball, collidedBlock);
 			}
-			else if (isThereBlocks(collidedBlocksVector, 2))
+			else if (thereAreBlocks(collidedBlocksVector, 2))
 			{
 				makeTheBallAndTwoBlocksReact(ball, collidedBlocksVector);
 			}
-			else if (isThereBlocks(collidedBlocksVector, 3))
+			else if (thereAreBlocks(collidedBlocksVector, 3))
 			{
 				makeTheBallAndThreeBlocksReact(ball, collidedBlocksVector);
 			}
-			else if (isThereBlocks(collidedBlocksVector, 4))
+			else if (thereAreBlocks(collidedBlocksVector, 4))
 			{
 				makeTheBallAndFourBlocksReact(ball, collidedBlocksVector);
 			}
-			else if (isThereBlocks(collidedBlocksVector, 5))
+			else if (thereAreBlocks(collidedBlocksVector, 5))
 			{
 				makeTheBallAndFiveBlocksReact(ball, collidedBlocksVector);
 			}
@@ -37,18 +37,18 @@ namespace pong_in_console
 	}
 	void CollisionManager::applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle)
 	{
-		if (paddle->itMovedInThisFrame(SIDE::LEFT) &&
+		if (paddle->movedInThisFrame(SIDE::LEFT) &&
 			isTheBallInsideThePaddle(ball, paddle, SIDE::LEFT))
 		{
 			setReactionOfTheBallByThePaddle(ball, paddle, BALL_DIRECTION::UP_LEFT);
 		}
-		else if (paddle->itMovedInThisFrame(SIDE::RIGHT) &&
+		else if (paddle->movedInThisFrame(SIDE::RIGHT) &&
 				 isTheBallInsideThePaddle(ball, paddle, SIDE::RIGHT))
 		{
 			setReactionOfTheBallByThePaddle(ball, paddle, BALL_DIRECTION::UP_RIGHT);
 		}
 
-		if (ball->isTimeToDetectCollision() && ball->isItGoingDown())
+		if (ball->isTimeToDetectCollision() && ball->isGoingDown())
 		{
 			if (ballCollidesInPaddleCorner(paddle, ball, SIDE::LEFT) ||
 				ballCollidesInPaddleCorner(paddle, ball, SIDE::RIGHT))
@@ -77,7 +77,7 @@ namespace pong_in_console
 
 		return detectedBlocks;
 	}
-	bool CollisionManager::isTheBallGoingInThatDirection(Ball* ball, BALL_DIRECTION direction)
+	bool CollisionManager::ballIsGoingInThatDirection(Ball* ball, BALL_DIRECTION direction)
 	{
 		return ball->getBallDirection() == direction;
 	}
@@ -88,13 +88,13 @@ namespace pong_in_console
 			   block->getPosition().y >= ball->getPosition().y - 1 &&
 			   block->getPosition().y <= ball->getPosition().y + 1;
 	}
-	bool CollisionManager::isThereBlocks(vector<Block*> vectorBlock, int searchedAmount)
+	bool CollisionManager::thereAreBlocks(vector<Block*> vectorBlock, int searchedAmount)
 	{
 		return vectorBlock.size() == searchedAmount;
 	}
 	void CollisionManager::makeTheBallAndOneBlockReact(Ball* ball, Block* block)
 	{
-		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_CENTER))
 			{
@@ -104,7 +104,7 @@ namespace pong_in_console
 			{
 				bool invertHorizontal = true;
 
-				if (!ball->canItGoLeft())
+				if (!ball->canGoLeft())
 				{
 					invertHorizontal = false;
 				}
@@ -116,7 +116,7 @@ namespace pong_in_console
 				reactBallAndBlock(ball, block, true, false);
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_CENTER))
 			{
@@ -126,7 +126,7 @@ namespace pong_in_console
 			{
 				bool invertHorizontal = true;
 
-				if (!ball->canItGoRight())
+				if (!ball->canGoRight())
 				{
 					invertHorizontal = false;
 				}
@@ -138,7 +138,7 @@ namespace pong_in_console
 				reactBallAndBlock(ball, block, true, false);
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_CENTER))
 			{
@@ -149,12 +149,12 @@ namespace pong_in_console
 				bool invertHorizontal = true;
 				bool invertVertical = true;
 
-				if (!ball->canItGoLeft())
+				if (!ball->canGoLeft())
 				{
 					invertHorizontal = false;
 				}
 
-				if (!ball->canItGoUp())
+				if (!ball->canGoUp())
 				{
 					invertVertical = false;
 				}
@@ -166,7 +166,7 @@ namespace pong_in_console
 				reactBallAndBlock(ball, block, true, false);
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_CENTER))
 			{
@@ -177,12 +177,12 @@ namespace pong_in_console
 				bool invertHorizontal = true;
 				bool invertVertical = true;
 
-				if (!ball->canItGoRight())
+				if (!ball->canGoRight())
 				{
 					invertHorizontal = false;
 				}
 
-				if (!ball->canItGoUp())
+				if (!ball->canGoUp())
 				{
 					invertVertical = false;
 				}
@@ -197,7 +197,7 @@ namespace pong_in_console
 	}
 	void CollisionManager::makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks)
 	{
-		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
 			{
@@ -245,7 +245,7 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER }))
 			{
@@ -293,7 +293,7 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
@@ -341,7 +341,7 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
 			{
@@ -392,7 +392,7 @@ namespace pong_in_console
 	}
 	void CollisionManager::makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks)
 	{
-		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
@@ -449,7 +449,7 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
@@ -506,7 +506,7 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
@@ -563,7 +563,7 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
@@ -623,7 +623,7 @@ namespace pong_in_console
 	}
 	void CollisionManager::makeTheBallAndFourBlocksReact(Ball* ball, vector<Block*> blocks)
 	{
-		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
@@ -660,7 +660,7 @@ namespace pong_in_console
 				blocks[2]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
@@ -697,7 +697,7 @@ namespace pong_in_console
 				blocks[2]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
@@ -734,7 +734,7 @@ namespace pong_in_console
 				blocks[3]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
@@ -774,7 +774,7 @@ namespace pong_in_console
 	}
 	void CollisionManager::makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks)
 	{
-		if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
+		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
@@ -784,7 +784,7 @@ namespace pong_in_console
 				blocks[3]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
@@ -794,7 +794,7 @@ namespace pong_in_console
 				blocks[3]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -804,7 +804,7 @@ namespace pong_in_console
 				blocks[4]->reactToTheBall();
 			}
 		}
-		else if (isTheBallGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
+		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
 		{
 			if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -915,11 +915,11 @@ namespace pong_in_console
 		switch (direction)
 		{
 		case SIDE::LEFT:
-			return ball->isItGoingRight() &&
+			return ball->isGoingRight() &&
 				   ballX == paddleLeft - 1 && ballY == paddleY - 1;
 
 		case SIDE::RIGHT:
-			return !ball->isItGoingRight() &&
+			return !ball->isGoingRight() &&
 				   ballX == paddleRight + 1 && ballY == paddleY - 1;
 
 		default:

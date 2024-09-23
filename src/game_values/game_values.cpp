@@ -22,7 +22,7 @@ namespace pong_in_console
 	}
 	int GameValues::getBlockValue(BLOCK_TYPE blockType)
 	{
-		if (blockType != BLOCK_TYPE::B_INDESTRUCTIBLE)
+		if (isDestructible(blockType))
 		{
 			return values[(int)blockType];
 		}
@@ -35,5 +35,9 @@ namespace pong_in_console
 	{
 		blockPictures[arrayPosition].picture = picture;
 		blockPictures[arrayPosition].color = color;
+	}
+	bool GameValues::isDestructible(BLOCK_TYPE blockType)
+	{
+		return blockType != BLOCK_TYPE::B_INDESTRUCTIBLE;
 	}
 }

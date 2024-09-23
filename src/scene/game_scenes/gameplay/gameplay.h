@@ -32,6 +32,12 @@ namespace pong_in_console
 
 		vector<Block*> blocks;
 
+		void initPlayer();
+		void initBall();
+		void initFrame();
+		void initBlocks(int levelNumber);
+
+		void checkMenuInput(int key);
 		void checkBallCollisions();
 	};
 }

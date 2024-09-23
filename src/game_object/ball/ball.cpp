@@ -9,7 +9,7 @@ namespace pong_in_console
 	{
 		color = COLOR::C_LRED;
 		delayToMove = 10;
-		timer = 0;
+		counter = 0;
 
 		switch (ballDirection)
 		{
@@ -48,17 +48,16 @@ namespace pong_in_console
 
 	void Ball::update()
 	{
-		if (timer == 0)
+		if (isTimeToMove())
 		{
 			savePositionAsPrevious();
 
-			timer = delayToMove;
-
+			resetCounter();
 			applyMovement();
 		}
 		else
 		{
-			timer--;
+			discountCounter();
 		}
 	}
 	void Ball::draw()
@@ -67,6 +66,19 @@ namespace pong_in_console
 		ConsoleExt::writeWithColor("O", color);
 	}
 
+
+	void Ball::redirectInLimits()
+	{
+		if (!canGoUp() || !canGoDown())
+		{
+			invertDirection(false, true);
+		}
+
+		if (!canGoLeft() || !canGoRight())
+		{
+			invertDirection(true, false);
+		}
+	}
 	void Ball::invertDirection(bool horizontal, bool vertical)
 	{
 		if (horizontal)
@@ -79,6 +91,27 @@ namespace pong_in_console
 			speedY = -speedY;
 		}
 	}
+
+	BALL_DIRECTION Ball::getBallDirection()
+	{
+		if (speedX < 0 && speedY < 0)
+		{
+			return BALL_DIRECTION::UP_LEFT;
+		}
+		else if (speedX > 0 && speedY < 0)
+		{
+			return BALL_DIRECTION::UP_RIGHT;
+		}
+		else if (speedX < 0 && speedY > 0)
+		{
+			return BALL_DIRECTION::DOWN_LEFT;
+		}
+		else
+		{
+			return BALL_DIRECTION::DOWN_RIGHT;
+		}
+	}
+
 	void Ball::setDirection(BALL_DIRECTION ballDirection)
 	{
 		switch (ballDirection)
@@ -104,27 +137,6 @@ namespace pong_in_console
 			break;
 		}
 	}
-
-	BALL_DIRECTION Ball::getBallDirection()
-	{
-		if (speedX < 0 && speedY < 0)
-		{
-			return BALL_DIRECTION::UP_LEFT;
-		}
-		else if (speedX > 0 && speedY < 0)
-		{
-			return BALL_DIRECTION::UP_RIGHT;
-		}
-		else if (speedX < 0 && speedY > 0)
-		{
-			return BALL_DIRECTION::DOWN_LEFT;
-		}
-		else
-		{
-			return BALL_DIRECTION::DOWN_RIGHT;
-		}
-	}
-
 	void Ball::setPosition(int x, int y)
 	{
 		position = { x, y };
@@ -148,17 +160,46 @@ namespace pong_in_console
 
 	bool Ball::isTimeToDetectCollision()
 	{
-		return timer == 0;
+		return counter == 0;
 	}
-	bool Ball::isItGoingDown()
+	bool Ball::isGoingDown()
 	{
 		return speedY > 0;
 	}
-	bool Ball::isItGoingRight()
+	bool Ball::isGoingRight()
 	{
 		return speedX > 0;
 	}
+	bool Ball::canGoUp()
+	{
+		return position.y > externalLimits.up;
+	}
+	bool Ball::canGoDown()
+	{
+		return position.y < externalLimits.down;
+	}
+	bool Ball::canGoLeft()
+	{
+		return position.x > externalLimits.left;
+	}
+	bool Ball::canGoRight()
+	{
+		return position.x < externalLimits.right;
+	}
 
+
+	bool Ball::isTimeToMove()
+	{
+		return counter == 0;
+	}
+	void Ball::resetCounter()
+	{
+		counter = delayToMove;
+	}
+	void Ball::discountCounter()
+	{
+		counter--;
+	}
 
 	void Ball::applyMovement()
 	{
@@ -166,34 +207,5 @@ namespace pong_in_console
 		position.y += speedY;
 
 		redirectInLimits();
-	}
-	void Ball::redirectInLimits()
-	{
-		if (!canItGoUp() || !canItGoDown())
-		{
-			invertDirection(false, true);
-		}
-
-		if (!canItGoLeft() || !canItGoRight())
-		{
-			invertDirection(true, false);
-		}
-	}
-
-	bool Ball::canItGoUp()
-	{
-		return position.y > externalLimits.up;
-	}
-	bool Ball::canItGoDown()
-	{
-		return position.y < externalLimits.down;
-	}
-	bool Ball::canItGoLeft()
-	{
-		return position.x > externalLimits.left;
-	}
-	bool Ball::canItGoRight()
-	{
-		return position.x < externalLimits.right;
 	}
 }

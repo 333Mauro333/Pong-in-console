@@ -31,19 +31,12 @@ namespace pong_in_console
 
 	}
 
+
 	void GameObject::erase()
 	{
-		if (previousPosition.x != position.x || previousPosition.y != position.y)
+		if (thePositionChanged())
 		{
-			for (int i = 0; i < size.h; i++)
-			{
-				ConsoleExt::goToCoordinates(previousPosition.x, previousPosition.y);
-
-				for (int j = 0; j < size.w; j++)
-				{
-					cout << " ";
-				}
-			}
+			eraseThePicture(previousPosition);
 		}
 	}
 
@@ -55,8 +48,7 @@ namespace pong_in_console
 	{
 		isActive = false;
 		
-		ConsoleExt::goToCoordinates(position.x, position.y);
-		cout << " ";
+		eraseThePicture(position);
 	}
 
 	bool GameObject::getIsActive()
@@ -105,6 +97,23 @@ namespace pong_in_console
 		size = { w, h };
 	}
 
+
+	bool GameObject::thePositionChanged()
+	{
+		return previousPosition.x != position.x || previousPosition.y != position.y;
+	}
+	void GameObject::eraseThePicture(POSITION positionToClear)
+	{
+		for (int i = 0; i < size.h; i++)
+		{
+			ConsoleExt::goToCoordinates(positionToClear.x, positionToClear.y + i);
+
+			for (int j = 0; j < size.w; j++)
+			{
+				cout << " ";
+			}
+		}
+	}
 
 	void GameObject::savePositionAsPrevious()
 	{

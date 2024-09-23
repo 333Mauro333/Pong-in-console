@@ -175,6 +175,7 @@
     <ClInclude Include="src\enums\ball_direction.h" />
     <ClInclude Include="src\enums\block_type.h" />
     <ClInclude Include="src\enums\direction.h" />
+    <ClInclude Include="src\enums\information_to_load.h" />
     <ClInclude Include="src\enums\side.h" />
     <ClInclude Include="src\enums\gameplay_controls.h" />
     <ClInclude Include="src\enums\menu_controls.h" />

@@ -20,7 +20,7 @@ namespace pong_in_console
 
 	private:
 		COLOR color;
-		bool wasItDrawn;
+		bool itWasDrawn;
 	};
 }
 

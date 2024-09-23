@@ -23,9 +23,9 @@ namespace pong_in_console
 
 	private:
 		static vector<Block*> getCollidedBlocks(Ball* ball, vector<Block*> blocks);
-		static bool isTheBallGoingInThatDirection(Ball* ball, BALL_DIRECTION direction);
+		static bool ballIsGoingInThatDirection(Ball* ball, BALL_DIRECTION direction);
 		static bool isTheBlockInBallSRange(Ball* ball, Block* block);
-		static bool isThereBlocks(vector<Block*> vectorBlock, int searchedAmount);
+		static bool thereAreBlocks(vector<Block*> vectorBlock, int searchedAmount);
 		static void makeTheBallAndOneBlockReact(Ball* ball, Block* block);
 		static void makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks);
 		static void makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks);

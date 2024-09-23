@@ -4,6 +4,8 @@
 namespace pong_in_console
 {
 	Music MusicManager::musicList[MusicManager::amountOfMusics] = {};
+	int MusicManager::actualMusicPosition = 0;
+
 
 	void MusicManager::initMusic()
 	{
@@ -13,13 +15,12 @@ namespace pong_in_console
 	}
 	void MusicManager::updateMusicStream()
 	{
-		for (int i = 0; i < amountOfMusics; i++)
-		{
-			UpdateMusicStream(musicList[i]);
-		}
+		UpdateMusicStream(musicList[actualMusicPosition]);
 	}
 	void MusicManager::closeMusicSistem()
 	{
+		stop();
+
 		for (int i = 0; i < amountOfMusics; i++)
 		{
 			UnloadMusicStream(musicList[i]);
@@ -30,13 +31,14 @@ namespace pong_in_console
 
 	void MusicManager::play(MUSIC_TO_PLAY music)
 	{
-		PlayMusicStream(musicList[(int)music]);
+		stop();
+
+		actualMusicPosition = (int)music;
+
+		PlayMusicStream(musicList[actualMusicPosition]);
 	}
 	void MusicManager::stop()
 	{
-		for (int i = 0; i < amountOfMusics; i++)
-		{
-			StopMusicStream(musicList[i]);
-		}
+		StopMusicStream(musicList[actualMusicPosition]);
 	}
 }

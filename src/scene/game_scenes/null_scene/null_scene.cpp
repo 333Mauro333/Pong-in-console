@@ -3,7 +3,7 @@
 
 namespace pong_in_console
 {
-	NullScene::NullScene()
+	NullScene::NullScene() : Scene()
 	{
 
 	}
@@ -11,6 +11,7 @@ namespace pong_in_console
 	{
 
 	}
+
 
 	void NullScene::inputUpdate(int key)
 	{

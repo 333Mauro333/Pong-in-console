@@ -23,6 +23,7 @@ namespace pong_in_console
 		static int values[valueQuantity];
 
 		static void initABlockPicture(int arrayPosition, char picture, COLOR color);
+		static bool isDestructible(BLOCK_TYPE blockType);
 	};
 }
 

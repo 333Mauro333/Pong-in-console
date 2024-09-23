@@ -8,7 +8,7 @@ namespace pong_in_console
 	Frame::Frame(int x, int y, int w, int h, COLOR color) : GameObject(x, y, w, h)
 	{
 		this->color = color;
-		wasItDrawn = false;
+		itWasDrawn = false;
 	}
 	Frame::~Frame()
 	{
@@ -18,9 +18,9 @@ namespace pong_in_console
 
 	void Frame::draw()
 	{
-		if (!wasItDrawn)
+		if (!itWasDrawn)
 		{
-			wasItDrawn = true;
+			itWasDrawn = true;
 
 			ConsoleExt::drawFrame(position.x, position.y,
 								  position.x + size.w - 1, position.y + size.h - 1,

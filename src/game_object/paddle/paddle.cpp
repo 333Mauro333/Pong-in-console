@@ -14,14 +14,13 @@ namespace pong_in_console
 	{
 		color = COLOR::C_WHITE;
 		delayToMove = 3;
-		timer = 0;
+		counter = 0;
 
 		leftLimit = 0;
 		rightLimit = ConsoleExt::getScreenWidth() - 1;
+		lastMove = SIDE::NONE;
 
-		movedDirection = SIDE::NONE;
-
-		bullet = new Bullet();
+		initBullet();
 	}
 	Paddle::~Paddle()
 	{
@@ -31,29 +30,31 @@ namespace pong_in_console
 
 	void Paddle::inputUpdate(int key)
 	{
-		if (timer == 0)
+		if (canMove())
 		{
-			savePositionAsPrevious();
+			if (keyIsPressed(GAMEPLAY_CONTROLS::LEFT, key))
+			{
+				if (canGoLeft())
+				{
+					savePositionAsPrevious();
 
-			if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::LEFT))
-			{
-				if (canItGoLeft())
-				{
-					position.x--;
-					timer = delayToMove;
-					movedDirection = SIDE::LEFT;
+					moveLeft();
+					resetCounter();
+					saveLastMove(SIDE::LEFT);
 				}
 			}
-			else if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::RIGHT))
+			else if (keyIsPressed(GAMEPLAY_CONTROLS::RIGHT, key))
 			{
-				if (canItGoRight())
+				if (canGoRight())
 				{
-					position.x++;
-					timer = delayToMove;
-					movedDirection = SIDE::RIGHT;
+					savePositionAsPrevious();
+
+					moveRight();
+					resetCounter();
+					saveLastMove(SIDE::RIGHT);
 				}
 			}
-			else if (ControlsManager::isPressed(key, GAMEPLAY_CONTROLS::SHOOT))
+			else if (keyIsPressed(GAMEPLAY_CONTROLS::SHOOT, key))
 			{
 				shoot();
 			}
@@ -61,9 +62,9 @@ namespace pong_in_console
 	}
 	void Paddle::update()
 	{
-		if (timer > 0)
+		if (!canMove())
 		{
-			timer--;
+			discountCounter();
 		}
 
 		bullet->update();
@@ -76,11 +77,9 @@ namespace pong_in_console
 	}
 	void Paddle::draw()
 	{
-		bullet->draw();
-
-		ConsoleExt::goToCoordinates(position.x, position.y);
-
 		drawNormal();
+
+		bullet->draw();
 	}
 
 	void Paddle::setMovementLimits(Frame* frame)
@@ -89,12 +88,42 @@ namespace pong_in_console
 		rightLimit = frame->getRight() - 1;
 	}
 
-	bool Paddle::itMovedInThisFrame(SIDE sideToVerify)
+	bool Paddle::movedInThisFrame(SIDE sideToVerify)
 	{
-		return timer == delayToMove - 1 && movedDirection == sideToVerify;
+		return counter == delayToMove - 1 && lastMove == sideToVerify;
 	}
 
 
+	void Paddle::initBullet()
+	{
+		bullet = new Bullet();
+	}
+
+	bool Paddle::canMove()
+	{
+		return counter == 0;
+	}
+	bool Paddle::canGoLeft()
+	{
+		return position.x > leftLimit;
+	}
+	bool Paddle::canGoRight()
+	{
+		return position.x + size.w - 1 < rightLimit;
+	}
+	bool Paddle::keyIsPressed(GAMEPLAY_CONTROLS keyToVerify, int pressedKey)
+	{
+		return ControlsManager::isPressed(pressedKey, keyToVerify);
+	}
+
+	void Paddle::moveLeft()
+	{
+		position.x--;
+	}
+	void Paddle::moveRight()
+	{
+		position.x++;
+	}
 	void Paddle::shoot()
 	{
 		if (!bullet->getIsActive())
@@ -106,19 +135,24 @@ namespace pong_in_console
 		}
 	}
 
-	bool Paddle::canItGoLeft()
+	void Paddle::resetCounter()
 	{
-		return position.x > leftLimit;
+		counter = delayToMove;
 	}
-	bool Paddle::canItGoRight()
+	void Paddle::saveLastMove(SIDE lastMove)
 	{
-		return position.x + size.w - 1 < rightLimit;
+		this->lastMove = lastMove;
+	}
+	void Paddle::discountCounter()
+	{
+		counter--;
 	}
 
 	void Paddle::drawNormal()
 	{
 		COLOR previousColor = ConsoleExt::getForegroundColor();
 
+		ConsoleExt::goToCoordinates(position.x, position.y);
 		ConsoleExt::setForegroundColor(color);
 		cout << "<=" << (char)205 << (char)205 << (char)202 << (char)205 << (char)205 << "=>";
 		ConsoleExt::setForegroundColor(previousColor);

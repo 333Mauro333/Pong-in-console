@@ -15,7 +15,6 @@ namespace pong_in_console
 {
 	bool GameManager::inGame = true;
 	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::MAIN_MENU;
-	SCENE_TO_LOAD GameManager::sceneToChange = sceneToLoad;
 
 
 	void GameManager::run(string title)
@@ -45,7 +44,7 @@ namespace pong_in_console
 		ConsoleExt::setConsoleTitle(title);
 		MusicManager::initMusic();
 		GameValues::initValues();
-		SceneManager::loadScene(sceneToLoad, COLOR::C_BLUE);
+		SceneManager::loadScene(sceneToLoad);
 	}
 	void GameManager::inputUpdate()
 	{

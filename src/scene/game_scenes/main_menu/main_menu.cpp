@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include "managers/controls_manager/controls_manager.h"
 #include "managers/file_manager/file_manager.h"
 #include "managers/game_manager/game_manager.h"
 #include "managers/music_manager/music_manager.h"
@@ -14,64 +13,60 @@ using mgtv_library::console::ConsoleExt;
 
 namespace pong_in_console
 {
-	MainMenu::MainMenu(int selectedOption)
+	MainMenu::MainMenu(int selectedOption) : Scene(COLOR::C_BLUE)
 	{
-		int checkedOption = selectedOption;
+		if (selectedOption < 1 || selectedOption > amountOfOptions)
+		{
+			selectedOption = 1;
+		}
 
 		gameTitle = FileManager::loadTitle();
 		titleColor = COLOR::C_BWHITE;
-		delayTime = 10;
-		timer = 0;
+		delayToDetect = 10;
+		counter = 0;
 		changeInThisFrame = true;
 
 		normalColor = COLOR::C_GRAY;
 		highlightedColor = COLOR::C_BWHITE;
 
-		optionList[0] = new Text(ConsoleExt::getScreenWidth() / 2 - (5 + 2), 17, "JUGAR", COLOR::C_GRAY, true);
-		optionList[1] = new Text(ConsoleExt::getScreenWidth() / 2 - (5 + 2), 20, "SALIR", COLOR::C_GRAY, true);
+		this->selectedOption = selectedOption;
 
-		if (selectedOption < 1 || selectedOption > amountOfOptions)
-		{
-			checkedOption = 1;
-		}
-
-		optionList[checkedOption - 1]->setColor(highlightedColor);
-
-		option = selectedOption;
+		initOptions(selectedOption);
 	}
 	MainMenu::~MainMenu()
 	{
 
 	}
 
+
 	void MainMenu::inputUpdate(int key)
 	{
-		if (ControlsManager::isPressed(key, MENU_CONTROLS::UP))
+		if (keyIsPressed(MENU_CONTROLS::UP, key))
 		{
 			setPreviousOption();
 		}
-		else if (ControlsManager::isPressed(key, MENU_CONTROLS::DOWN))
+		else if (keyIsPressed(MENU_CONTROLS::DOWN, key))
 		{
 			setNextOption();
 		}
-		else if (ControlsManager::isPressed(key, MENU_CONTROLS::ENTER))
+		else if (keyIsPressed(MENU_CONTROLS::ENTER, key))
 		{
 			enterOption();
 		}
 	}
 	void MainMenu::update()
 	{
-		if (timer <= 0)
+		if (canDetectInput())
 		{
-			timer = delayTime;
-			changeInThisFrame = true;
+			resetCounter();
+			saveOptionChangeInThisFrame(true);
 
 			changeTitleColor();
 		}
 		else
 		{
-			timer--;
-			changeInThisFrame = false;
+			discountCounter();
+			saveOptionChangeInThisFrame(false);
 		}
 	}
 	void MainMenu::erase()
@@ -85,10 +80,7 @@ namespace pong_in_console
 			drawTitle();
 		}
 
-		for (int i = 0; i < amountOfOptions; i++)
-		{
-			optionList[i]->draw();
-		}
+		drawOptions();
 	}
 
 
@@ -152,45 +144,82 @@ namespace pong_in_console
 
 	void MainMenu::setNextOption()
 	{
-		optionList[option - 1]->setColor(normalColor);
+		optionList[selectedOption - 1]->setColor(normalColor);
 
-		if (option < amountOfOptions)
+		if (selectedOption < amountOfOptions)
 		{
-			option++;
+			selectedOption++;
 		}
 		else
 		{
-			option = 1;
+			selectedOption = 1;
 		}
 
-		optionList[option - 1]->setColor(highlightedColor);
+		optionList[selectedOption - 1]->setColor(highlightedColor);
 	}
 	void MainMenu::setPreviousOption()
 	{
-		optionList[option - 1]->setColor(normalColor);
+		optionList[selectedOption - 1]->setColor(normalColor);
 
-		if (option > 1)
+		if (selectedOption > 1)
 		{
-			option--;
+			selectedOption--;
 		}
 		else
 		{
-			option = amountOfOptions;
+			selectedOption = amountOfOptions;
 		}
 
-		optionList[option - 1]->setColor(highlightedColor);
+		optionList[selectedOption - 1]->setColor(highlightedColor);
 	}
 	void MainMenu::enterOption()
 	{
-		switch (option)
+		switch (selectedOption)
 		{
 		case 1:
-			SceneManager::loadScene(SCENE_TO_LOAD::GAMEPLAY, COLOR::C_BLACK);
+			SceneManager::loadScene(SCENE_TO_LOAD::GAMEPLAY);
 			break;
 
 		case 2:
 			GameManager::quit();
 			break;
+		}
+	}
+
+	void MainMenu::initOptions(int selectedOption)
+	{
+		optionList[0] = new Text(ConsoleExt::getScreenWidth() / 2 - (5 + 2), 17, "JUGAR", COLOR::C_GRAY, true);
+		optionList[1] = new Text(ConsoleExt::getScreenWidth() / 2 - (5 + 2), 20, "SALIR", COLOR::C_GRAY, true);
+
+		optionList[selectedOption - 1]->setColor(highlightedColor);
+	}
+	
+	bool MainMenu::keyIsPressed(MENU_CONTROLS keyToVerify, int pressedKey)
+	{
+		return ControlsManager::isPressed(pressedKey, keyToVerify);
+	}
+	bool MainMenu::canDetectInput()
+	{
+		return counter == 0;
+	}
+	void MainMenu::resetCounter()
+	{
+		counter = delayToDetect;
+	}
+	void MainMenu::saveOptionChangeInThisFrame(bool changed)
+	{
+		changeInThisFrame = changed;
+	}
+	void MainMenu::discountCounter()
+	{
+		counter--;
+	}
+
+	void MainMenu::drawOptions()
+	{
+		for (int i = 0; i < amountOfOptions; i++)
+		{
+			optionList[i]->draw();
 		}
 	}
 }

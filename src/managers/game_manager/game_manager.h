@@ -20,7 +20,6 @@ namespace pong_in_console
 	private:
 		static bool inGame;
 		static SCENE_TO_LOAD sceneToLoad;
-		static SCENE_TO_LOAD sceneToChange;
 
 		static void init(string title);
 		static void inputUpdate();

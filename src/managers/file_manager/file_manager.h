@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "enums/information_to_load.h"
+
 using std::string;
 
 
@@ -12,8 +14,10 @@ namespace pong_in_console
 	{
 	public:
 		static string loadTitle();
-
 		static string loadLevel(int levelNumber);
+
+	private:
+		static string getInformationInText(INFORMATION_TO_LOAD informationToLoad);
 	};
 }
 

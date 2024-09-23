@@ -4,6 +4,7 @@
 #include "mgtv_library.h"
 #include "raylib.h"
 
+#include "enums/gameplay_controls.h"
 #include "enums/side.h"
 #include "game_object/bullet/bullet.h"
 #include "game_object/game_object.h"
@@ -27,24 +28,33 @@ namespace pong_in_console
 
 		void setMovementLimits(Frame* frame) override;
 
-		bool itMovedInThisFrame(SIDE sideToVerify);
+		bool movedInThisFrame(SIDE sideToVerify);
 
 	private:
 		COLOR color;
 		int delayToMove;
-		int timer;
+		int counter;
 
 		int leftLimit;
 		int rightLimit;
-
-		SIDE movedDirection;
+		SIDE lastMove;
 
 		Bullet* bullet;
 
+		void initBullet();
+
+		bool canMove();
+		bool canGoLeft();
+		bool canGoRight();
+		bool keyIsPressed(GAMEPLAY_CONTROLS keyToVerify, int pressedKey);
+
+		void moveLeft();
+		void moveRight();
 		void shoot();
 
-		bool canItGoLeft();
-		bool canItGoRight();
+		void resetCounter();
+		void saveLastMove(SIDE lastMove);
+		void discountCounter();
 
 		void drawNormal();
 	};

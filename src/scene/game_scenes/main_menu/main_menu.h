@@ -3,8 +3,9 @@
 
 #include <string>
 
-#include "scene/scene.h"
 #include "game_object/text/text.h"
+#include "managers/controls_manager/controls_manager.h"
+#include "scene/scene.h"
 
 using std::string;
 
@@ -25,17 +26,16 @@ namespace pong_in_console
 	private:
 		string gameTitle;
 		COLOR titleColor;
-		int delayTime;
-		int timer;
+		int delayToDetect;
+		int counter;
 		bool changeInThisFrame;
 
 		static const int amountOfOptions = 2;
 		Text* optionList[amountOfOptions];
+		int selectedOption;
 
 		COLOR normalColor;
 		COLOR highlightedColor;
-
-		int option;
 
 		void drawTitle();
 		void changeTitleColor();
@@ -43,6 +43,16 @@ namespace pong_in_console
 		void setNextOption();
 		void setPreviousOption();
 		void enterOption();
+
+		void initOptions(int selectedOption);
+
+		bool keyIsPressed(MENU_CONTROLS keyToVerify, int pressedKey);
+		bool canDetectInput();
+		void resetCounter();
+		void saveOptionChangeInThisFrame(bool changed);
+		void discountCounter();
+
+		void drawOptions();
 	};
 }
 

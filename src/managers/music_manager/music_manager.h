@@ -21,6 +21,7 @@ namespace pong_in_console
 	private:
 		static const int amountOfMusics = 1;
 		static Music musicList[amountOfMusics];
+		static int actualMusicPosition;
 	};
 }
 

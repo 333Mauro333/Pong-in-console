@@ -23,37 +23,12 @@ namespace pong_in_console
 			actualScene = new Gameplay(1);
 			break;
 		}
-
-		system("cls");
 	}
-	void SceneManager::loadScene(SCENE_TO_LOAD scene, COLOR backgroundColor)
-	{
-		delete actualScene;
-
-		Scene::setBackgroundColor(backgroundColor);
-
-		switch (scene)
-		{
-		case SCENE_TO_LOAD::MAIN_MENU:
-			actualScene = new MainMenu();
-			break;
-
-		case SCENE_TO_LOAD::GAMEPLAY:
-			actualScene = new Gameplay(1);
-			break;
-		}
-
-		system("cls");
-	}
-	void SceneManager::loadScene(int levelNumber, COLOR backgroundColor)
+	void SceneManager::loadScene(int levelNumber)
 	{
 		delete actualScene;
 
 		actualScene = new Gameplay(levelNumber);
-
-		Scene::setBackgroundColor(backgroundColor);
-
-		system("cls");
 	}
 
 	Scene* SceneManager::getActualScene()

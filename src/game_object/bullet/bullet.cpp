@@ -7,9 +7,9 @@ namespace pong_in_console
 {
 	Bullet::Bullet() : GameObject(0, 0)
 	{
-		color = COLOR::C_WHITE;
+		color = COLOR::C_GRAY;
 		delayToMove = 2;
-		timer = delayToMove;
+		counter = delayToMove;
 
 		maxDistance = 5;
 		reachedDistance = 0;
@@ -21,27 +21,28 @@ namespace pong_in_console
 
 	}
 
+
 	void Bullet::update()
 	{
 		if (isActive)
 		{
-			if (timer <= 0)
+			if (isTimeToMove())
 			{
 				savePositionAsPrevious();
 
-				timer = delayToMove;
-				position.y--;
-				reachedDistance++;
+				resetCounter();
+				moveUp();
+				incrementReachedDistance();
 
-				if (reachedDistance >= maxDistance)
+				if (itReachedMaxDistance())
 				{
-					resetValues();
+					resetReachedDistance();
 					deactivate();
 				}
 			}
 			else
 			{
-				timer--;
+				discountCounter();
 			}
 		}
 	}
@@ -54,10 +55,36 @@ namespace pong_in_console
 	}
 
 
-	void Bullet::resetValues()
+	bool Bullet::isTimeToMove()
+	{
+		return counter <= 0;
+	}
+	void Bullet::resetCounter()
+	{
+		counter = delayToMove;
+	}
+	void Bullet::moveUp()
+	{
+		position.y--;
+	}
+	void Bullet::incrementReachedDistance()
+	{
+		reachedDistance++;
+	}
+
+	bool Bullet::itReachedMaxDistance()
+	{
+		return reachedDistance >= maxDistance;
+	}
+	void Bullet::resetReachedDistance()
 	{
 		reachedDistance = 0;
 	}
+	void Bullet::discountCounter()
+	{
+		counter--;
+	}
+
 	void Bullet::drawBullet()
 	{
 		string bulletPicture = "";
