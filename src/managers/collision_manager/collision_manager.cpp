@@ -61,6 +61,22 @@ namespace pong_in_console
 			}
 		}
 	}
+	void CollisionManager::applyCollisionBetweenBallAndBullet(Ball* ball, Bullet* bullet)
+	{
+		if (bullet->getIsActive() && thePositionIsTheSame(ball, bullet))
+		{
+			if (ball->isGoingDown())
+			{
+				ball->invertDirection(false, true);
+			}
+			else
+			{
+				ball->move(0, -1);
+			}
+
+			bullet->impact();
+		}
+	}
 
 
 	vector<Block*> CollisionManager::getCollidedBlocks(Ball* ball, vector<Block*> levelBlocks)
@@ -954,5 +970,11 @@ namespace pong_in_console
 				blocks[i]->deactivate();
 			}
 		}
+	}
+
+	bool CollisionManager::thePositionIsTheSame(Ball* ball, Bullet* bullet)
+	{
+		return ball->getPosition().x == bullet->getPosition().x &&
+			   ball->getPosition().y == bullet->getPosition().y;
 	}
 }

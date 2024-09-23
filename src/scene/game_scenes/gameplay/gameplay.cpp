@@ -131,5 +131,6 @@ namespace pong_in_console
 	{
 		CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks);
 		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
+		CollisionManager::applyCollisionBetweenBallAndBullet(ball, player->getBullet());
 	}
 }

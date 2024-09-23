@@ -8,6 +8,7 @@
 #include "enums/side.h"
 #include "game_object/ball/ball.h"
 #include "game_object/block/destructible_block/destructible_block.h"
+#include "game_object/bullet/bullet.h"
 #include "game_object/paddle/paddle.h"
 
 using std::vector;
@@ -20,6 +21,7 @@ namespace pong_in_console
 	public:
 		static void applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks);
 		static void applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle);
+		static void applyCollisionBetweenBallAndBullet(Ball* ball, Bullet* bullet);
 
 	private:
 		static vector<Block*> getCollidedBlocks(Ball* ball, vector<Block*> blocks);
@@ -40,6 +42,8 @@ namespace pong_in_console
 		static bool isTheBallOverThePaddle(Paddle* paddle, Ball* ball);
 		static void reactBallAndBlock(Ball* ball, Block* block, bool invertHorizontal, bool invertVertical);
 		static void reactAllBlocks(vector<Block*> blocks);
+
+		static bool thePositionIsTheSame(Ball* ball, Bullet* bullet);
 	};
 }
 

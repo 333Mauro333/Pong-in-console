@@ -19,6 +19,8 @@ namespace pong_in_console
 		void update();
 		void draw() override;
 
+		void impact();
+
 	private:
 		COLOR color;
 		int delayToMove;

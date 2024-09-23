@@ -26,6 +26,7 @@ namespace pong_in_console
 		void erase() override;
 		void draw() override;
 
+		Bullet* getBullet();
 		void setMovementLimits(Frame* frame) override;
 
 		bool movedInThisFrame(SIDE sideToVerify);

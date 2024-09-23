@@ -36,8 +36,7 @@ namespace pong_in_console
 
 				if (itReachedMaxDistance())
 				{
-					resetReachedDistance();
-					deactivate();
+					impact();
 				}
 			}
 			else
@@ -52,6 +51,12 @@ namespace pong_in_console
 		{
 			drawBullet();
 		}
+	}
+
+	void Bullet::impact()
+	{
+		resetReachedDistance();
+		deactivate();
 	}
 
 

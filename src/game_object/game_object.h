@@ -33,6 +33,8 @@ namespace pong_in_console
 		void setSize(SIZE position);
 		void setSize(int w, int h);
 
+		void move(int x, int y);
+
 	protected:
 		bool isActive;
 		POSITION position;

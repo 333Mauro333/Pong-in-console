@@ -82,6 +82,10 @@ namespace pong_in_console
 		bullet->draw();
 	}
 
+	Bullet* Paddle::getBullet()
+	{
+		return bullet;
+	}
 	void Paddle::setMovementLimits(Frame* frame)
 	{
 		leftLimit = frame->getLeft() + 1;

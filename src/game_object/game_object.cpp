@@ -97,6 +97,12 @@ namespace pong_in_console
 		size = { w, h };
 	}
 
+	void GameObject::move(int x, int y)
+	{
+		position.x += x;
+		position.y += y;
+	}
+
 
 	bool GameObject::thePositionChanged()
 	{
