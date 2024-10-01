@@ -4,7 +4,9 @@
 namespace pong_in_console
 {
 	PICTURE GameValues::blockPictures[GameValues::picturesQuantity] = {};
-	int GameValues::values[GameValues::valueQuantity] = { 10, 25, 50, 100 };
+	int GameValues::values[GameValues::valueQuantity] = { 5, 10, 25, 50 };
+	int GameValues::initialLives = 5;
+	int GameValues::maxScore = 0;
 
 
 	void GameValues::initValues()
@@ -28,6 +30,14 @@ namespace pong_in_console
 		}
 
 		return 0;
+	}
+	int GameValues::getInitialLives()
+	{
+		return initialLives;
+	}
+	void GameValues::setInitialLives(int lives)
+	{
+		initialLives = lives;
 	}
 
 

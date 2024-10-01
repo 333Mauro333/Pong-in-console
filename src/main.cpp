@@ -8,6 +8,5 @@ int main()
 	GameManager::run("PONG");
 
 
-
 	return 0;
 }

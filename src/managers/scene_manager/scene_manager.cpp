@@ -20,15 +20,9 @@ namespace pong_in_console
 			break;
 
 		case SCENE_TO_LOAD::GAMEPLAY:
-			actualScene = new Gameplay(1);
+			actualScene = new Gameplay();
 			break;
 		}
-	}
-	void SceneManager::loadScene(int levelNumber)
-	{
-		delete actualScene;
-
-		actualScene = new Gameplay(levelNumber);
 	}
 
 	Scene* SceneManager::getActualScene()

@@ -27,6 +27,7 @@ namespace pong_in_console
 	protected:
 		PICTURE picture;
 		BLOCK_TYPE blockType;
+		bool isTheFirstFrame;
 	};
 }
 

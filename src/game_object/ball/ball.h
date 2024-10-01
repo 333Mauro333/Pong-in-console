@@ -43,6 +43,7 @@ namespace pong_in_console
 		COLOR color;
 		int delayToMove;
 		int counter;
+		bool isTheFirstFrame;
 		
 		int speedX;
 		int speedY;
@@ -50,6 +51,7 @@ namespace pong_in_console
 		LIMITS externalLimits;
 
 		bool isTimeToMove();
+		bool movedInThisFrame();
 		void resetCounter();
 		void discountCounter();
 

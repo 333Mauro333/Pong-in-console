@@ -10,6 +10,7 @@ namespace pong_in_console
 		color = COLOR::C_LRED;
 		delayToMove = 10;
 		counter = 0;
+		isTheFirstFrame = true;
 
 		switch (ballDirection)
 		{
@@ -62,8 +63,17 @@ namespace pong_in_console
 	}
 	void Ball::draw()
 	{
-		ConsoleExt::goToCoordinates(position.x, position.y);
-		ConsoleExt::writeWithColor("O", color);
+		if (movedInThisFrame() || isActive)
+		{
+			ConsoleExt::goToCoordinates(position.x, position.y);
+			ConsoleExt::writeWithColor("O", color);
+		}
+		else if (isTheFirstFrame)
+		{
+			isTheFirstFrame = false;
+			ConsoleExt::goToCoordinates(position.x, position.y);
+			ConsoleExt::writeWithColor("O", color);
+		}
 	}
 
 
@@ -191,6 +201,10 @@ namespace pong_in_console
 	bool Ball::isTimeToMove()
 	{
 		return counter == 0;
+	}
+	bool Ball::movedInThisFrame()
+	{
+		return counter == delayToMove;
 	}
 	void Ball::resetCounter()
 	{

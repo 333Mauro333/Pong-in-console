@@ -11,6 +11,7 @@ namespace pong_in_console
 	{
 		picture = GameValues::getBlockPicture(blockType);
 		this->blockType = blockType;
+		isTheFirstFrame = true;
 	}
 	Block::~Block()
 	{
@@ -19,8 +20,9 @@ namespace pong_in_console
 
 	void Block::draw()
 	{
-		if (isActive)
+		if (isTheFirstFrame)
 		{
+			isTheFirstFrame = false;
 			ConsoleExt::goToCoordinates(position.x, position.y);
 			ConsoleExt::writeWithColor(picture.picture, picture.color);
 		}

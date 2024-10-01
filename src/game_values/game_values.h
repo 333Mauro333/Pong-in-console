@@ -14,6 +14,8 @@ namespace pong_in_console
 
 		static PICTURE getBlockPicture(BLOCK_TYPE blockType);
 		static int getBlockValue(BLOCK_TYPE blockType);
+		static int getInitialLives();
+		static void setInitialLives(int lives);
 
 	private:
 		static const int picturesQuantity = 5;
@@ -21,6 +23,9 @@ namespace pong_in_console
 
 		static const int valueQuantity = 4;
 		static int values[valueQuantity];
+
+		static int initialLives;
+		static int maxScore;
 
 		static void initABlockPicture(int arrayPosition, char picture, COLOR color);
 		static bool isDestructible(BLOCK_TYPE blockType);

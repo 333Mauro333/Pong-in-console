@@ -19,7 +19,7 @@ namespace pong_in_console
 	class CollisionManager
 	{
 	public:
-		static void applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks);
+		static bool applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks, int& actualPoints);
 		static void applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle);
 		static void applyCollisionBetweenBallAndBullet(Ball* ball, Bullet* bullet);
 
@@ -28,11 +28,11 @@ namespace pong_in_console
 		static bool ballIsGoingInThatDirection(Ball* ball, BALL_DIRECTION direction);
 		static bool isTheBlockInBallSRange(Ball* ball, Block* block);
 		static bool thereAreBlocks(vector<Block*> vectorBlock, int searchedAmount);
-		static void makeTheBallAndOneBlockReact(Ball* ball, Block* block);
-		static void makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks);
-		static void makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks);
-		static void makeTheBallAndFourBlocksReact(Ball* ball, vector<Block*> blocks);
-		static void makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks);
+		static bool makeTheBallAndOneBlockReact(Ball* ball, Block* block, int& actualPoints);
+		static bool makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints);
+		static bool makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints);
+		static bool makeTheBallAndFourBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints);
+		static bool makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints);
 		static bool isTheBallAdjacentToOneBlock(Ball* ball, Block* block, DIRECTION searchedDirection);
 		static bool isTheBallAdjacentToMultipleBlocks(Ball* ball, vector<Block*> blocks, vector<DIRECTION> searchedDirections);
 
@@ -44,6 +44,8 @@ namespace pong_in_console
 		static void reactAllBlocks(vector<Block*> blocks);
 
 		static bool thePositionIsTheSame(Ball* ball, Bullet* bullet);
+		static void addPointsIfItIsADestructibleBlock(Block* block, int& actualPoints);
+		static void addPointsIfTheyAreDestructibleBlocks(vector<Block*> blocks, int& actualPoints);
 	};
 }
 

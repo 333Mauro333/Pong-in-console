@@ -82,6 +82,21 @@
     <Filter Include="src\game_object\bullet">
       <UniqueIdentifier>{040b5772-bb30-4e4f-86a9-d7d826cb0ed3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\managers\score_manager">
+      <UniqueIdentifier>{86d9cba3-340d-48e6-abbb-94e16a15ad7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\time_manager">
+      <UniqueIdentifier>{818b657b-76e6-4ec1-9913-114e553e5753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\game_object\gameplay_ui">
+      <UniqueIdentifier>{0858cda2-de9c-465b-a185-c3beade98bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\life_controller">
+      <UniqueIdentifier>{a56e35d5-094b-41fc-a958-cf62d9ea2eb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\level_manager">
+      <UniqueIdentifier>{c498e63c-1cbe-4d97-915c-9541b6696804}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -149,6 +164,21 @@
     </ClCompile>
     <ClCompile Include="src\game_object\bullet\bullet.cpp">
       <Filter>src\game_object\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\score_manager\score_manager.cpp">
+      <Filter>src\managers\score_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\time_manager\time_manager.cpp">
+      <Filter>src\managers\time_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\life_controller\life_controller.cpp">
+      <Filter>src\life_controller</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game_object\gameplay_ui\gameplay_ui.cpp">
+      <Filter>src\game_object\gameplay_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\level_manager\level_manager.cpp">
+      <Filter>src\managers\level_manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +285,24 @@
       <Filter>src\game_object\bullet</Filter>
     </ClInclude>
     <ClInclude Include="src\enums\information_to_load.h">
+      <Filter>src\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\score_manager\score_manager.h">
+      <Filter>src\managers\score_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\time_manager\time_manager.h">
+      <Filter>src\managers\time_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\life_controller\life_cotroller.h">
+      <Filter>src\life_controller</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game_object\gameplay_ui\gameplay_ui.h">
+      <Filter>src\game_object\gameplay_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\level_manager\level_manager.h">
+      <Filter>src\managers\level_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enums\gameplay_statistic.h">
       <Filter>src\enums</Filter>
     </ClInclude>
   </ItemGroup>

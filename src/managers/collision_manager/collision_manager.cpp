@@ -3,8 +3,10 @@
 
 namespace pong_in_console
 {
-	void CollisionManager::applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks)
+	bool CollisionManager::applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks, int& actualPoints)
 	{
+		bool thereIsACollision = false;
+
 		if (ball->isTimeToDetectCollision())
 		{
 			vector<Block*> collidedBlocksVector = vector<Block*>();
@@ -15,25 +17,27 @@ namespace pong_in_console
 			{
 				Block* collidedBlock = collidedBlocksVector[0];
 
-				makeTheBallAndOneBlockReact(ball, collidedBlock);
+				thereIsACollision = makeTheBallAndOneBlockReact(ball, collidedBlock, actualPoints);
 			}
 			else if (thereAreBlocks(collidedBlocksVector, 2))
 			{
-				makeTheBallAndTwoBlocksReact(ball, collidedBlocksVector);
+				thereIsACollision = makeTheBallAndTwoBlocksReact(ball, collidedBlocksVector, actualPoints);
 			}
 			else if (thereAreBlocks(collidedBlocksVector, 3))
 			{
-				makeTheBallAndThreeBlocksReact(ball, collidedBlocksVector);
+				thereIsACollision = makeTheBallAndThreeBlocksReact(ball, collidedBlocksVector, actualPoints);
 			}
 			else if (thereAreBlocks(collidedBlocksVector, 4))
 			{
-				makeTheBallAndFourBlocksReact(ball, collidedBlocksVector);
+				thereIsACollision = makeTheBallAndFourBlocksReact(ball, collidedBlocksVector, actualPoints);
 			}
 			else if (thereAreBlocks(collidedBlocksVector, 5))
 			{
-				makeTheBallAndFiveBlocksReact(ball, collidedBlocksVector);
+				thereIsACollision = makeTheBallAndFiveBlocksReact(ball, collidedBlocksVector, actualPoints);
 			}
 		}
+
+		return thereIsACollision;
 	}
 	void CollisionManager::applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle)
 	{
@@ -108,13 +112,15 @@ namespace pong_in_console
 	{
 		return vectorBlock.size() == searchedAmount;
 	}
-	void CollisionManager::makeTheBallAndOneBlockReact(Ball* ball, Block* block)
+	bool CollisionManager::makeTheBallAndOneBlockReact(Ball* ball, Block* block, int& actualPoints)
 	{
 		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_CENTER))
 			{
 				reactBallAndBlock(ball, block, false, true);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_RIGHT))
 			{
@@ -126,10 +132,14 @@ namespace pong_in_console
 				}
 
 				reactBallAndBlock(ball, block, invertHorizontal, true);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
 			{
 				reactBallAndBlock(ball, block, true, false);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
@@ -137,6 +147,8 @@ namespace pong_in_console
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_CENTER))
 			{
 				reactBallAndBlock(ball, block, false, true);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::UPPER_LEFT))
 			{
@@ -148,10 +160,14 @@ namespace pong_in_console
 				}
 
 				reactBallAndBlock(ball, block, invertHorizontal, true);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_LEFT))
 			{
 				reactBallAndBlock(ball, block, true, false);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
@@ -159,6 +175,8 @@ namespace pong_in_console
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_CENTER))
 			{
 				reactBallAndBlock(ball, block, false, true);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_RIGHT))
 			{
@@ -176,10 +194,14 @@ namespace pong_in_console
 				}
 
 				reactBallAndBlock(ball, block, invertHorizontal, invertVertical);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_RIGHT))
 			{
 				reactBallAndBlock(ball, block, true, false);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
@@ -187,6 +209,8 @@ namespace pong_in_console
 			if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_CENTER))
 			{
 				reactBallAndBlock(ball, block, false, true);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::LOWER_LEFT))
 			{
@@ -204,14 +228,20 @@ namespace pong_in_console
 				}
 
 				reactBallAndBlock(ball, block, invertHorizontal, invertVertical);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToOneBlock(ball, block, DIRECTION::MIDDLE_LEFT))
 			{
 				reactBallAndBlock(ball, block, true, false);
+				addPointsIfItIsADestructibleBlock(block, actualPoints);
+				return true;
 			}
 		}
+
+		return false;
 	}
-	void CollisionManager::makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks)
+	bool CollisionManager::makeTheBallAndTwoBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints)
 	{
 		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
@@ -219,46 +249,64 @@ namespace pong_in_console
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
@@ -267,46 +315,64 @@ namespace pong_in_console
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
@@ -315,46 +381,64 @@ namespace pong_in_console
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
@@ -363,50 +447,70 @@ namespace pong_in_console
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 		}
+
+		return false;
 	}
-	void CollisionManager::makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks)
+	bool CollisionManager::makeTheBallAndThreeBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints)
 	{
 		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
@@ -414,55 +518,75 @@ namespace pong_in_console
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
@@ -471,55 +595,75 @@ namespace pong_in_console
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[0], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
@@ -529,54 +673,74 @@ namespace pong_in_console
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[2]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[2], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
@@ -585,59 +749,81 @@ namespace pong_in_console
 			{
 				ball->invertDirection(true, false);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				reactAllBlocks(blocks);
+				addPointsIfTheyAreDestructibleBlocks(blocks, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(false, true);
 				blocks[1]->reactToTheBall();
+				addPointsIfItIsADestructibleBlock(blocks[1], actualPoints);
+				return true;
 			}
 		}
+
+		return false;
 	}
-	void CollisionManager::makeTheBallAndFourBlocksReact(Ball* ball, vector<Block*> blocks)
+	bool CollisionManager::makeTheBallAndFourBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints)
 	{
 		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
@@ -647,6 +833,8 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
@@ -654,12 +842,16 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
@@ -667,6 +859,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_RIGHT }))
 			{
@@ -674,6 +868,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
@@ -684,6 +880,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT }))
 			{
@@ -691,6 +889,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_CENTER, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
@@ -698,6 +898,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
@@ -705,12 +907,16 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_CENTER, DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
@@ -720,6 +926,8 @@ namespace pong_in_console
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
@@ -727,6 +935,8 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -734,6 +944,8 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -741,6 +953,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_RIGHT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -748,6 +962,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
@@ -758,6 +974,8 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_RIGHT }))
 			{
@@ -765,12 +983,16 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
 				ball->invertDirection(true, true);
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::UPPER_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -778,6 +1000,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 			else if (isTheBallAdjacentToMultipleBlocks(ball, blocks, { DIRECTION::MIDDLE_LEFT, DIRECTION::LOWER_LEFT, DIRECTION::LOWER_CENTER, DIRECTION::LOWER_RIGHT }))
 			{
@@ -785,10 +1009,14 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[2] }, actualPoints);
+				return true;
 			}
 		}
+
+		return false;
 	}
-	void CollisionManager::makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks)
+	bool CollisionManager::makeTheBallAndFiveBlocksReact(Ball* ball, vector<Block*> blocks, int& actualPoints)
 	{
 		if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_RIGHT))
 		{
@@ -798,6 +1026,8 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::UP_LEFT))
@@ -808,6 +1038,8 @@ namespace pong_in_console
 				blocks[0]->reactToTheBall();
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[0], blocks[1], blocks[3] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_RIGHT))
@@ -818,6 +1050,8 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[3]->reactToTheBall();
 				blocks[4]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[3], blocks[4] }, actualPoints);
+				return true;
 			}
 		}
 		else if (ballIsGoingInThatDirection(ball, BALL_DIRECTION::DOWN_LEFT))
@@ -828,8 +1062,12 @@ namespace pong_in_console
 				blocks[1]->reactToTheBall();
 				blocks[2]->reactToTheBall();
 				blocks[3]->reactToTheBall();
+				addPointsIfTheyAreDestructibleBlocks({ blocks[1], blocks[2], blocks[3] }, actualPoints);
+				return true;
 			}
 		}
+
+		return false;
 	}
 
 	bool CollisionManager::isTheBallAdjacentToOneBlock(Ball* ball, Block* block, DIRECTION searchedDirection)
@@ -976,5 +1214,19 @@ namespace pong_in_console
 	{
 		return ball->getPosition().x == bullet->getPosition().x &&
 			   ball->getPosition().y == bullet->getPosition().y;
+	}
+	void CollisionManager::addPointsIfItIsADestructibleBlock(Block* block, int& actualPoints)
+	{
+		if (block->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE)
+		{
+			actualPoints += ((DestructibleBlock*)block)->getPointsValue();
+		}
+	}
+	void CollisionManager::addPointsIfTheyAreDestructibleBlocks(vector<Block*> blocks, int& actualPoints)
+	{
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			addPointsIfItIsADestructibleBlock(blocks[i], actualPoints);
+		}
 	}
 }

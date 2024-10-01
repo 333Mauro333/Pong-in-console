@@ -9,6 +9,7 @@
 #include "game_object/bullet/bullet.h"
 #include "game_object/game_object.h"
 #include "interface_simulation/limited_element/limited_element.h"
+#include "life_controller/life_cotroller.h"
 
 using mgtv_library::console::COLOR;
 
@@ -27,6 +28,7 @@ namespace pong_in_console
 		void draw() override;
 
 		Bullet* getBullet();
+		LifeController* getLifeController();
 		void setMovementLimits(Frame* frame) override;
 
 		bool movedInThisFrame(SIDE sideToVerify);
@@ -38,11 +40,14 @@ namespace pong_in_console
 
 		int leftLimit;
 		int rightLimit;
+		bool isTheFirstFrame;
 		SIDE lastMove;
 
 		Bullet* bullet;
+		LifeController* lifeController;
 
 		void initBullet();
+		void initLifeController();
 
 		bool canMove();
 		bool canGoLeft();

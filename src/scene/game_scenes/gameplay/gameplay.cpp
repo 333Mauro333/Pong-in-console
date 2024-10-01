@@ -5,24 +5,35 @@
 #include "managers/collision_manager/collision_manager.h"
 #include "managers/controls_manager/controls_manager.h"
 #include "managers/file_manager/file_manager.h"
+#include "managers/level_manager/level_manager.h"
 #include "managers/music_manager/music_manager.h"
 #include "managers/scene_manager/scene_manager.h"
+#include "managers/score_manager/score_manager.h"
+#include "managers/time_manager/time_manager.h"
 
 using mgtv_library::console::ConsoleExt;
 
 
 namespace pong_in_console
 {
-	Gameplay::Gameplay(int levelNumber) : Scene(COLOR::C_BLACK)
+	Gameplay::Gameplay() : Scene(COLOR::C_BLACK)
 	{
+		levelScore = 0;
+		totalScore = ScoreManager::getTotalScore();
+		level = LevelManager::getLevel();
+
 		initFrame();
 		initPlayer();
 		initBall();
-		initBlocks(levelNumber);
+		initBlocks();
+		initUI();
+
+		TimeManager::startCounting();
 	}
 	Gameplay::~Gameplay()
 	{
 		delete frame;
+		delete ui;
 		delete player;
 		delete ball;
 
@@ -41,10 +52,18 @@ namespace pong_in_console
 	}
 	void Gameplay::update()
 	{
+		TimeManager::updateTime();
+
 		ball->update();
 		player->update();
 
 		checkBallCollisions();
+
+		if (time != TimeManager::getActualTime())
+		{
+			time = TimeManager::getActualTime();
+			ui->updateStatistic(GAMEPLAY_STATISTIC::TIME);
+		}
 	}
 	void Gameplay::erase()
 	{
@@ -54,6 +73,7 @@ namespace pong_in_console
 	void Gameplay::draw()
 	{
 		frame->draw();
+		ui->draw();
 		ball->draw();
 		player->draw();
 
@@ -83,9 +103,9 @@ namespace pong_in_console
 						  ConsoleExt::getScreenHeight() / 2 - frameHeight / 2 + 2,
 						  frameWidth, frameHeight, COLOR::C_BWHITE);
 	}
-	void Gameplay::initBlocks(int levelNumber)
+	void Gameplay::initBlocks()
 	{
-		string levelInfo = FileManager::loadLevel(levelNumber);
+		string levelInfo = FileManager::loadLevel(level);
 		int firstPositionX = frame->getLeft() + 1;
 		int firstPositionY = frame->getUp() + 1;
 		int x = firstPositionX;
@@ -119,6 +139,14 @@ namespace pong_in_console
 			x++;
 		}
 	}
+	void Gameplay::initUI()
+	{
+		ui = new GameplayUI(frame, 5);
+		ui->pointToLives(player->getLifeController()->getLives());
+		ui->pointToLevel(level);
+		ui->pointToTime(time);
+		ui->pointToScore(levelScore);
+	}
 
 	void Gameplay::checkMenuInput(int key)
 	{
@@ -129,7 +157,10 @@ namespace pong_in_console
 	}
 	void Gameplay::checkBallCollisions()
 	{
-		CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks);
+		if (CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks, levelScore))
+		{
+			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
+		}
 		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
 		CollisionManager::applyCollisionBetweenBallAndBullet(ball, player->getBullet());
 	}

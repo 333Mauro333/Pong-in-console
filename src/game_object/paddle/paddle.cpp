@@ -18,13 +18,16 @@ namespace pong_in_console
 
 		leftLimit = 0;
 		rightLimit = ConsoleExt::getScreenWidth() - 1;
+		isTheFirstFrame = true;
 		lastMove = SIDE::NONE;
 
 		initBullet();
+		initLifeController();
 	}
 	Paddle::~Paddle()
 	{
 		delete bullet;
+		delete lifeController;
 	}
 
 
@@ -77,7 +80,15 @@ namespace pong_in_console
 	}
 	void Paddle::draw()
 	{
-		drawNormal();
+		if (thePositionChanged())
+		{
+			drawNormal();
+		}
+		else if (isTheFirstFrame)
+		{
+			isTheFirstFrame = false;
+			drawNormal();
+		}
 
 		bullet->draw();
 	}
@@ -85,6 +96,10 @@ namespace pong_in_console
 	Bullet* Paddle::getBullet()
 	{
 		return bullet;
+	}
+	LifeController* Paddle::getLifeController()
+	{
+		return lifeController;
 	}
 	void Paddle::setMovementLimits(Frame* frame)
 	{
@@ -101,6 +116,10 @@ namespace pong_in_console
 	void Paddle::initBullet()
 	{
 		bullet = new Bullet();
+	}
+	void Paddle::initLifeController()
+	{
+		lifeController = new LifeController();
 	}
 
 	bool Paddle::canMove()

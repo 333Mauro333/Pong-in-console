@@ -15,7 +15,6 @@ namespace pong_in_console
 	{
 	public:
 		static void loadScene(SCENE_TO_LOAD scene);
-		static void loadScene(int levelNumber);
 
 		static Scene* getActualScene();
 
