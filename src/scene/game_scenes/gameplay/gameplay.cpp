@@ -2,6 +2,7 @@
 
 #include "game_object/block/destructible_block/destructible_block.h"
 #include "game_object/block/indestructible_block/indestructible_block.h"
+#include "laser_pooling/laser_pooling.h"
 #include "managers/collision_manager/collision_manager.h"
 #include "managers/controls_manager/controls_manager.h"
 #include "managers/file_manager/file_manager.h"
@@ -29,6 +30,7 @@ namespace pong_in_console
 		initBall();
 		initBlocks();
 		initUI();
+		setLaserLimits();
 
 		TimeManager::startCounting();
 	}
@@ -58,6 +60,7 @@ namespace pong_in_console
 
 		ball->update();
 		player->update();
+		updateLasers();
 
 		if (ball->getPosition().y == frame->getDown() - 1)
 		{
@@ -100,6 +103,7 @@ namespace pong_in_console
 	{
 		ball->erase();
 		player->erase();
+		eraseLasers();
 	}
 	void Gameplay::draw()
 	{
@@ -107,6 +111,7 @@ namespace pong_in_console
 		ui->draw();
 		ball->draw();
 		player->draw();
+		drawLasers();
 
 		for (int i = 0; i < blocks.size(); i++)
 		{
@@ -180,6 +185,43 @@ namespace pong_in_console
 		ui->pointToTime(time);
 		ui->pointToScore(levelScore);
 	}
+	void Gameplay::setLaserLimits()
+	{
+		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
+
+		for (int i = 0; i < laserVector.size(); i++)
+		{
+			laserVector[i]->setMovementLimits(frame);
+		}
+	}
+
+	void Gameplay::updateLasers()
+	{
+		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
+
+		for (int i = 0; i < laserVector.size(); i++)
+		{
+			laserVector[i]->update();
+		}
+	}
+	void Gameplay::eraseLasers()
+	{
+		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
+
+		for (int i = 0; i < laserVector.size(); i++)
+		{
+			laserVector[i]->erase();
+		}
+	}
+	void Gameplay::drawLasers()
+	{
+		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
+
+		for (int i = 0; i < laserVector.size(); i++)
+		{
+			laserVector[i]->draw();
+		}
+	}
 
 	void Gameplay::checkMenuInput(int key)
 	{
@@ -209,7 +251,7 @@ namespace pong_in_console
 	}
 	void Gameplay::checkLaserCollisions()
 	{
-		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(player->getActiveLasers(), blocks, levelScore))
+		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(LaserPooling::getInstance()->getActiveLasers(), blocks, levelScore))
 		{
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
 

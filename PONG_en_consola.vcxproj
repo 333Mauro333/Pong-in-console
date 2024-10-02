@@ -161,6 +161,7 @@
     <ClCompile Include="src\game_object\text\text.cpp" />
     <ClCompile Include="src\game_values\game_values.cpp" />
     <ClCompile Include="src\interface_simulation\limited_element\limited_element.cpp" />
+    <ClCompile Include="src\laser_pooling\laser_pooling.cpp" />
     <ClCompile Include="src\life_controller\life_controller.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\managers\collision_manager\collision_manager.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="src\game_object\text\text.h" />
     <ClInclude Include="src\game_values\game_values.h" />
     <ClInclude Include="src\interface_simulation\limited_element\limited_element.h" />
+    <ClInclude Include="src\laser_pooling\laser_pooling.h" />
     <ClInclude Include="src\life_controller\life_cotroller.h" />
     <ClInclude Include="src\managers\collision_manager\collision_manager.h" />
     <ClInclude Include="src\managers\controls_manager\controls_manager.h" />

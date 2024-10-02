@@ -100,6 +100,9 @@
     <Filter Include="src\game_object\laser">
       <UniqueIdentifier>{65cf6ed0-e5d5-48aa-93af-4733105c7de2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\laser_pooling">
+      <UniqueIdentifier>{70a1fb2e-6059-4fab-aed8-df383209f096}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="src\game_object\laser\laser.cpp">
       <Filter>src\game_object\laser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\laser_pooling\laser_pooling.cpp">
+      <Filter>src\laser_pooling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="src\game_object\laser\laser.h">
       <Filter>src\game_object\laser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\laser_pooling\laser_pooling.h">
+      <Filter>src\laser_pooling</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

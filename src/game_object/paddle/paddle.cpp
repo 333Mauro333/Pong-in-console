@@ -22,16 +22,10 @@ namespace pong_in_console
 		lastMove = SIDE::NONE;
 
 		initBullet();
-		initLasers(4);
 		initLifeController();
 	}
 	Paddle::~Paddle()
 	{
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			delete lasers[i];
-		}
-
 		delete bullet;
 		delete lifeController;
 	}
@@ -78,22 +72,12 @@ namespace pong_in_console
 		}
 
 		bullet->update();
-
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			lasers[i]->update();
-		}
 	}
 	void Paddle::erase()
 	{
 		GameObject::erase();
 
 		bullet->erase();
-
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			lasers[i]->erase();
-		}
 	}
 	void Paddle::draw()
 	{
@@ -109,11 +93,6 @@ namespace pong_in_console
 		}
 
 		bullet->draw();
-
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			lasers[i]->draw();
-		}
 	}
 
 	Bullet* Paddle::getBullet()
@@ -124,29 +103,10 @@ namespace pong_in_console
 	{
 		return lifeController;
 	}
-	vector<Laser*> Paddle::getActiveLasers()
-	{
-		vector<Laser*> activeLasers = vector<Laser*>();
-
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			if (lasers[i]->getIsActive())
-			{
-				activeLasers.push_back(lasers[i]);
-			}
-		}
-
-		return activeLasers;
-	}
 	void Paddle::setMovementLimits(Frame* frame)
 	{
 		leftLimit = frame->getLeft() + 1;
 		rightLimit = frame->getRight() - 1;
-
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			lasers[i]->setMovementLimits(frame);
-		}
 	}
 
 	bool Paddle::movedInThisFrame(SIDE sideToVerify)
@@ -158,13 +118,6 @@ namespace pong_in_console
 	void Paddle::initBullet()
 	{
 		bullet = new Bullet();
-	}
-	void Paddle::initLasers(int amountOfLasers)
-	{
-		for (int i = 0; i < amountOfLasers; i++)
-		{
-			lasers.push_back(new Laser());
-		}
 	}
 	void Paddle::initLifeController()
 	{
@@ -212,14 +165,14 @@ namespace pong_in_console
 		Laser* laser2 = NULL;
 
 
-		laser1 = getInactiveLaser();
+		laser1 = LaserPooling::getInstance()->getLaser();
 
 		if (thereIsALaser(laser1))
 		{
 			laser1->activate();
 		}
 
-		laser2 = getInactiveLaser();
+		laser2 = LaserPooling::getInstance()->getLaser();
 
 		if (thereIsALaser(laser2))
 		{
@@ -249,26 +202,12 @@ namespace pong_in_console
 			}
 		}
 	}
-	Laser* Paddle::getInactiveLaser()
-	{
-		for (int i = 0; i < lasers.size(); i++)
-		{
-			if (!lasers[i]->getIsActive())
-			{
-				return lasers[i];
-			}
-		}
-
-		return NULL;
-	}
 	bool Paddle::thereIsALaser(Laser* laserToVerify)
 	{
 		return laserToVerify != NULL;
 	}
 	void Paddle::shootALaser(Laser* laser, SIDE side)
 	{
-		laser->activate();
-
 		switch (side)
 		{
 		case SIDE::LEFT:

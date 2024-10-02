@@ -5,6 +5,7 @@
 #include "mgtv_library.h"
 
 #include "game_values/game_values.h"
+#include "laser_pooling/laser_pooling.h"
 #include "managers/music_manager/music_manager.h"
 
 using std::thread;
@@ -45,6 +46,8 @@ namespace pong_in_console
 		MusicManager::initMusic();
 		GameValues::initValues();
 		SceneManager::loadScene(sceneToLoad);
+
+		LaserPooling* laserPooling = new LaserPooling(4);
 	}
 	void GameManager::inputUpdate()
 	{
@@ -67,6 +70,7 @@ namespace pong_in_console
 	void GameManager::destroy()
 	{
 		delete SceneManager::getActualScene();
+		delete LaserPooling::getInstance();
 
 		ConsoleExt::goToCoordinates(0, 24);
 		MusicManager::closeMusicSistem();

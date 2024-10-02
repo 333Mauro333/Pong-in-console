@@ -46,6 +46,11 @@ namespace pong_in_console
 		void initBlocks();
 		void initUI();
 
+		void setLaserLimits();
+		void updateLasers();
+		void eraseLasers();
+		void drawLasers();
+
 		void checkMenuInput(int key);
 		void checkBallCollisions();
 		void checkLaserCollisions();
