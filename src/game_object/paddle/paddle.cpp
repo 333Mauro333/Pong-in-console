@@ -82,6 +82,7 @@ namespace pong_in_console
 	{
 		if (thePositionChanged())
 		{
+			savePositionAsPrevious();
 			drawNormal();
 		}
 		else if (isTheFirstFrame)

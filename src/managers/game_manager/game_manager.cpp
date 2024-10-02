@@ -68,6 +68,7 @@ namespace pong_in_console
 	{
 		delete SceneManager::getActualScene();
 
+		ConsoleExt::goToCoordinates(0, 24);
 		MusicManager::closeMusicSistem();
 	}
 }

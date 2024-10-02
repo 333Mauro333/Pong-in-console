@@ -21,6 +21,8 @@ namespace pong_in_console
 		levelScore = 0;
 		totalScore = ScoreManager::getTotalScore();
 		level = LevelManager::getLevel();
+		time = 0;
+		isTimeToChangeScene = false;
 
 		initFrame();
 		initPlayer();
@@ -57,6 +59,22 @@ namespace pong_in_console
 		ball->update();
 		player->update();
 
+		if (ball->getPosition().y == frame->getDown() - 1)
+		{
+			int playerCenterX = player->getPosition().x + player->getSize().w / 2;
+
+			player->getLifeController()->discountALife();
+
+			if (player->getLifeController()->getLives() == -1)
+			{
+				isTimeToChangeScene = true;
+			}
+
+			ui->updateStatistic(GAMEPLAY_STATISTIC::LIVES);
+			ball->setPosition(playerCenterX, player->getPosition().y - 1);
+			ball->setDirection(BALL_DIRECTION::UP_RIGHT);
+		}
+
 		if (time != TimeManager::getActualTime())
 		{
 			time = TimeManager::getActualTime();
@@ -64,6 +82,18 @@ namespace pong_in_console
 		}
 
 		checkBallCollisions();
+
+		if (isTimeToChangeScene)
+		{
+			if (getAmountOfActiveBlocks() == 0)
+			{
+				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+			}
+			else if (player->getLifeController()->getLives() == -1)
+			{
+				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+			}
+		}
 	}
 	void Gameplay::erase()
 	{
@@ -86,12 +116,14 @@ namespace pong_in_console
 
 	void Gameplay::initPlayer()
 	{
-		player = new Paddle(60, 23);
+		player = new Paddle(60, 24);
 		player->setMovementLimits(frame);
 	}
 	void Gameplay::initBall()
 	{
-		ball = new Ball(55, 8, BALL_DIRECTION::DOWN_LEFT);
+		int playerCenterX = player->getPosition().x + player->getSize().w / 2;
+
+		ball = new Ball(playerCenterX, player->getPosition().y - 1, BALL_DIRECTION::UP_RIGHT);
 		ball->setMovementLimits(frame);
 	}
 	void Gameplay::initFrame()
@@ -170,7 +202,7 @@ namespace pong_in_console
 
 			if (getAmountOfActiveBlocks() == 0)
 			{
-				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+				isTimeToChangeScene = true;
 			}
 		}
 	}

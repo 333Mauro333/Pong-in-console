@@ -158,9 +158,16 @@ namespace pong_in_console
 
 	void GameplayUI::writeLives()
 	{
+		COLOR color = ConsoleExt::getForegroundColor();
+
+		if (*lives == 0)
+		{
+			color = COLOR::C_RED;
+		}
+
 		ConsoleExt::goToCoordinates(position.x + 1, position.y + 2);
-		ConsoleExt::writeWithColor("VIDAS:", ConsoleExt::getForegroundColor());
-		ConsoleExt::writeWithColor(to_string(*lives), ConsoleExt::getForegroundColor());
+		ConsoleExt::writeWithColor("VIDAS:", color);
+		ConsoleExt::writeWithColor(to_string(*lives), color);
 	}
 	void GameplayUI::writeLevel()
 	{

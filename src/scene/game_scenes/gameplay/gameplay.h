@@ -31,6 +31,7 @@ namespace pong_in_console
 		int totalScore;
 		int level;
 		long long time;
+		bool isTimeToChangeScene;
 
 		Paddle* player;
 		Ball* ball;
