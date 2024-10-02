@@ -48,6 +48,7 @@ namespace pong_in_console
 
 		void checkMenuInput(int key);
 		void checkBallCollisions();
+		void checkLaserCollisions();
 
 		int getAmountOfActiveBlocks();
 		void disappearABlock();

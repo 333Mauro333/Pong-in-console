@@ -156,6 +156,7 @@
     <ClCompile Include="src\game_object\frame\frame.cpp" />
     <ClCompile Include="src\game_object\gameplay_ui\gameplay_ui.cpp" />
     <ClCompile Include="src\game_object\game_object.cpp" />
+    <ClCompile Include="src\game_object\laser\laser.cpp" />
     <ClCompile Include="src\game_object\paddle\paddle.cpp" />
     <ClCompile Include="src\game_object\text\text.cpp" />
     <ClCompile Include="src\game_values\game_values.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="src\game_object\frame\frame.h" />
     <ClInclude Include="src\game_object\gameplay_ui\gameplay_ui.h" />
     <ClInclude Include="src\game_object\game_object.h" />
+    <ClInclude Include="src\game_object\laser\laser.h" />
     <ClInclude Include="src\game_object\paddle\paddle.h" />
     <ClInclude Include="src\game_object\text\text.h" />
     <ClInclude Include="src\game_values\game_values.h" />

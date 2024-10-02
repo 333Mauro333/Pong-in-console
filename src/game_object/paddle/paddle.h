@@ -1,6 +1,8 @@
 #ifndef PADDLE_H
 #define PADDLE_H
 
+#include <vector>
+
 #include "mgtv_library.h"
 #include "raylib.h"
 
@@ -8,9 +10,11 @@
 #include "enums/side.h"
 #include "game_object/bullet/bullet.h"
 #include "game_object/game_object.h"
+#include "game_object/laser/laser.h"
 #include "interface_simulation/limited_element/limited_element.h"
 #include "life_controller/life_cotroller.h"
 
+using std::vector;
 using mgtv_library::console::COLOR;
 
 
@@ -29,6 +33,7 @@ namespace pong_in_console
 
 		Bullet* getBullet();
 		LifeController* getLifeController();
+		vector<Laser*> getActiveLasers();
 		void setMovementLimits(Frame* frame) override;
 
 		bool movedInThisFrame(SIDE sideToVerify);
@@ -44,9 +49,12 @@ namespace pong_in_console
 		SIDE lastMove;
 
 		Bullet* bullet;
+		vector<Laser*> lasers;
+		
 		LifeController* lifeController;
 
 		void initBullet();
+		void initLasers(int amountOfLasers);
 		void initLifeController();
 
 		bool canMove();
@@ -56,13 +64,18 @@ namespace pong_in_console
 
 		void moveLeft();
 		void moveRight();
-		void shoot();
+		void shootBullet();
+		void shootLasers();
+		Laser* getInactiveLaser();
+		bool thereIsALaser(Laser* laserToVerify);
+		void shootALaser(Laser* laser, SIDE side);
 
 		void resetCounter();
 		void saveLastMove(SIDE lastMove);
 		void discountCounter();
 
 		void drawNormal();
+		void drawWithGuns();
 	};
 }
 

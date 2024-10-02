@@ -22,6 +22,7 @@ namespace pong_in_console
 		static bool applyCollisionBetweenBallAndBlocks(Ball* ball, vector<Block*> blocks, int& actualPoints);
 		static void applyCollisionBetweenBallAndPaddle(Ball* ball, Paddle* paddle);
 		static void applyCollisionBetweenBallAndBullet(Ball* ball, Bullet* bullet);
+		static bool applyCollisionBetweenLasersAndBlocks(vector<Laser*> activeLasers, vector<Block*> blocks, int& actualPoints);
 
 	private:
 		static vector<Block*> getCollidedBlocks(Ball* ball, vector<Block*> blocks);

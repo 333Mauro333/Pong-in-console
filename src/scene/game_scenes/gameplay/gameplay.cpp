@@ -82,6 +82,7 @@ namespace pong_in_console
 		}
 
 		checkBallCollisions();
+		checkLaserCollisions();
 
 		if (isTimeToChangeScene)
 		{
@@ -197,6 +198,18 @@ namespace pong_in_console
 		CollisionManager::applyCollisionBetweenBallAndBullet(ball, player->getBullet());
 
 		if (CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks, levelScore))
+		{
+			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
+
+			if (getAmountOfActiveBlocks() == 0)
+			{
+				isTimeToChangeScene = true;
+			}
+		}
+	}
+	void Gameplay::checkLaserCollisions()
+	{
+		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(player->getActiveLasers(), blocks, levelScore))
 		{
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
 

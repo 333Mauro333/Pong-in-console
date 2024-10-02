@@ -47,7 +47,7 @@ namespace pong_in_console
 	}
 	void Bullet::draw()
 	{
-		if (isActive)
+		if (movedInThisFrame() && isActive)
 		{
 			drawBullet();
 		}
@@ -90,6 +90,10 @@ namespace pong_in_console
 		counter--;
 	}
 
+	bool Bullet::movedInThisFrame()
+	{
+		return counter == delayToMove;
+	}
 	void Bullet::drawBullet()
 	{
 		string bulletPicture = "";

@@ -22,10 +22,16 @@ namespace pong_in_console
 		lastMove = SIDE::NONE;
 
 		initBullet();
+		initLasers(4);
 		initLifeController();
 	}
 	Paddle::~Paddle()
 	{
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			delete lasers[i];
+		}
+
 		delete bullet;
 		delete lifeController;
 	}
@@ -59,7 +65,8 @@ namespace pong_in_console
 			}
 			else if (keyIsPressed(GAMEPLAY_CONTROLS::SHOOT, key))
 			{
-				shoot();
+				shootBullet();
+				shootLasers();
 			}
 		}
 	}
@@ -71,27 +78,42 @@ namespace pong_in_console
 		}
 
 		bullet->update();
+
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			lasers[i]->update();
+		}
 	}
 	void Paddle::erase()
 	{
 		GameObject::erase();
 
 		bullet->erase();
+
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			lasers[i]->erase();
+		}
 	}
 	void Paddle::draw()
 	{
 		if (thePositionChanged())
 		{
 			savePositionAsPrevious();
-			drawNormal();
+			drawWithGuns();
 		}
 		else if (isTheFirstFrame)
 		{
 			isTheFirstFrame = false;
-			drawNormal();
+			drawWithGuns();
 		}
 
 		bullet->draw();
+
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			lasers[i]->draw();
+		}
 	}
 
 	Bullet* Paddle::getBullet()
@@ -102,10 +124,29 @@ namespace pong_in_console
 	{
 		return lifeController;
 	}
+	vector<Laser*> Paddle::getActiveLasers()
+	{
+		vector<Laser*> activeLasers = vector<Laser*>();
+
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			if (lasers[i]->getIsActive())
+			{
+				activeLasers.push_back(lasers[i]);
+			}
+		}
+
+		return activeLasers;
+	}
 	void Paddle::setMovementLimits(Frame* frame)
 	{
 		leftLimit = frame->getLeft() + 1;
 		rightLimit = frame->getRight() - 1;
+
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			lasers[i]->setMovementLimits(frame);
+		}
 	}
 
 	bool Paddle::movedInThisFrame(SIDE sideToVerify)
@@ -117,6 +158,13 @@ namespace pong_in_console
 	void Paddle::initBullet()
 	{
 		bullet = new Bullet();
+	}
+	void Paddle::initLasers(int amountOfLasers)
+	{
+		for (int i = 0; i < amountOfLasers; i++)
+		{
+			lasers.push_back(new Laser());
+		}
 	}
 	void Paddle::initLifeController()
 	{
@@ -148,7 +196,7 @@ namespace pong_in_console
 	{
 		position.x++;
 	}
-	void Paddle::shoot()
+	void Paddle::shootBullet()
 	{
 		if (!bullet->getIsActive())
 		{
@@ -156,6 +204,80 @@ namespace pong_in_console
 
 			bullet->setPosition(centerPositionX, position.y - 1);
 			bullet->activate();
+		}
+	}
+	void Paddle::shootLasers()
+	{
+		Laser* laser1 = NULL;
+		Laser* laser2 = NULL;
+
+
+		laser1 = getInactiveLaser();
+
+		if (thereIsALaser(laser1))
+		{
+			laser1->activate();
+		}
+
+		laser2 = getInactiveLaser();
+
+		if (thereIsALaser(laser2))
+		{
+			laser2->activate();
+		}
+
+		if (thereIsALaser(laser1) && thereIsALaser(laser2))
+		{
+			shootALaser(laser1, SIDE::LEFT);
+			shootALaser(laser2, SIDE::RIGHT);
+		}
+		else
+		{
+			if (thereIsALaser(laser1))
+			{
+				int randomValueBetween3and4 = rand() % (4 - 3 + 1) + 3;
+				SIDE leftOrRightSide = (SIDE)randomValueBetween3and4;
+
+				shootALaser(laser1, leftOrRightSide);
+			}
+			else if (thereIsALaser(laser2))
+			{
+				int randomValueBetween3and4 = rand() % (4 - 3 + 1) + 3;
+				SIDE leftOrRightSide = (SIDE)randomValueBetween3and4;
+
+				shootALaser(laser2, leftOrRightSide);
+			}
+		}
+	}
+	Laser* Paddle::getInactiveLaser()
+	{
+		for (int i = 0; i < lasers.size(); i++)
+		{
+			if (!lasers[i]->getIsActive())
+			{
+				return lasers[i];
+			}
+		}
+
+		return NULL;
+	}
+	bool Paddle::thereIsALaser(Laser* laserToVerify)
+	{
+		return laserToVerify != NULL;
+	}
+	void Paddle::shootALaser(Laser* laser, SIDE side)
+	{
+		laser->activate();
+
+		switch (side)
+		{
+		case SIDE::LEFT:
+			laser->setPosition(position.x, position.y - 1);
+			break;
+
+		case SIDE::RIGHT:
+			laser->setPosition(getRight(), position.y - 1);
+			break;
 		}
 	}
 
@@ -174,11 +296,24 @@ namespace pong_in_console
 
 	void Paddle::drawNormal()
 	{
+		// 205: ═
+		// 202: ╩
 		COLOR previousColor = ConsoleExt::getForegroundColor();
 
 		ConsoleExt::goToCoordinates(position.x, position.y);
 		ConsoleExt::setForegroundColor(color);
 		cout << "<=" << (char)205 << (char)205 << (char)202 << (char)205 << (char)205 << "=>";
+		ConsoleExt::setForegroundColor(previousColor);
+	}
+	void Paddle::drawWithGuns()
+	{
+		// 200: ╚
+		// 188: ╝
+		COLOR previousColor = ConsoleExt::getForegroundColor();
+
+		ConsoleExt::goToCoordinates(position.x, position.y);
+		ConsoleExt::setForegroundColor(color);
+		cout << (char)200 << "=" << (char)205 << (char)205 << (char)202 << (char)205 << (char)205 << "=" << (char)188;
 		ConsoleExt::setForegroundColor(previousColor);
 	}
 }

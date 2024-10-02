@@ -1,46 +1,46 @@
-#ifndef BULLET_H
-#define BULLET_H
+#ifndef LASER_H
+#define LASER_H
 
 #include "mgtv_library.h"
 
 #include "game_object/game_object.h"
+#include "interface_simulation/limited_element/limited_element.h"
 
 using mgtv_library::console::COLOR;
 
 
 namespace pong_in_console
 {
-	class Bullet : public GameObject
+	class Laser : public GameObject, public LimitedElement
 	{
 	public:
-		Bullet();
-		~Bullet();
+		Laser();
+		~Laser();
 
 		void update();
 		void draw() override;
 
 		void impact();
 
+		void setMovementLimits(Frame* frame) override;
+
 	private:
 		COLOR color;
 		int delayToMove;
 		int counter;
 
-		int maxDistance;
-		int reachedDistance;
+		int yLimit;
 
 		bool isTimeToMove();
 		void resetCounter();
 		void moveUp();
-		void incrementReachedDistance();
-
-		bool itReachedMaxDistance();
-		void resetReachedDistance();
+		void moveDown();
+		bool itReachedTheLimit();
 		void discountCounter();
 
 		bool movedInThisFrame();
-		void drawBullet();
+		void drawLaser();
 	};
 }
 
-#endif // !BULLET_H
+#endif // !LASER_H

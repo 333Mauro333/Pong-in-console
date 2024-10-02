@@ -63,7 +63,7 @@ namespace pong_in_console
 	}
 	void Ball::draw()
 	{
-		if (movedInThisFrame() || isActive)
+		if (movedInThisFrame() && isActive)
 		{
 			ConsoleExt::goToCoordinates(position.x, position.y);
 			ConsoleExt::writeWithColor("O", color);
