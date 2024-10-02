@@ -57,13 +57,13 @@ namespace pong_in_console
 		ball->update();
 		player->update();
 
-		checkBallCollisions();
-
 		if (time != TimeManager::getActualTime())
 		{
 			time = TimeManager::getActualTime();
 			ui->updateStatistic(GAMEPLAY_STATISTIC::TIME);
 		}
+
+		checkBallCollisions();
 	}
 	void Gameplay::erase()
 	{
@@ -154,14 +154,54 @@ namespace pong_in_console
 		{
 			SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
 		}
+		else if (ControlsManager::isPressed(key, MENU_CONTROLS::ENTER))
+		{
+			disappearABlock();
+		}
 	}
 	void Gameplay::checkBallCollisions()
 	{
+		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
+		CollisionManager::applyCollisionBetweenBallAndBullet(ball, player->getBullet());
+
 		if (CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks, levelScore))
 		{
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
+
+			if (getAmountOfActiveBlocks() == 0)
+			{
+				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+			}
 		}
-		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
-		CollisionManager::applyCollisionBetweenBallAndBullet(ball, player->getBullet());
+	}
+
+	int Gameplay::getAmountOfActiveBlocks()
+	{
+		int amountOfActiveBlocks = 0;
+
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			if (blocks[i]->getIsActive())
+			{
+				amountOfActiveBlocks++;
+			}
+		}
+
+		return amountOfActiveBlocks;
+	}
+	void Gameplay::disappearABlock()
+	{
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			if (blocks[i]->getIsActive())
+			{
+				blocks[i]->reactToTheBall();
+				ConsoleExt::goToCoordinates(1, 1);
+				ConsoleExt::writeWithColor("    ", COLOR::C_LRED);
+				ConsoleExt::goToCoordinates(1, 1);
+				ConsoleExt::writeWithColor(std::to_string(getAmountOfActiveBlocks()), COLOR::C_LRED);
+				break;
+			}
+		}
 	}
 }
