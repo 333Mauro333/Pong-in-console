@@ -19,7 +19,6 @@ namespace pong_in_console
 	int ControlsManager::gameplayRight = KEY_RIGHT;
 	int ControlsManager::gameplayShoot = KEY_UP;
 
-
 	bool ControlsManager::isPressed(int key, MENU_CONTROLS button)
 	{
 		switch (button)

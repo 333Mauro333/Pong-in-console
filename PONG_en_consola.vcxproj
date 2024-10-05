@@ -172,11 +172,11 @@
     <ClCompile Include="src\managers\music_manager\music_manager.cpp" />
     <ClCompile Include="src\managers\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\managers\score_manager\score_manager.cpp" />
-    <ClCompile Include="src\managers\time_manager\time_manager.cpp" />
     <ClCompile Include="src\scene\game_scenes\gameplay\gameplay.cpp" />
     <ClCompile Include="src\scene\game_scenes\main_menu\main_menu.cpp" />
     <ClCompile Include="src\scene\game_scenes\null_scene\null_scene.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
+    <ClCompile Include="src\timer\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enums\ball_direction.h" />
@@ -213,7 +213,6 @@
     <ClInclude Include="src\managers\music_manager\music_manager.h" />
     <ClInclude Include="src\managers\scene_manager\scene_manager.h" />
     <ClInclude Include="src\managers\score_manager\score_manager.h" />
-    <ClInclude Include="src\managers\time_manager\time_manager.h" />
     <ClInclude Include="src\scene\game_scenes\gameplay\gameplay.h" />
     <ClInclude Include="src\scene\game_scenes\main_menu\main_menu.h" />
     <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h" />
@@ -222,6 +221,7 @@
     <ClInclude Include="src\structs\picture.h" />
     <ClInclude Include="src\structs\position.h" />
     <ClInclude Include="src\structs\size.h" />
+    <ClInclude Include="src\timer\timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

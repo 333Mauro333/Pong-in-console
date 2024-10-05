@@ -22,7 +22,6 @@ namespace pong_in_console
 
 	}
 
-
 	void Text::draw()
 	{
 		int x = position.x + size.w / 2;
@@ -31,7 +30,6 @@ namespace pong_in_console
 		if (withFrame)
 		{
 			ConsoleExt::drawFrame(x, y, x + size.w - 1, y + 2, color);
-
 			ConsoleExt::goToCoordinates(x + 2, y + 1);
 		}
 		else

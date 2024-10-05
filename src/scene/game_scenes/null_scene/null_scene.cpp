@@ -12,7 +12,6 @@ namespace pong_in_console
 
 	}
 
-
 	void NullScene::inputUpdate(int key)
 	{
 

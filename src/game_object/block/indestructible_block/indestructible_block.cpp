@@ -12,7 +12,6 @@ namespace pong_in_console
 
 	}
 
-
 	void IndestructibleBlock::reactToTheBall()
 	{
 		// Play metal sound.

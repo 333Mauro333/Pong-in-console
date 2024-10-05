@@ -1,7 +1,6 @@
 #include "file_manager.h"
 
 #include <fstream>
-#include <iostream>
 
 using std::ifstream;
 using std::ios;

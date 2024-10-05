@@ -1,12 +1,8 @@
 #ifndef SCENE_MANAGER_H
 #define SCENE_MANAGER_H
 
-#include "mgtv_library.h"
-
 #include "enums/scene_to_load.h"
 #include "scene/scene.h"
-
-using mgtv_library::console::COLOR;
 
 
 namespace pong_in_console
@@ -15,7 +11,6 @@ namespace pong_in_console
 	{
 	public:
 		static void loadScene(SCENE_TO_LOAD scene);
-
 		static Scene* getActualScene();
 
 	private:

@@ -20,7 +20,6 @@ namespace pong_in_console
 
 	}
 
-
 	void Laser::update()
 	{
 		if (isActive)

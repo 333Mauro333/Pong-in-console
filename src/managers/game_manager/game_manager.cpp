@@ -14,11 +14,33 @@ using mgtv_library::console::ConsoleExt;
 
 namespace pong_in_console
 {
-	bool GameManager::inGame = true;
-	SCENE_TO_LOAD GameManager::sceneToLoad = SCENE_TO_LOAD::MAIN_MENU;
+	GameManager* GameManager::instance = NULL;
 
+	GameManager* GameManager::getInstance()
+	{
+		return instance;
+	}
 
-	void GameManager::run(string title)
+	GameManager::GameManager(string title, SCENE_TO_LOAD scene)
+	{
+		if (instance == NULL)
+		{
+			instance = this;
+			this->title = title;
+			inGame = true;
+			sceneToLoad = scene;
+		}
+		else
+		{
+			delete this;
+		}
+	}
+	GameManager::~GameManager()
+	{
+
+	}
+
+	void GameManager::run()
 	{
 		init(title);
 

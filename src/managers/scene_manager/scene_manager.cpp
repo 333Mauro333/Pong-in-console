@@ -24,7 +24,6 @@ namespace pong_in_console
 			break;
 		}
 	}
-
 	Scene* SceneManager::getActualScene()
 	{
 		return actualScene;

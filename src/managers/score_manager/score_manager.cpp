@@ -6,7 +6,6 @@ namespace pong_in_console
 	int ScoreManager::levelScore = 0;
 	int ScoreManager::totalScore = 0;
 
-
 	void ScoreManager::addPoints(int points)
 	{
 		levelScore += points;
@@ -28,5 +27,14 @@ namespace pong_in_console
 	int ScoreManager::getTotalScore()
 	{
 		return totalScore;
+	}
+
+	void ScoreManager::saveLevelScore(int score)
+	{
+		levelScore = score;
+	}
+	void ScoreManager::saveTotalScore(int score)
+	{
+		totalScore = score;
 	}
 }

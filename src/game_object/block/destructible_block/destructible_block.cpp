@@ -14,7 +14,6 @@ namespace pong_in_console
 
 	}
 
-
 	void DestructibleBlock::reactToTheBall()
 	{
 		deactivate();

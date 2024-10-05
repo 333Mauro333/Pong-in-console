@@ -31,7 +31,6 @@ namespace pong_in_console
 
 	}
 
-
 	void GameObject::erase()
 	{
 		if (thePositionChanged())
@@ -39,7 +38,7 @@ namespace pong_in_console
 			eraseThePicture(previousPosition);
 		}
 	}
-
+	
 	void GameObject::activate()
 	{
 		isActive = true;

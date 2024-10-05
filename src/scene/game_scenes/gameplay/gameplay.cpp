@@ -10,7 +10,6 @@
 #include "managers/music_manager/music_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 #include "managers/score_manager/score_manager.h"
-#include "managers/time_manager/time_manager.h"
 
 using mgtv_library::console::ConsoleExt;
 
@@ -19,6 +18,7 @@ namespace pong_in_console
 {
 	Gameplay::Gameplay() : Scene(COLOR::C_BLACK)
 	{
+		timer = new Timer();
 		levelScore = 0;
 		totalScore = ScoreManager::getTotalScore();
 		level = LevelManager::getLevel();
@@ -32,7 +32,7 @@ namespace pong_in_console
 		initUI();
 		setLaserLimits();
 
-		TimeManager::startCounting();
+		timer->startCounting();
 	}
 	Gameplay::~Gameplay()
 	{
@@ -40,13 +40,10 @@ namespace pong_in_console
 		delete ui;
 		delete player;
 		delete ball;
+		delete timer;
 
-		for (int i = 0; i < blocks.size(); i++)
-		{
-			delete blocks[i];
-		}
+		deleteBlocks();
 	}
-
 
 	void Gameplay::inputUpdate(int key)
 	{
@@ -56,31 +53,30 @@ namespace pong_in_console
 	}
 	void Gameplay::update()
 	{
-		TimeManager::updateTime();
+		timer->updateTime();
 
 		ball->update();
 		player->update();
 		updateLasers();
 
-		if (ball->getPosition().y == frame->getDown() - 1)
+		if (theOneBallTouchesTheFloor())
 		{
-			int playerCenterX = player->getPosition().x + player->getSize().w / 2;
+			discountALife();
 
-			player->getLifeController()->discountALife();
-
-			if (player->getLifeController()->getLives() == -1)
+			if (thereAreLives())
+			{
+				ui->updateStatistic(GAMEPLAY_STATISTIC::LIVES);
+				putTheBallOverThePaddle();
+			}
+			else
 			{
 				isTimeToChangeScene = true;
 			}
-
-			ui->updateStatistic(GAMEPLAY_STATISTIC::LIVES);
-			ball->setPosition(playerCenterX, player->getPosition().y - 1);
-			ball->setDirection(BALL_DIRECTION::UP_RIGHT);
 		}
 
-		if (time != TimeManager::getActualTime())
+		if (theSecondsChanged())
 		{
-			time = TimeManager::getActualTime();
+			updateTime();
 			ui->updateStatistic(GAMEPLAY_STATISTIC::TIME);
 		}
 
@@ -89,11 +85,11 @@ namespace pong_in_console
 
 		if (isTimeToChangeScene)
 		{
-			if (getAmountOfActiveBlocks() == 0)
+			if (allTheBlocksWereBroken())
 			{
 				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
 			}
-			else if (player->getLifeController()->getLives() == -1)
+			else if (!thereAreLives())
 			{
 				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
 			}
@@ -111,12 +107,9 @@ namespace pong_in_console
 		ui->draw();
 		ball->draw();
 		player->draw();
-		drawLasers();
 
-		for (int i = 0; i < blocks.size(); i++)
-		{
-			blocks[i]->draw();
-		}
+		drawLasers();
+		drawBlocks();
 	}
 
 
@@ -222,6 +215,20 @@ namespace pong_in_console
 			laserVector[i]->draw();
 		}
 	}
+	void Gameplay::drawBlocks()
+	{
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			blocks[i]->draw();
+		}
+	}
+	void Gameplay::deleteBlocks()
+	{
+		for (int i = 0; i < blocks.size(); i++)
+		{
+			delete blocks[i];
+		}
+	}
 
 	void Gameplay::checkMenuInput(int key)
 	{
@@ -232,6 +239,11 @@ namespace pong_in_console
 		else if (ControlsManager::isPressed(key, MENU_CONTROLS::ENTER))
 		{
 			disappearABlock();
+
+			if (allTheBlocksWereBroken())
+			{
+				isTimeToChangeScene = true;
+			}
 		}
 	}
 	void Gameplay::checkBallCollisions()
@@ -243,7 +255,7 @@ namespace pong_in_console
 		{
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
 
-			if (getAmountOfActiveBlocks() == 0)
+			if (allTheBlocksWereBroken())
 			{
 				isTimeToChangeScene = true;
 			}
@@ -290,5 +302,39 @@ namespace pong_in_console
 				break;
 			}
 		}
+	}
+
+	bool Gameplay::theOneBallTouchesTheFloor()
+	{
+		return ball->getPosition().y == frame->getDown() - 1;
+	}
+	void Gameplay::discountALife()
+	{
+		player->getLifeController()->discountALife();
+	}
+	bool Gameplay::thereAreLives()
+	{
+		return player->getLifeController()->thereAreLives();
+	}
+	void Gameplay::putTheBallOverThePaddle()
+	{
+		int playerCenterX = player->getPosition().x + player->getSize().w / 2;
+
+		ball->setPosition(playerCenterX, player->getPosition().y - 1);
+		ball->setDirection(BALL_DIRECTION::UP_RIGHT);
+	}
+
+	bool Gameplay::theSecondsChanged()
+	{
+		return time != timer->getActualTime();
+	}
+	void Gameplay::updateTime()
+	{
+		time = timer->getActualTime();
+	}
+
+	bool Gameplay::allTheBlocksWereBroken()
+	{
+		return getAmountOfActiveBlocks() == 0;
 	}
 }

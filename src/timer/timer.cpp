@@ -1,7 +1,6 @@
-#include "time_manager.h"
+#include "timer.h"
 
 #include <chrono>
-#include <thread>
 
 using std::chrono::duration_cast;
 using std::chrono::milliseconds;
@@ -10,61 +9,67 @@ using std::chrono::steady_clock;
 
 namespace pong_in_console
 {
-	long long TimeManager::startTimeReference = 0;
-	long long TimeManager::elapsedTime = 0;
-	bool TimeManager::theTimeBeganToCount = false;
+	Timer::Timer()
+	{
+		startTimeReference = 0;
+		elapsedTime = 0;
+		theTimeBeganToCount = false;
+	}
+	Timer::~Timer()
+	{
 
+	}
 
-	void TimeManager::startCounting()
+	void Timer::startCounting()
 	{
 		theTimeBeganToCount = true;
 
 		saveStartTimeReference();
 	}
-	void TimeManager::updateTime()
+	void Timer::updateTime()
 	{
 		if (theTimeBeganToCount)
 		{
 			saveElapsedTime();
 		}
 	}
-	void TimeManager::stopCounting()
+	void Timer::stopCounting()
 	{
 		theTimeBeganToCount = false;
 	}
 
-	int TimeManager::getActualTime()
+	int Timer::getActualTime()
 	{
 		return (int)elapsedTime;
 	}
-	bool TimeManager::getTheTimeBeganToCount()
+	bool Timer::getTheTimeBeganToCount()
 	{
 		return theTimeBeganToCount;
 	}
 
 
-	void TimeManager::saveStartTimeReference()
+	void Timer::saveStartTimeReference()
 	{
 		auto start = steady_clock::now().time_since_epoch();
 		startTimeReference = duration_cast<milliseconds>(start).count();
 	}
 
-	void TimeManager::saveElapsedTime()
+	void Timer::saveElapsedTime()
 	{
 		elapsedTime = getElapsedTime();
 		convertElapsedTimeToSeconds();
 	}
-	long long TimeManager::getElapsedTime()
+	long long Timer::getElapsedTime()
 	{
 		return getTimeInThisFrame() - startTimeReference;
 	}
-	long long TimeManager::getTimeInThisFrame()
+	long long Timer::getTimeInThisFrame()
 	{
 		auto now = steady_clock::now().time_since_epoch();
 
 		return duration_cast<milliseconds>(now).count();
 	}
-	void TimeManager::convertElapsedTimeToSeconds()
+	void Timer::convertElapsedTimeToSeconds()
 	{
 		elapsedTime /= 1000;
 	}

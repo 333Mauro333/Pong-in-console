@@ -1,4 +1,4 @@
-#include "main_menu.h"
+﻿#include "main_menu.h"
 
 #include <iostream>
 
@@ -37,7 +37,6 @@ namespace pong_in_console
 	{
 
 	}
-
 
 	void MainMenu::inputUpdate(int key)
 	{
@@ -89,19 +88,12 @@ namespace pong_in_console
 		int x = 0;
 		int y = 1;
 
-		int titleWidth = 0;
+		char titleChar = (char)219; // █
 
 		COLOR previousColor = ConsoleExt::getForegroundColor();
 
 
-		for (int i = 0; i < gameTitle.size() && titleWidth == 0; i++)
-		{
-			if (gameTitle[i] == '_')
-			{
-				titleWidth = i + 1;
-				x = ConsoleExt::getScreenWidth() / 2 - titleWidth / 2;
-			}
-		}
+		x = getTitleWidth() / 2;
 
 		ConsoleExt::goToCoordinates(x, y);
 		ConsoleExt::setForegroundColor(titleColor);
@@ -110,7 +102,7 @@ namespace pong_in_console
 		{
 			if (gameTitle[i] == '*')
 			{
-				cout << (char)219;
+				cout << titleChar;
 			}
 			else if (gameTitle[i] == '-')
 			{
@@ -129,6 +121,18 @@ namespace pong_in_console
 		}
 
 		ConsoleExt::setForegroundColor(previousColor);
+	}
+	int MainMenu::getTitleWidth()
+	{
+		for (int i = 0; i < gameTitle.size(); i++)
+		{
+			if (gameTitle[i] == '_')
+			{
+				return i + 1;
+			}
+		}
+
+		return 0;
 	}
 	void MainMenu::changeTitleColor()
 	{
@@ -181,7 +185,7 @@ namespace pong_in_console
 			break;
 
 		case 2:
-			GameManager::quit();
+			GameManager::getInstance()->quit();
 			break;
 		}
 	}

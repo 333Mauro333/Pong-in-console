@@ -30,7 +30,6 @@ namespace pong_in_console
 		delete lifeController;
 	}
 
-
 	void Paddle::inputUpdate(int key)
 	{
 		if (canMove())

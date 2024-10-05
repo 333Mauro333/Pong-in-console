@@ -28,7 +28,6 @@ namespace pong_in_console
 
 	}
 
-
 	void GameplayUI::pointToLives(int& lives)
 	{
 		this->lives = &lives;
@@ -41,7 +40,7 @@ namespace pong_in_console
 	{
 		this->score = &score;
 	}
-	void GameplayUI::pointToTime(long long& time)
+	void GameplayUI::pointToTime(int& time)
 	{
 		this->time = &time;
 	}

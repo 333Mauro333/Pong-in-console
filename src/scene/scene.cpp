@@ -1,7 +1,5 @@
 #include "scene.h"
 
-using mgtv_library::console::ConsoleExt;
-
 
 namespace pong_in_console
 {

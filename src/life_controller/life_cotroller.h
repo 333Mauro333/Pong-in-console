@@ -15,7 +15,7 @@ namespace pong_in_console
 		int& getLives();
 		void setLives(int lives);
 
-		bool thereAreNoLives();
+		bool thereAreLives();
 
 	private:
 		int lives;

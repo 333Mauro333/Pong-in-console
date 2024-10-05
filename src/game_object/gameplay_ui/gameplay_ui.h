@@ -17,7 +17,7 @@ namespace pong_in_console
 		void pointToLives(int& lives);
 		void pointToLevel(int& level);
 		void pointToScore(int& score);
-		void pointToTime(long long& time);
+		void pointToTime(int& time);
 
 		void updateStatistic(GAMEPLAY_STATISTIC statisticToUpdate);
 
@@ -27,7 +27,7 @@ namespace pong_in_console
 		int* lives;
 		int* level;
 		int* score;
-		long long* time;
+		int* time;
 
 		bool itWasDrown;
 		bool updateLives;

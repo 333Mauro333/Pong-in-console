@@ -15,7 +15,6 @@ namespace pong_in_console
 
 	}
 
-
 	void Frame::draw()
 	{
 		if (!itWasDrawn)

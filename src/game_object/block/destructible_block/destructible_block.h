@@ -1,7 +1,6 @@
 #ifndef DESTRUCTIBLE_BLOCK_H
 #define DESTRUCTIBLE_BLOCK_H
 
-#include "enums/block_type.h"
 #include "game_object/block/block.h"
 
 

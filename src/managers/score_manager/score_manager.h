@@ -13,6 +13,9 @@ namespace pong_in_console
 		static int getLevelScore();
 		static int getTotalScore();
 
+		static void saveLevelScore(int score);
+		static void saveTotalScore(int score);
+
 	private:
 		static int levelScore;
 		static int totalScore;

@@ -12,7 +12,6 @@ namespace pong_in_console
 
 	}
 
-
 	void LifeController::addALife()
 	{
 		lives++;
@@ -31,8 +30,8 @@ namespace pong_in_console
 		this->lives = lives;
 	}
 
-	bool LifeController::thereAreNoLives()
+	bool LifeController::thereAreLives()
 	{
-		return lives <= 0;
+		return lives >= 0;
 	}
 }

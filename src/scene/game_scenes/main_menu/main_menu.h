@@ -38,6 +38,7 @@ namespace pong_in_console
 		COLOR highlightedColor;
 
 		void drawTitle();
+		int getTitleWidth();
 		void changeTitleColor();
 
 		void setNextOption();

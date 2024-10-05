@@ -6,7 +6,6 @@ namespace pong_in_console
 	Music MusicManager::musicList[MusicManager::amountOfMusics] = {};
 	int MusicManager::actualMusicPosition = 0;
 
-
 	void MusicManager::initMusic()
 	{
 		InitAudioDevice();

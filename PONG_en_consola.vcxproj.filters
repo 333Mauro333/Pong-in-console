@@ -85,9 +85,6 @@
     <Filter Include="src\managers\score_manager">
       <UniqueIdentifier>{86d9cba3-340d-48e6-abbb-94e16a15ad7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\managers\time_manager">
-      <UniqueIdentifier>{818b657b-76e6-4ec1-9913-114e553e5753}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\game_object\gameplay_ui">
       <UniqueIdentifier>{0858cda2-de9c-465b-a185-c3beade98bd7}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,9 @@
     </Filter>
     <Filter Include="src\laser_pooling">
       <UniqueIdentifier>{70a1fb2e-6059-4fab-aed8-df383209f096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\timer">
+      <UniqueIdentifier>{df6c12d7-066c-45dc-acbf-02e728018095}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -174,9 +174,6 @@
     <ClCompile Include="src\managers\score_manager\score_manager.cpp">
       <Filter>src\managers\score_manager</Filter>
     </ClCompile>
-    <ClCompile Include="src\managers\time_manager\time_manager.cpp">
-      <Filter>src\managers\time_manager</Filter>
-    </ClCompile>
     <ClCompile Include="src\life_controller\life_controller.cpp">
       <Filter>src\life_controller</Filter>
     </ClCompile>
@@ -191,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="src\laser_pooling\laser_pooling.cpp">
       <Filter>src\laser_pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\timer\timer.cpp">
+      <Filter>src\timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +302,6 @@
     <ClInclude Include="src\managers\score_manager\score_manager.h">
       <Filter>src\managers\score_manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\managers\time_manager\time_manager.h">
-      <Filter>src\managers\time_manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\life_controller\life_cotroller.h">
       <Filter>src\life_controller</Filter>
     </ClInclude>
@@ -322,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="src\laser_pooling\laser_pooling.h">
       <Filter>src\laser_pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\timer\timer.h">
+      <Filter>src\timer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -46,7 +46,6 @@ namespace pong_in_console
 
 	}
 
-
 	void Ball::update()
 	{
 		if (isTimeToMove())
@@ -75,7 +74,6 @@ namespace pong_in_console
 			ConsoleExt::writeWithColor("O", color);
 		}
 	}
-
 
 	void Ball::redirectInLimits()
 	{
@@ -196,15 +194,15 @@ namespace pong_in_console
 	{
 		return position.x < externalLimits.right;
 	}
-	bool Ball::movedInThisFrame()
-	{
-		return counter == delayToMove;
-	}
 
 
 	bool Ball::isTimeToMove()
 	{
 		return counter == 0;
+	}
+	bool Ball::movedInThisFrame()
+	{
+		return counter == delayToMove;
 	}
 	void Ball::resetCounter()
 	{

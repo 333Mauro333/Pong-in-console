@@ -83,27 +83,22 @@ namespace pong_in_console
 	}
 	bool CollisionManager::applyCollisionBetweenLasersAndBlocks(vector<Laser*> activeLasers, vector<Block*> blocks, int& actualPoints)
 	{
-		bool impacted = false;
-
-
 		for (int i = 0; i < activeLasers.size(); i++)
 		{
 			for (int j = 0; j < blocks.size(); j++)
 			{
 				if (blocks[j]->getIsActive() &&
-					activeLasers[i]->getPosition().x == blocks[j]->getPosition().x &&
-					activeLasers[i]->getPosition().y == blocks[j]->getPosition().y)
+					thePositionIsTheSame(activeLasers[i], blocks[j]))
 				{
 					activeLasers[i]->impact();
 					blocks[j]->reactToTheBall();
 					addPointsIfItIsADestructibleBlock(blocks[j], actualPoints);
-					impacted = true;
-					break;
+					return true;
 				}
 			}
 		}
 
-		return impacted;
+		return false;
 	}
 
 
@@ -1252,5 +1247,11 @@ namespace pong_in_console
 		{
 			addPointsIfItIsADestructibleBlock(blocks[i], actualPoints);
 		}
+	}
+
+	bool CollisionManager::thePositionIsTheSame(Laser* laser, Block* block)
+	{
+		return laser->getPosition().x == block->getPosition().x &&
+			   laser->getPosition().y == block->getPosition().y;
 	}
 }

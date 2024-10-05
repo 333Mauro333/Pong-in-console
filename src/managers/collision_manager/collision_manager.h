@@ -47,6 +47,8 @@ namespace pong_in_console
 		static bool thePositionIsTheSame(Ball* ball, Bullet* bullet);
 		static void addPointsIfItIsADestructibleBlock(Block* block, int& actualPoints);
 		static void addPointsIfTheyAreDestructibleBlocks(vector<Block*> blocks, int& actualPoints);
+
+		static bool thePositionIsTheSame(Laser* laser, Block* block);
 	};
 }
 

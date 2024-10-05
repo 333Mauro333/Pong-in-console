@@ -8,14 +8,19 @@ namespace pong_in_console
 	int GameValues::initialLives = 5;
 	int GameValues::maxScore = 0;
 
-
 	void GameValues::initValues()
 	{
-		initABlockPicture(0, (char)254, COLOR::C_GRAY); // 254: ■
-		initABlockPicture(1, (char)247, COLOR::C_RED); // 247: ≈
-		initABlockPicture(2, '=', COLOR::C_YELLOW);
-		initABlockPicture(3, (char)240, COLOR::C_GREEN); // 240: ≡
-		initABlockPicture(4, '#', COLOR::C_BLUE);
+		char metalBlockPicture = (char)254; //  ■
+		char redBlockPicture = (char)247; // ≈
+		char yellowBlockPicture = '=';
+		char greenBlockPicture = (char)240; // ≡
+		char blueBlockPicture = '#';
+
+		initABlockPicture(0, metalBlockPicture, COLOR::C_GRAY);
+		initABlockPicture(1, redBlockPicture, COLOR::C_RED);
+		initABlockPicture(2, yellowBlockPicture, COLOR::C_YELLOW);
+		initABlockPicture(3, greenBlockPicture, COLOR::C_GREEN);
+		initABlockPicture(4, blueBlockPicture, COLOR::C_BLUE);
 	}
 
 	PICTURE GameValues::getBlockPicture(BLOCK_TYPE blockType)

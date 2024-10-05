@@ -21,7 +21,6 @@ namespace pong_in_console
 
 	}
 
-
 	void Bullet::update()
 	{
 		if (isActive)
