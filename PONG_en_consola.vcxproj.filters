@@ -103,6 +103,9 @@
     <Filter Include="src\timer">
       <UniqueIdentifier>{df6c12d7-066c-45dc-acbf-02e728018095}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scene\game_scenes\level_passed">
+      <UniqueIdentifier>{a04e1b48-dd37-4aca-992a-c7458b906b1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -191,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="src\timer\timer.cpp">
       <Filter>src\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\game_scenes\level_passed\level_passed.cpp">
+      <Filter>src\scene\game_scenes\level_passed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="src\timer\timer.h">
       <Filter>src\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\game_scenes\level_passed\level_passed.h">
+      <Filter>src\scene\game_scenes\level_passed</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

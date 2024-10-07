@@ -6,18 +6,18 @@ namespace pong_in_console
 	class ScoreManager
 	{
 	public:
-		static void addPoints(int points);
-		static void resetLevelScore();
+		static void addBlocksPoints(int points);
+		static void resetBlocksScore();
 		static void resetTotalScore();
 
-		static int getLevelScore();
+		static int getBlocksScore();
 		static int getTotalScore();
 
-		static void saveLevelScore(int score);
+		static void saveBlocksScore(int score);
 		static void saveTotalScore(int score);
 
 	private:
-		static int levelScore;
+		static int blocksScore;
 		static int totalScore;
 	};
 }

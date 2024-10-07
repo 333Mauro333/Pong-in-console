@@ -3,35 +3,35 @@
 
 namespace pong_in_console
 {
-	int ScoreManager::levelScore = 0;
+	int ScoreManager::blocksScore = 0;
 	int ScoreManager::totalScore = 0;
 
-	void ScoreManager::addPoints(int points)
+	void ScoreManager::addBlocksPoints(int points)
 	{
-		levelScore += points;
+		blocksScore += points;
 		totalScore += points;
 	}
-	void ScoreManager::resetLevelScore()
+	void ScoreManager::resetBlocksScore()
 	{
-		levelScore = 0;
+		blocksScore = 0;
 	}
 	void ScoreManager::resetTotalScore()
 	{
 		totalScore = 0;
 	}
 
-	int ScoreManager::getLevelScore()
+	int ScoreManager::getBlocksScore()
 	{
-		return levelScore;
+		return blocksScore;
 	}
 	int ScoreManager::getTotalScore()
 	{
 		return totalScore;
 	}
 
-	void ScoreManager::saveLevelScore(int score)
+	void ScoreManager::saveBlocksScore(int score)
 	{
-		levelScore = score;
+		blocksScore = score;
 	}
 	void ScoreManager::saveTotalScore(int score)
 	{

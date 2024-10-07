@@ -87,7 +87,7 @@ namespace pong_in_console
 		{
 			if (allTheBlocksWereBroken())
 			{
-				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+				SceneManager::loadScene(SCENE_TO_LOAD::LEVEL_PASSED);
 			}
 			else if (!thereAreLives())
 			{
@@ -176,7 +176,7 @@ namespace pong_in_console
 		ui->pointToLives(player->getLifeController()->getLives());
 		ui->pointToLevel(level);
 		ui->pointToTime(time);
-		ui->pointToScore(levelScore);
+		ui->pointToScore(totalScore);
 	}
 	void Gameplay::setLaserLimits()
 	{
@@ -251,8 +251,9 @@ namespace pong_in_console
 		CollisionManager::applyCollisionBetweenBallAndPaddle(ball, player);
 		CollisionManager::applyCollisionBetweenBallAndBullet(ball, player->getBullet());
 
-		if (CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks, levelScore))
+		if (CollisionManager::applyCollisionBetweenBallAndBlocks(ball, blocks))
 		{
+			totalScore = ScoreManager::getTotalScore();
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
 
 			if (allTheBlocksWereBroken())
@@ -263,8 +264,9 @@ namespace pong_in_console
 	}
 	void Gameplay::checkLaserCollisions()
 	{
-		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(LaserPooling::getInstance()->getActiveLasers(), blocks, levelScore))
+		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(LaserPooling::getInstance()->getActiveLasers(), blocks))
 		{
+			totalScore = ScoreManager::getTotalScore();
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
 
 			if (getAmountOfActiveBlocks() == 0)

@@ -173,6 +173,7 @@
     <ClCompile Include="src\managers\scene_manager\scene_manager.cpp" />
     <ClCompile Include="src\managers\score_manager\score_manager.cpp" />
     <ClCompile Include="src\scene\game_scenes\gameplay\gameplay.cpp" />
+    <ClCompile Include="src\scene\game_scenes\level_passed\level_passed.cpp" />
     <ClCompile Include="src\scene\game_scenes\main_menu\main_menu.cpp" />
     <ClCompile Include="src\scene\game_scenes\null_scene\null_scene.cpp" />
     <ClCompile Include="src\scene\scene.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="src\managers\scene_manager\scene_manager.h" />
     <ClInclude Include="src\managers\score_manager\score_manager.h" />
     <ClInclude Include="src\scene\game_scenes\gameplay\gameplay.h" />
+    <ClInclude Include="src\scene\game_scenes\level_passed\level_passed.h" />
     <ClInclude Include="src\scene\game_scenes\main_menu\main_menu.h" />
     <ClInclude Include="src\scene\game_scenes\null_scene\null_scene.h" />
     <ClInclude Include="src\scene\scene.h" />
