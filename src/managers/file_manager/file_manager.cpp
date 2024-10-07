@@ -37,6 +37,8 @@ namespace pong_in_console
 			break;
 
 		case INFORMATION_TO_LOAD::LEVEL_1:
+		case INFORMATION_TO_LOAD::LEVEL_2:
+		case INFORMATION_TO_LOAD::LEVEL_3:
 			int levelNumber = (int)informationToLoad;
 
 			filePath = "data/level_" + to_string(levelNumber) + ".dat";

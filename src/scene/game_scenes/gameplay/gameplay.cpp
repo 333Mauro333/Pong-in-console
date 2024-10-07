@@ -165,6 +165,7 @@ namespace pong_in_console
 			else if (levelInfo[i] == '0')
 			{
 				blockToCreate = new IndestructibleBlock(x, y);
+				blocks.push_back(blockToCreate);
 			}
 
 			x++;
