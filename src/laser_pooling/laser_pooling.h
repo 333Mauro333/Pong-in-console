@@ -19,6 +19,8 @@ namespace pong_in_console
 		static void drawLasers();
 		static void destroyLasers();
 
+		static void deactivateAllLasers();
+
 		static Laser* getLaser();
 		static vector<Laser*> getActiveLasers();
 		static void setLasersLimits(Frame* frame);

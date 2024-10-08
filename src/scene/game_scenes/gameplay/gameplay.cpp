@@ -86,13 +86,16 @@ namespace pong_in_console
 
 		if (isTimeToChangeScene)
 		{
+			LivesManager::setLives(lives);
+			LaserPooling::deactivateAllLasers();
+
 			if (allTheBlocksWereBroken())
 			{
-				LivesManager::setLives(lives);
 				SceneManager::loadScene(SCENE_TO_LOAD::LEVEL_PASSED);
 			}
 			else if (!thereAreLives())
 			{
+				LevelManager::setLevel(1);
 				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
 			}
 		}

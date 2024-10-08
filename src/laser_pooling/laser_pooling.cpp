@@ -41,6 +41,14 @@ namespace pong_in_console
 		}
 	}
 
+	void LaserPooling::deactivateAllLasers()
+	{
+		for (int i = 0; i < amountOfLasers; i++)
+		{
+			lasers[i]->deactivate();
+		}
+	}
+
 	Laser* LaserPooling::getLaser()
 	{
 		for (int i = 0; i < amountOfLasers; i++)

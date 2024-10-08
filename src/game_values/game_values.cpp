@@ -4,8 +4,8 @@
 namespace pong_in_console
 {
 	PICTURE GameValues::blockPictures[GameValues::picturesQuantity] = {};
-	int GameValues::values[GameValues::valueQuantity] = { 5, 10, 25, 50 };
-	int GameValues::initialLives = 5;
+	int GameValues::values[GameValues::valueQuantity] = { 5, 10, 20, 30 };
+	int GameValues::initialLives = 3;
 	int GameValues::maxScore = 0;
 
 	void GameValues::initValues()
