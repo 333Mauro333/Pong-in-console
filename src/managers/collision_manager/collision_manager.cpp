@@ -95,6 +95,12 @@ namespace pong_in_console
 					activeLasers[i]->impact();
 					blocks[j]->reactToTheBall();
 					addPointsIfItIsADestructibleBlock(blocks[j]);
+
+					if (blocks[j]->getBlockType() == BLOCK_TYPE::B_INDESTRUCTIBLE)
+					{
+						blocks[j]->setItWasDrawn(false);
+					}
+
 					return true;
 				}
 			}

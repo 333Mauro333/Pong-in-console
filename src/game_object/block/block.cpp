@@ -11,7 +11,7 @@ namespace pong_in_console
 	{
 		picture = GameValues::getBlockPicture(blockType);
 		this->blockType = blockType;
-		isTheFirstFrame = true;
+		itWasDrawn = false;
 	}
 	Block::~Block()
 	{
@@ -20,12 +20,17 @@ namespace pong_in_console
 
 	void Block::draw()
 	{
-		if (isTheFirstFrame)
+		if (!itWasDrawn)
 		{
-			isTheFirstFrame = false;
+			itWasDrawn = true;
 			ConsoleExt::goToCoordinates(position.x, position.y);
 			ConsoleExt::writeWithColor(picture.picture, picture.color);
 		}
+	}
+
+	void Block::setItWasDrawn(bool itWasDrawn)
+	{
+		this->itWasDrawn = itWasDrawn;
 	}
 
 	BLOCK_TYPE Block::getBlockType()

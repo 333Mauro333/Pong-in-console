@@ -20,6 +20,8 @@ namespace pong_in_console
 
 		void draw() override;
 
+		void setItWasDrawn(bool itWasDrawn);
+
 		virtual void reactToTheBall() = 0;
 
 		BLOCK_TYPE getBlockType();
@@ -27,7 +29,7 @@ namespace pong_in_console
 	protected:
 		PICTURE picture;
 		BLOCK_TYPE blockType;
-		bool isTheFirstFrame;
+		bool itWasDrawn;
 	};
 }
 
