@@ -5,6 +5,7 @@
 #include "mgtv_library.h"
 
 #include "managers/controls_manager/controls_manager.h"
+#include "managers/level_time_manager/level_time_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 #include "managers/score_manager/score_manager.h"
 
@@ -18,7 +19,7 @@ namespace pong_in_console
 	LevelPassed::LevelPassed() : Scene()
 	{
 		itWasDrawn = false;
-		time = 150;
+		time = LevelTimeManager::getActualTime();
 		pointsForBlockDestruction = ScoreManager::getBlocksScore();
 		initPointsForTime();
 		pointsEarned = pointsForBlockDestruction + pointsForTime;
