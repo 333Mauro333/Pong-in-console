@@ -5,6 +5,7 @@
 #include "mgtv_library.h"
 
 #include "managers/controls_manager/controls_manager.h"
+#include "managers/level_manager/level_manager.h"
 #include "managers/level_time_manager/level_time_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 #include "managers/score_manager/score_manager.h"
@@ -36,7 +37,16 @@ namespace pong_in_console
 		{
 			ScoreManager::saveTotalScore(totalPoints);
 			ScoreManager::resetBlocksScore();
-			SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+
+			if (LevelManager::getLevel() < 3)
+			{
+				LevelManager::addLevel();
+				SceneManager::loadScene(SCENE_TO_LOAD::GAMEPLAY);
+			}
+			else
+			{
+				SceneManager::loadScene(SCENE_TO_LOAD::MAIN_MENU);
+			}
 		}
 	}
 	void LevelPassed::update()

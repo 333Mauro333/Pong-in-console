@@ -265,7 +265,7 @@ namespace pong_in_console
 
 		for (int i = 0; i < blocks.size(); i++)
 		{
-			if (blocks[i]->getIsActive())
+			if (blocks[i]->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE && blocks[i]->getIsActive())
 			{
 				amountOfActiveBlocks++;
 			}
@@ -277,7 +277,7 @@ namespace pong_in_console
 	{
 		for (int i = 0; i < blocks.size(); i++)
 		{
-			if (blocks[i]->getIsActive())
+			if (blocks[i]->getBlockType() != BLOCK_TYPE::B_INDESTRUCTIBLE && blocks[i]->getIsActive())
 			{
 				blocks[i]->reactToTheBall();
 				ConsoleExt::goToCoordinates(1, 1);
