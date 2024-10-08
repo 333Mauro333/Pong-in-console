@@ -43,7 +43,7 @@ namespace pong_in_console
 		void writeLives();
 		void writeLevel();
 		void writeTime();
-		void writeCountWithZeros(int amountOfZeros);
+		void writeMinutesAndSeconds();
 		void writeScore();
 		void writeScoreWithZeros(int amountOfZeros);
 	};

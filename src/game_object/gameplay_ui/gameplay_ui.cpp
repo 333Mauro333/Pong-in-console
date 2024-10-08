@@ -78,7 +78,7 @@ namespace pong_in_console
 			drawRightBorderConection();
 			drawColumn(8);
 			drawColumn(16);
-			drawColumn(27);
+			drawColumn(28);
 
 			writeLives();
 			writeLevel();
@@ -178,24 +178,30 @@ namespace pong_in_console
 	{
 		ConsoleExt::goToCoordinates(position.x + 17, position.y + 2);
 		ConsoleExt::writeWithColor("TIEMPO:", ConsoleExt::getForegroundColor());
-		writeCountWithZeros(3);
+		writeMinutesAndSeconds();
 	}
-	void GameplayUI::writeCountWithZeros(int amountOfZeros)
+	void GameplayUI::writeMinutesAndSeconds()
 	{
-		string timeWithZeros = to_string(*time);
+		int minutes = *time / 60;
+		int seconds = *time % 60;
+		string timeConvertedToString = to_string(minutes);
 
-		while (timeWithZeros.size() < amountOfZeros)
+		timeConvertedToString += ":";
+
+		if (seconds < 10)
 		{
-			timeWithZeros = "0" + timeWithZeros;
+			timeConvertedToString += "0";
 		}
 
-		ConsoleExt::goToCoordinates(position.x + 24, position.y + 2);
-		ConsoleExt::writeWithColor(timeWithZeros, ConsoleExt::getForegroundColor());
+		timeConvertedToString += to_string(seconds);
+
+		//ConsoleExt::goToCoordinates(position.x + 24, position.y + 2);
+		ConsoleExt::writeWithColor(timeConvertedToString, ConsoleExt::getForegroundColor());
 	}
 	void GameplayUI::writeScore()
 	{
-		ConsoleExt::goToCoordinates(position.x + 28, position.y + 2);
-		ConsoleExt::writeWithColor("PUNTAJE:", ConsoleExt::getForegroundColor());
+		ConsoleExt::goToCoordinates(position.x + 29, position.y + 2);
+		ConsoleExt::writeWithColor("PUNTOS:", ConsoleExt::getForegroundColor());
 		writeScoreWithZeros(5);
 	}
 	void GameplayUI::writeScoreWithZeros(int amountOfZeros)
@@ -207,7 +213,7 @@ namespace pong_in_console
 			timeWithZeros = "0" + timeWithZeros;
 		}
 
-		ConsoleExt::goToCoordinates(position.x + 36, position.y + 2);
+		//ConsoleExt::goToCoordinates(position.x + 36, position.y + 2);
 		ConsoleExt::writeWithColor(timeWithZeros, ConsoleExt::getForegroundColor());
 	}
 }

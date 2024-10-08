@@ -17,6 +17,8 @@ namespace pong_in_console
 
 	private:
 		static Timer* timer;
+
+		static bool Reached10Minutes();
 	};
 }
 

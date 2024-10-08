@@ -11,7 +11,10 @@ namespace pong_in_console
 	}
 	void LevelTimeManager::updateTime()
 	{
-		timer->updateTime();
+		if (!Reached10Minutes())
+		{
+			timer->updateTime();
+		}
 	}
 	void LevelTimeManager::stopCounting()
 	{
@@ -21,5 +24,11 @@ namespace pong_in_console
 	int LevelTimeManager::getActualTime()
 	{
 		return timer->getActualTime();
+	}
+
+
+	bool LevelTimeManager::Reached10Minutes()
+	{
+		return timer->getActualTime() >= 599;
 	}
 }
