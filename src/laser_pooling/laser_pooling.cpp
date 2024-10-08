@@ -3,67 +3,75 @@
 
 namespace pong_in_console
 {
-	LaserPooling* LaserPooling::instance = NULL;
+	Laser* LaserPooling::lasers[LaserPooling::amountOfLasers] = {};
 
-	LaserPooling* LaserPooling::getInstance()
+	void LaserPooling::initLasers()
 	{
-		return instance;
-	}
-
-	LaserPooling::LaserPooling(int amountOfLasers)
-	{
-		laserVector = vector<Laser*>();
-
-		if (instance == NULL)
+		for (int i = 0; i < amountOfLasers; i++)
 		{
-			instance = this;
-
-			for (int i = 0; i < amountOfLasers; i++)
-			{
-				laserVector.push_back(new Laser());
-			}
-		}
-		else
-		{
-			delete this;
+			lasers[i] = new Laser();
 		}
 	}
-	LaserPooling::~LaserPooling()
+	void LaserPooling::updateLasers()
 	{
-		for (int i = 0; i < laserVector.size(); i++)
+		for (int i = 0; i < amountOfLasers; i++)
 		{
-			delete laserVector[i];
+			lasers[i]->update();
+		}
+	}
+	void LaserPooling::eraseLasers()
+	{
+		for (int i = 0; i < amountOfLasers; i++)
+		{
+			lasers[i]->erase();
+		}
+	}
+	void LaserPooling::drawLasers()
+	{
+		for (int i = 0; i < amountOfLasers; i++)
+		{
+			lasers[i]->draw();
+		}
+	}
+	void LaserPooling::destroyLasers()
+	{
+		for (int i = 0; i < amountOfLasers; i++)
+		{
+			delete lasers[i];
 		}
 	}
 
 	Laser* LaserPooling::getLaser()
 	{
-		for (int i = 0; i < laserVector.size(); i++)
+		for (int i = 0; i < amountOfLasers; i++)
 		{
-			if (!laserVector[i]->getIsActive())
+			if (!lasers[i]->getIsActive())
 			{
-				return laserVector[i];
+				return lasers[i];
 			}
 		}
 
 		return NULL;
 	}
-	vector<Laser*> LaserPooling::getLaserVector()
-	{
-		return laserVector;
-	}
 	vector<Laser*> LaserPooling::getActiveLasers()
 	{
 		vector<Laser*> activeLasers = vector<Laser*>();
 
-		for (int i = 0; i < laserVector.size(); i++)
+		for (int i = 0; i < amountOfLasers; i++)
 		{
-			if (laserVector[i]->getIsActive())
+			if (lasers[i]->getIsActive())
 			{
-				activeLasers.push_back(laserVector[i]);
+				activeLasers.push_back(lasers[i]);
 			}
 		}
 
 		return activeLasers;
+	}
+	void LaserPooling::setLasersLimits(Frame* frame)
+	{
+		for (int i = 0; i < amountOfLasers; i++)
+		{
+			lasers[i]->setMovementLimits(frame);
+		}
 	}
 }

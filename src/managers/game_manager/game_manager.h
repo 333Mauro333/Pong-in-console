@@ -14,26 +14,23 @@ namespace pong_in_console
 	class GameManager
 	{
 	public:
-		static GameManager* getInstance();
+		static void quit();
 
 		GameManager(string title, SCENE_TO_LOAD scene = SCENE_TO_LOAD::MAIN_MENU);
 		~GameManager();
 
 		void run();
-		void quit();
 
 	private:
-		static GameManager* instance;
+		static bool inGame;
 
 		string title;
-		bool inGame;
 		SCENE_TO_LOAD sceneToLoad;
 
 		void init(string title);
 		void inputUpdate();
 		void update();
 		void draw();
-		void destroy();
 	};
 }
 

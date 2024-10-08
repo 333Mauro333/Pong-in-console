@@ -2,8 +2,10 @@
 
 #include <iostream>
 
+#include "game_values/game_values.h"
 #include "managers/file_manager/file_manager.h"
 #include "managers/game_manager/game_manager.h"
+#include "managers/lives_manager/lives_manager.h"
 #include "managers/music_manager/music_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 
@@ -181,11 +183,12 @@ namespace pong_in_console
 		switch (selectedOption)
 		{
 		case 1:
+			LivesManager::setLives(GameValues::getInitialLives());
 			SceneManager::loadScene(SCENE_TO_LOAD::GAMEPLAY);
 			break;
 
 		case 2:
-			GameManager::getInstance()->quit();
+			GameManager::quit();
 			break;
 		}
 	}

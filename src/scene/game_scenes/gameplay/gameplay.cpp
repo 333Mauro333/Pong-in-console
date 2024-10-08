@@ -7,6 +7,8 @@
 #include "managers/controls_manager/controls_manager.h"
 #include "managers/file_manager/file_manager.h"
 #include "managers/level_manager/level_manager.h"
+#include "managers/level_time_manager/level_time_manager.h"
+#include "managers/lives_manager/lives_manager.h"
 #include "managers/music_manager/music_manager.h"
 #include "managers/scene_manager/scene_manager.h"
 #include "managers/score_manager/score_manager.h"
@@ -18,7 +20,7 @@ namespace pong_in_console
 {
 	Gameplay::Gameplay() : Scene(COLOR::C_BLACK)
 	{
-		timer = new Timer();
+		lives = LivesManager::getLives();
 		levelScore = 0;
 		totalScore = ScoreManager::getTotalScore();
 		level = LevelManager::getLevel();
@@ -32,7 +34,7 @@ namespace pong_in_console
 		initUI();
 		setLaserLimits();
 
-		timer->startCounting();
+		LevelTimeManager::startCounting();
 	}
 	Gameplay::~Gameplay()
 	{
@@ -40,7 +42,6 @@ namespace pong_in_console
 		delete ui;
 		delete player;
 		delete ball;
-		delete timer;
 
 		deleteBlocks();
 	}
@@ -53,7 +54,7 @@ namespace pong_in_console
 	}
 	void Gameplay::update()
 	{
-		timer->updateTime();
+		LevelTimeManager::updateTime();
 
 		ball->update();
 		player->update();
@@ -87,6 +88,7 @@ namespace pong_in_console
 		{
 			if (allTheBlocksWereBroken())
 			{
+				LivesManager::setLives(lives);
 				SceneManager::loadScene(SCENE_TO_LOAD::LEVEL_PASSED);
 			}
 			else if (!thereAreLives())
@@ -174,47 +176,27 @@ namespace pong_in_console
 	void Gameplay::initUI()
 	{
 		ui = new GameplayUI(frame, 5);
-		ui->pointToLives(player->getLifeController()->getLives());
+		ui->pointToLives(lives);
 		ui->pointToLevel(level);
 		ui->pointToTime(time);
 		ui->pointToScore(totalScore);
 	}
 	void Gameplay::setLaserLimits()
 	{
-		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
-
-		for (int i = 0; i < laserVector.size(); i++)
-		{
-			laserVector[i]->setMovementLimits(frame);
-		}
+		LaserPooling::setLasersLimits(frame);
 	}
 
 	void Gameplay::updateLasers()
 	{
-		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
-
-		for (int i = 0; i < laserVector.size(); i++)
-		{
-			laserVector[i]->update();
-		}
+		LaserPooling::updateLasers();
 	}
 	void Gameplay::eraseLasers()
 	{
-		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
-
-		for (int i = 0; i < laserVector.size(); i++)
-		{
-			laserVector[i]->erase();
-		}
+		LaserPooling::eraseLasers();
 	}
 	void Gameplay::drawLasers()
 	{
-		vector<Laser*> laserVector = LaserPooling::getInstance()->getLaserVector();
-
-		for (int i = 0; i < laserVector.size(); i++)
-		{
-			laserVector[i]->draw();
-		}
+		LaserPooling::drawLasers();
 	}
 	void Gameplay::drawBlocks()
 	{
@@ -265,7 +247,7 @@ namespace pong_in_console
 	}
 	void Gameplay::checkLaserCollisions()
 	{
-		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(LaserPooling::getInstance()->getActiveLasers(), blocks))
+		if (CollisionManager::applyCollisionBetweenLasersAndBlocks(LaserPooling::getActiveLasers(), blocks))
 		{
 			totalScore = ScoreManager::getTotalScore();
 			ui->updateStatistic(GAMEPLAY_STATISTIC::SCORE);
@@ -313,11 +295,12 @@ namespace pong_in_console
 	}
 	void Gameplay::discountALife()
 	{
-		player->getLifeController()->discountALife();
+		LivesManager::discountALife();
+		lives = LivesManager::getLives();
 	}
 	bool Gameplay::thereAreLives()
 	{
-		return player->getLifeController()->thereAreLives();
+		return LivesManager::thereAreLives();
 	}
 	void Gameplay::putTheBallOverThePaddle()
 	{
@@ -329,11 +312,11 @@ namespace pong_in_console
 
 	bool Gameplay::theSecondsChanged()
 	{
-		return time != timer->getActualTime();
+		return time != LevelTimeManager::getActualTime();
 	}
 	void Gameplay::updateTime()
 	{
-		time = timer->getActualTime();
+		time = LevelTimeManager::getActualTime();
 	}
 
 	bool Gameplay::allTheBlocksWereBroken()

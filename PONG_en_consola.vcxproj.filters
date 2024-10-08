@@ -88,9 +88,6 @@
     <Filter Include="src\game_object\gameplay_ui">
       <UniqueIdentifier>{0858cda2-de9c-465b-a185-c3beade98bd7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\life_controller">
-      <UniqueIdentifier>{a56e35d5-094b-41fc-a958-cf62d9ea2eb6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\managers\level_manager">
       <UniqueIdentifier>{c498e63c-1cbe-4d97-915c-9541b6696804}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,12 @@
     </Filter>
     <Filter Include="src\scene\game_scenes\level_passed">
       <UniqueIdentifier>{a04e1b48-dd37-4aca-992a-c7458b906b1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\level_time_manager">
+      <UniqueIdentifier>{abe9e0bb-d496-4385-bbc4-68a88436b755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers\lives_manager">
+      <UniqueIdentifier>{60dc9e24-159e-4b9c-87a9-22619d6dc1ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +180,6 @@
     <ClCompile Include="src\managers\score_manager\score_manager.cpp">
       <Filter>src\managers\score_manager</Filter>
     </ClCompile>
-    <ClCompile Include="src\life_controller\life_controller.cpp">
-      <Filter>src\life_controller</Filter>
-    </ClCompile>
     <ClCompile Include="src\game_object\gameplay_ui\gameplay_ui.cpp">
       <Filter>src\game_object\gameplay_ui</Filter>
     </ClCompile>
@@ -197,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="src\scene\game_scenes\level_passed\level_passed.cpp">
       <Filter>src\scene\game_scenes\level_passed</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\level_time_manager\level_time_manager.cpp">
+      <Filter>src\managers\level_time_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\lives_manager\lives_manager.cpp">
+      <Filter>src\managers\lives_manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +314,6 @@
     <ClInclude Include="src\managers\score_manager\score_manager.h">
       <Filter>src\managers\score_manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\life_controller\life_cotroller.h">
-      <Filter>src\life_controller</Filter>
-    </ClInclude>
     <ClInclude Include="src\game_object\gameplay_ui\gameplay_ui.h">
       <Filter>src\game_object\gameplay_ui</Filter>
     </ClInclude>
@@ -331,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="src\scene\game_scenes\level_passed\level_passed.h">
       <Filter>src\scene\game_scenes\level_passed</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\level_time_manager\level_time_manager.h">
+      <Filter>src\managers\level_time_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\lives_manager\lives_manager.h">
+      <Filter>src\managers\lives_manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,19 +13,19 @@ namespace pong_in_console
 	class LaserPooling
 	{
 	public:
-		static LaserPooling* getInstance();
+		static void initLasers();
+		static void updateLasers();
+		static void eraseLasers();
+		static void drawLasers();
+		static void destroyLasers();
 
-		LaserPooling(int amountOfLasers);
-		~LaserPooling();
-
-		Laser* getLaser();
-		vector<Laser*> getLaserVector();
-		vector<Laser*> getActiveLasers();
+		static Laser* getLaser();
+		static vector<Laser*> getActiveLasers();
+		static void setLasersLimits(Frame* frame);
 
 	private:
-		static LaserPooling* instance;
-
-		vector<Laser*> laserVector;
+		static const int amountOfLasers = 4;
+		static Laser* lasers[amountOfLasers];
 	};
 }
 

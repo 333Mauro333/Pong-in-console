@@ -14,30 +14,25 @@ using mgtv_library::console::ConsoleExt;
 
 namespace pong_in_console
 {
-	GameManager* GameManager::instance = NULL;
+	bool GameManager::inGame = true;
 
-	GameManager* GameManager::getInstance()
+	void GameManager::quit()
 	{
-		return instance;
+		inGame = false;
 	}
 
 	GameManager::GameManager(string title, SCENE_TO_LOAD scene)
 	{
-		if (instance == NULL)
-		{
-			instance = this;
-			this->title = title;
-			inGame = true;
-			sceneToLoad = scene;
-		}
-		else
-		{
-			delete this;
-		}
+		this->title = title;
+		sceneToLoad = scene;
 	}
 	GameManager::~GameManager()
 	{
+		delete SceneManager::getActualScene();
 
+		LaserPooling::destroyLasers();
+		ConsoleExt::goToCoordinates(0, 24);
+		MusicManager::closeMusicSystem();
 	}
 
 	void GameManager::run()
@@ -52,24 +47,16 @@ namespace pong_in_console
 			update();
 			draw();
 		}
-
-		destroy();
 	}
-	void GameManager::quit()
-	{
-		inGame = false;
-	}
-
 
 	void GameManager::init(string title)
 	{
 		ConsoleExt::hideCursor();
 		ConsoleExt::setConsoleTitle(title);
-		MusicManager::initMusic();
+		MusicManager::initMusicSystem();
 		GameValues::initValues();
 		SceneManager::loadScene(sceneToLoad);
-
-		LaserPooling* laserPooling = new LaserPooling(4);
+		LaserPooling::initLasers();
 	}
 	void GameManager::inputUpdate()
 	{
@@ -88,13 +75,5 @@ namespace pong_in_console
 	{
 		SceneManager::getActualScene()->erase();
 		SceneManager::getActualScene()->draw();
-	}
-	void GameManager::destroy()
-	{
-		delete SceneManager::getActualScene();
-		delete LaserPooling::getInstance();
-
-		ConsoleExt::goToCoordinates(0, 24);
-		MusicManager::closeMusicSistem();
 	}
 }

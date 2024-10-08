@@ -11,9 +11,9 @@ namespace pong_in_console
 	class MusicManager
 	{
 	public:
-		static void initMusic();
+		static void initMusicSystem();
 		static void updateMusicStream();
-		static void closeMusicSistem();
+		static void closeMusicSystem();
 
 		static void play(MUSIC_TO_PLAY music);
 		static void stop();

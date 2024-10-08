@@ -22,12 +22,10 @@ namespace pong_in_console
 		lastMove = SIDE::NONE;
 
 		initBullet();
-		initLifeController();
 	}
 	Paddle::~Paddle()
 	{
 		delete bullet;
-		delete lifeController;
 	}
 
 	void Paddle::inputUpdate(int key)
@@ -98,10 +96,6 @@ namespace pong_in_console
 	{
 		return bullet;
 	}
-	LifeController* Paddle::getLifeController()
-	{
-		return lifeController;
-	}
 	void Paddle::setMovementLimits(Frame* frame)
 	{
 		leftLimit = frame->getLeft() + 1;
@@ -117,10 +111,6 @@ namespace pong_in_console
 	void Paddle::initBullet()
 	{
 		bullet = new Bullet();
-	}
-	void Paddle::initLifeController()
-	{
-		lifeController = new LifeController();
 	}
 
 	bool Paddle::canMove()
@@ -164,14 +154,14 @@ namespace pong_in_console
 		Laser* laser2 = NULL;
 
 
-		laser1 = LaserPooling::getInstance()->getLaser();
+		laser1 = LaserPooling::getLaser();
 
 		if (thereIsALaser(laser1))
 		{
 			laser1->activate();
 		}
 
-		laser2 = LaserPooling::getInstance()->getLaser();
+		laser2 = LaserPooling::getLaser();
 
 		if (thereIsALaser(laser2))
 		{

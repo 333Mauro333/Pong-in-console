@@ -6,7 +6,7 @@ namespace pong_in_console
 	Music MusicManager::musicList[MusicManager::amountOfMusics] = {};
 	int MusicManager::actualMusicPosition = 0;
 
-	void MusicManager::initMusic()
+	void MusicManager::initMusicSystem()
 	{
 		InitAudioDevice();
 
@@ -16,7 +16,7 @@ namespace pong_in_console
 	{
 		UpdateMusicStream(musicList[actualMusicPosition]);
 	}
-	void MusicManager::closeMusicSistem()
+	void MusicManager::closeMusicSystem()
 	{
 		stop();
 

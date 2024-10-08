@@ -28,6 +28,7 @@ namespace pong_in_console
 		void draw() override;
 
 	private:
+		int lives;
 		int levelScore;
 		int totalScore;
 		int level;
@@ -37,7 +38,6 @@ namespace pong_in_console
 		Paddle* player;
 		Ball* ball;
 		Frame* frame;
-		Timer* timer;
 		GameplayUI* ui;
 
 		vector<Block*> blocks;
