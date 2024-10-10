@@ -30,10 +30,12 @@ namespace pong_in_console
 		void erase() override;
 		void draw() override;
 
+		POSITION getCenterPosition();
 		Bullet* getBullet();
 		void setMovementLimits(Frame* frame) override;
 
 		bool movedInThisFrame(SIDE sideToVerify);
+		bool getShotInThisFrame();
 
 	private:
 		COLOR color;
@@ -44,6 +46,7 @@ namespace pong_in_console
 		int rightLimit;
 		bool isTheFirstFrame;
 		SIDE lastMove;
+		bool shotInThisFrame;
 
 		Bullet* bullet;
 

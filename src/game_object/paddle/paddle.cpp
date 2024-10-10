@@ -20,6 +20,7 @@ namespace pong_in_console
 		rightLimit = ConsoleExt::getScreenWidth() - 1;
 		isTheFirstFrame = true;
 		lastMove = SIDE::NONE;
+		shotInThisFrame = false;
 
 		initBullet();
 	}
@@ -30,6 +31,8 @@ namespace pong_in_console
 
 	void Paddle::inputUpdate(int key)
 	{
+		shotInThisFrame = false;
+
 		if (canMove())
 		{
 			if (keyIsPressed(GAMEPLAY_CONTROLS::LEFT, key))
@@ -58,6 +61,8 @@ namespace pong_in_console
 			{
 				shootBullet();
 				shootLasers();
+
+				shotInThisFrame = true;
 			}
 		}
 	}
@@ -92,6 +97,12 @@ namespace pong_in_console
 		bullet->draw();
 	}
 
+	POSITION Paddle::getCenterPosition()
+	{
+		POSITION positionToReturn = { position.x + size.w / 2, position.y };
+
+		return positionToReturn;
+	}
 	Bullet* Paddle::getBullet()
 	{
 		return bullet;
@@ -105,6 +116,10 @@ namespace pong_in_console
 	bool Paddle::movedInThisFrame(SIDE sideToVerify)
 	{
 		return counter == delayToMove - 1 && lastMove == sideToVerify;
+	}
+	bool Paddle::getShotInThisFrame()
+	{
+		return shotInThisFrame;
 	}
 
 

@@ -69,7 +69,7 @@ namespace pong_in_console
 	}
 	void CollisionManager::applyCollisionBetweenBallAndBullet(Ball* ball, Bullet* bullet)
 	{
-		if (bullet->getIsActive() && thePositionIsTheSame(ball, bullet))
+		if (!ball->getIsInStoppedMode() && bullet->getIsActive() && thePositionIsTheSame(ball, bullet))
 		{
 			if (ball->isGoingDown())
 			{

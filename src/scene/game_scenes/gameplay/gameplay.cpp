@@ -68,6 +68,7 @@ namespace pong_in_console
 			{
 				ui->updateStatistic(GAMEPLAY_STATISTIC::LIVES);
 				putTheBallOverThePaddle();
+				ball->setIsInStoppedMode(true);
 			}
 			else
 			{
@@ -128,6 +129,8 @@ namespace pong_in_console
 		int playerCenterX = player->getPosition().x + player->getSize().w / 2;
 
 		ball = new Ball(playerCenterX, player->getPosition().y - 1, BALL_DIRECTION::UP_RIGHT);
+		ball->setPaddleReference(player);
+		ball->setIsInStoppedMode(true);
 		ball->setMovementLimits(frame);
 	}
 	void Gameplay::initFrame()

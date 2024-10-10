@@ -36,10 +36,14 @@ namespace pong_in_console
 			break;
 		}
 
+		isInStoppedMode = false;
+
 		externalLimits.up = 0;
 		externalLimits.down = ConsoleExt::getScreenHeight() - 1;
 		externalLimits.left = 0;
 		externalLimits.right = ConsoleExt::getScreenWidth() - 1;
+
+		paddleReference = NULL;
 	}
 	Ball::~Ball()
 	{
@@ -48,21 +52,47 @@ namespace pong_in_console
 
 	void Ball::update()
 	{
-		if (isTimeToMove())
+		if (!isInStoppedMode)
 		{
-			savePositionAsPrevious();
+			if (isTimeToMove())
+			{
+				savePositionAsPrevious();
 
-			resetCounter();
-			applyMovement();
+				resetCounter();
+				applyMovement();
+			}
+			else
+			{
+				discountCounter();
+			}
 		}
-		else
+		else if (paddleReference != NULL)
 		{
-			discountCounter();
+			POSITION newPosition = { paddleReference->getCenterPosition().x, paddleReference->getCenterPosition().y - 1 };
+
+			if (paddleReference->movedInThisFrame(SIDE::LEFT))
+			{
+				savePositionAsPrevious();
+
+				setPosition(newPosition);
+				setDirection(BALL_DIRECTION::UP_LEFT);
+			}
+			else if (paddleReference->movedInThisFrame(SIDE::RIGHT))
+			{
+				savePositionAsPrevious();
+
+				setPosition(newPosition);
+				setDirection(BALL_DIRECTION::UP_RIGHT);
+			}
+			else if (paddleReference->getShotInThisFrame())
+			{
+				isInStoppedMode = false;
+			}
 		}
 	}
 	void Ball::draw()
 	{
-		if (movedInThisFrame() && isActive)
+		if ((movedInThisFrame() || isInStoppedMode) && isActive)
 		{
 			ConsoleExt::goToCoordinates(position.x, position.y);
 			ConsoleExt::writeWithColor("O", color);
@@ -119,7 +149,10 @@ namespace pong_in_console
 			return BALL_DIRECTION::DOWN_RIGHT;
 		}
 	}
-
+	bool Ball::getIsInStoppedMode()
+	{
+		return isInStoppedMode;
+	}
 	void Ball::setDirection(BALL_DIRECTION ballDirection)
 	{
 		switch (ballDirection)
@@ -158,12 +191,33 @@ namespace pong_in_console
 			position.x = externalLimits.right;
 		}
 	}
+	void Ball::setPosition(POSITION position)
+	{
+		this->position = position;
+
+		if (this->position.x < externalLimits.left)
+		{
+			this->position.x = externalLimits.left;
+		}
+		else if (this->position.x > externalLimits.right)
+		{
+			this->position.x = externalLimits.right;
+		}
+	}
+	void Ball::setIsInStoppedMode(bool isInStoppedMode)
+	{
+		this->isInStoppedMode = isInStoppedMode;
+	}
 	void Ball::setMovementLimits(Frame* frame)
 	{
 		externalLimits.up = frame->getUp() + 1;
 		externalLimits.down = frame->getDown() - 1;
 		externalLimits.left = frame->getLeft() + 1;
 		externalLimits.right = frame->getRight() - 1;
+	}
+	void Ball::setPaddleReference(Paddle* paddleReference)
+	{
+		this->paddleReference = paddleReference;
 	}
 
 	bool Ball::isTimeToDetectCollision()
